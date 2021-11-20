@@ -14,23 +14,30 @@ export default function PostList(props) {
     postList.push(< PostListItem key={i}/>)
   }
 
-  const postData = function() {
+  const createData = function() {
     axios
-      .post('http://localhost:3000/posts', {
-      post
-      })
-      .then(res => {
-        console.log("*************", res.data);
-      })
+      .post('http://localhost:3000/posts', { post })
+      .then(res => { console.log("*************", res.data); })
       .catch(e => console.error(e))
+
+    setPost({
+      title: "",
+      description: ""
+    })
   }
   
   const getData = function() {
     axios
       .get('http://localhost:3000/posts')
-      .then(res => {
-        console.log(res)
-      })
+      .then(res => { console.log(res) })
+      .catch(e => console.error(e))
+  }
+
+  const deleteData = function() {
+    axios
+      .delete('http://localhost:3000/posts/3')
+      .then(res => console.log(res))
+      .catch(e => console.error(e))
   }
 
   return(
@@ -38,23 +45,23 @@ export default function PostList(props) {
       <h1>HEYS</h1>
       <form onSubmit={event => event.preventDefault()}>
         <input 
-        name="title" 
-        type="text" 
-        placeholder="Please enter somethang"
-        value={post.title}
-        onChange={event => setPost({...post, title: event.target.value})}
+          name="title" 
+          type="text" 
+          placeholder="Please enter somethang"
+          value={post.title}
+          onChange={event => setPost({...post, title: event.target.value})}
         />
         <input 
-        name="description" 
-        type="text" 
-        placeholder="Tell me about your thang"
-        value={post.description}
-        onChange={event => setPost({...post, description: event.target.value})}
+          name="description" 
+          type="text" 
+          placeholder="Tell me about your thang"
+          value={post.description}
+          onChange={event => setPost({...post, description: event.target.value})}
         />
-      <button onClick={postData}>Create new post</button>
+        <button onClick={createData}>Create new post</button>
       </form>
       <button onClick={getData}>Get Some Shit</button>
-      
+      <button onClick={deleteData}>Delete Some Shit</button>
       {postList}
     </>
   );
