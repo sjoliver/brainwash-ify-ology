@@ -43,21 +43,16 @@ export default function PostForm (props) {
     onChange: event => setPost({...post, interest_name: event.target.value})
   }
 
-  // <select name="interest_name" value={post.interest_name}
-  // onChange={event => setPost({...post, interest_name: event.target.value})}>
-  //   <option value="Cooking">Cooking</option> 
-  //   <option value="Home Improvements">Home Improvements</option>
-  //   <option value="Gardening">Gardening</option>
-  // </select> 
-
   return (
-    <form onSubmit={event => event.preventDefault()}>
-      <PostFormInput {...titleInputProps} />
-      <PostFormInput {...descInputProps} />
-      <PostFormSelect {...typeProps} />
-      <PostFormSelect {...interestProps} />
-  
-    <button onClick={createData}>Create new post</button>
-  </form>
+    <>
+      <h1>Create Your Post</h1>
+      <form onSubmit={event => event.preventDefault()}>
+        <PostFormInput {...titleInputProps} />
+        <PostFormInput {...descInputProps} />
+        <PostFormSelect {...typeProps} />
+        <PostFormSelect {...interestProps} />
+        <button onClick={createData}>Create new post</button>
+      </form>
+    </>
   )
 }

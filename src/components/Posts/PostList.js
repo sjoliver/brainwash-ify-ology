@@ -52,7 +52,6 @@ export default function PostList(props) {
 
   return(
     <>
-      <h1>HEYS</h1>
       <PostForm {...postProps}/>
       <button onClick={getData}>Get Some Shit</button>
       <button onClick={deleteData}>Delete Some Shit</button>
