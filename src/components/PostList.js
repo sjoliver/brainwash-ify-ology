@@ -7,7 +7,9 @@ import PostForm from './PostForm';
 export default function PostList(props) {
   const [post, setPost] = useState ({
     title: "",
-    description: ""
+    description: "",
+    interest_name: "",
+    post_type: ""
   });
   
 

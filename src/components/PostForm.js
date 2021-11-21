@@ -8,7 +8,7 @@ export default function PostForm (props) {
     <input 
       name="title" 
       type="text" 
-      placeholder="Please enter somethang"
+      placeholder="Title"
       value={post.title}
       onChange={event => setPost({...post, title: event.target.value})}
     />
@@ -19,10 +19,17 @@ export default function PostForm (props) {
       value={post.description}
       onChange={event => setPost({...post, description: event.target.value})}
     />
-    <select name="post_type">
-      <option value="video">Video</option> 
-      <option value="audio">Audio</option>
-      <option value="image">Image</option>
+    <select name="post_type" value={post.post_type}
+      onChange={event => setPost({...post, post_type: event.target.value})}>
+      <option value="Video">Video</option> 
+      <option value="Audio">Audio</option>
+      <option value="Image">Image</option>
+    </select> 
+    <select name="interest_name" value={post.interest_name}
+    onChange={event => setPost({...post, interest_name: event.target.value})}>
+      <option value="Cooking">Cooking</option> 
+      <option value="Home Improvements">Home Improvements</option>
+      <option value="Gardening">Gardening</option>
     </select> 
     <button onClick={createData}>Create new post</button>
   </form>
