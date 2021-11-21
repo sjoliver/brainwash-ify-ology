@@ -1,6 +1,8 @@
 import React , { useState } from 'react';
 import axios from 'axios';
+
 import PostListItem from './PostListItem';
+import PostForm from './PostForm';
 
 export default function PostList(props) {
   const [post, setPost] = useState ({
@@ -17,7 +19,7 @@ export default function PostList(props) {
   const createData = function() {
     axios
       .post('http://localhost:3000/posts', { post })
-      .then(res => { console.log("*************", res.data); })
+      .then(res => { console.log("*************", res); })
       .catch(e => console.error(e))
 
     setPost({
@@ -40,26 +42,16 @@ export default function PostList(props) {
       .catch(e => console.error(e))
   }
 
+  const postProps = {
+    post,
+    setPost,
+    createData
+  }
+
   return(
     <>
       <h1>HEYS</h1>
-      <form onSubmit={event => event.preventDefault()}>
-        <input 
-          name="title" 
-          type="text" 
-          placeholder="Please enter somethang"
-          value={post.title}
-          onChange={event => setPost({...post, title: event.target.value})}
-        />
-        <input 
-          name="description" 
-          type="text" 
-          placeholder="Tell me about your thang"
-          value={post.description}
-          onChange={event => setPost({...post, description: event.target.value})}
-        />
-        <button onClick={createData}>Create new post</button>
-      </form>
+      <PostForm {...postProps}/>
       <button onClick={getData}>Get Some Shit</button>
       <button onClick={deleteData}>Delete Some Shit</button>
       {postList}
