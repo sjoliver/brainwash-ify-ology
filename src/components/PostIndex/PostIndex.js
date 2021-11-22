@@ -5,22 +5,22 @@ import axios from 'axios';
 export default function PostIndex(props) {
   const { interests } = props;
 
-  const [ postData, setPostData ] = useState([]);
+  const [ posts, setPosts ] = useState([]);
 
   useEffect(() => {
-    const getData = function() {
+    const getPosts = function() {
       axios
         .get('http://localhost:3000/posts')
-        .then(res => { setPostData(() => res.data ) })
+        .then(res => { setPosts(() => res.data ) })
         .catch(e => console.error(e))
     }
-    getData();
+    getPosts();
   }, [])
 
   return (
     <>
       <PostList 
-        postData={postData}
+        posts={posts}
         interests={interests}     
       />
     </>

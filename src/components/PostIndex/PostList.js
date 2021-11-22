@@ -3,14 +3,16 @@ import React from 'react';
 import PostListItem from './PostListItem';
 
 export default function PostList(props) {
-  const { postData, interests } = props;
+  const { posts, interests } = props;
 
-  const postList = postData.posts.map((post) => {
-    
+  // creates array of PostListItem components which are passed the post details object as props
+  const postList = posts.map((post) => {
+    console.log(post)
     return (
       <PostListItem 
         key={post.id} 
         {...post}
+        interests={interests}
       />
     )
   })
