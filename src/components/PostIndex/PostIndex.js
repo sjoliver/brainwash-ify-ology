@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PostList from '../Posts/PostList';
+import PostList from './PostList';
 import axios from 'axios';
 
 export default function PostIndex(props) {
