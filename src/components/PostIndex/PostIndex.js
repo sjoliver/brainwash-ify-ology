@@ -11,13 +11,9 @@ export default function PostIndex(props) {
     const getData = function() {
       axios
         .get('http://localhost:3000/posts')
-        .then(res => { 
-          // console.log(res.data)
-          setPostData(() => res.data )
-        })
+        .then(res => { setPostData(() => res.data ) })
         .catch(e => console.error(e))
     }
-
     getData();
   }, [])
 

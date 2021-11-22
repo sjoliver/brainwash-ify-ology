@@ -11,10 +11,13 @@ function App() {
   const [interests, setInterests] = useState([]);
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3000/interests')
-      .then(res => { setInterests(() => res.data) })
-      .catch(e => console.error(e))
+    const getInterests = function() {
+      axios
+        .get('http://localhost:3000/interests')
+        .then(res => { setInterests(() => res.data) })
+        .catch(e => console.error(e))
+    }
+    getInterests();
   }, []);
 
   return (
