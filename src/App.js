@@ -1,13 +1,16 @@
 import React from 'react';
 import './App.scss';
-import PostList from './components/Posts/PostList';
 import NavBar from './components/Nav/NavBar';
+import PostIndex from './components/PostIndex/PostIndex';
+import PostForm from './components/PostForm/PostForm';
+
 
 function App() {
   return (
     <div className="App">
       < NavBar />
-      < PostList />
+      < PostForm />
+      < PostIndex />
     </div>
   );
 }
