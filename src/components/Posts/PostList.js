@@ -64,6 +64,7 @@ export default function PostList(props) {
   return(
     <>
       <h1>HEYS</h1>
+
       {postList}
     </>
   );
