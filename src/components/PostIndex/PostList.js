@@ -6,6 +6,7 @@ export default function PostList(props) {
   const { postData } = props;
 
   const postList = postData.posts.map((post) => {
+    
     return (
       <PostListItem 
         key={post.id} 
