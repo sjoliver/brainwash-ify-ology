@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import PostList from './components/Posts/PostList';
 import NavBar from './components/Nav/NavBar';
 
