@@ -1,11 +1,14 @@
 import React from 'react';
 import './App.css';
-import PostList from './components/Posts/PostList';
+
+import PostIndex from './components/PostIndex/PostIndex';
+import PostForm from './components/PostForm/PostForm';
 
 function App() {
   return (
     <div className="App">
-      < PostList />
+      < PostForm />
+      < PostIndex />
     </div>
   );
 }
