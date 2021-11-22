@@ -5,56 +5,66 @@ import PostListItem from './PostListItem';
 import PostForm from './PostForm';
 
 export default function PostList(props) {
-  const [post, setPost] = useState ({
-    title: "",
-    description: "",
-    interest_name: "",
-    post_type: ""
-  });
+  const { posts } = props;
+
+  // const [post, setPost] = useState ({
+  //   title: "",
+  //   description: "",
+  //   interest_name: "",
+  //   upload_file: "",
+  //   post_type: ""
+  // });
+
+  const postList = posts.map((post) => {
+    return (
+      <PostListItem 
+        key={post.id} 
+        {...post}
+      />
+    )
+  })
+
+  console.log("ayoooooo",postList)
+
+  // const createData = function() {
+  //   axios
+  //     .post('http://localhost:3000/posts', { post })
+  //     .then(res => { console.log("*************", res); })
+  //     .catch(e => console.error(e))
+
+  //   setPost({
+  //     title: "",
+  //     description: "",
+  //     interest_name: "",
+  //     upload_file: "",
+  //     post_type: ""
+  //   })
+  // }
   
+  // const postProps = {
+  //   post,
+  //   setPost,
+  //   createData
+  // }
 
-  const postList = [];
-  for (let i = 0; i < 5; i++) {
-    postList.push(< PostListItem key={i}/>)
-  }
+  // const getData = function() {
+  //   axios
+  //     .get('http://localhost:3000/posts')
+  //     .then(res => { console.log(res) })
+  //     .catch(e => console.error(e))
+  // }
 
-  const createData = function() {
-    axios
-      .post('http://localhost:3000/posts', { post })
-      .then(res => { console.log("*************", res); })
-      .catch(e => console.error(e))
-
-    setPost({
-      title: "",
-      description: ""
-    })
-  }
-  
-  const getData = function() {
-    axios
-      .get('http://localhost:3000/posts')
-      .then(res => { console.log(res) })
-      .catch(e => console.error(e))
-  }
-
-  const deleteData = function() {
-    axios
-      .delete('http://localhost:3000/posts/3')
-      .then(res => console.log(res))
-      .catch(e => console.error(e))
-  }
-
-  const postProps = {
-    post,
-    setPost,
-    createData
-  }
+  // const deleteData = function() {
+  //   axios
+  //     .delete('http://localhost:3000/posts/3')
+  //     .then(res => console.log(res))
+  //     .catch(e => console.error(e))
+  // }
 
   return(
     <>
-      <PostForm {...postProps}/>
-      <button onClick={getData}>Get Some Shit</button>
-      <button onClick={deleteData}>Delete Some Shit</button>
+      <h1>HEYS</h1>
+
       {postList}
     </>
   );
