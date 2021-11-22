@@ -5,7 +5,7 @@ export default function PostListItem(props) {
 
   return (
     <div className="post-card">
-      <img style={{width:"200px"},{height:"360px"}} className="post-thumbnail" src={upload_file} alt="content card"/>
+      <img style={{height:"360px"}} className="post-thumbnail" src={upload_file} alt="content card"/>
       <h4>{title}</h4>
     </div>
   );

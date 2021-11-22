@@ -1,12 +1,11 @@
-import React , { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 
 import PostListItem from './PostListItem';
 
 export default function PostList(props) {
-  const { posts } = props;
+  const { postData } = props;
 
-  const postList = posts.map((post) => {
+  const postList = postData.posts.map((post) => {
     return (
       <PostListItem 
         key={post.id} 
