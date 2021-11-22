@@ -45,7 +45,7 @@ export default function PostForm (props) {
     onChange: event => setPost({...post, description: event.target.value})
   }
 
-  // File link
+  // File link Input props
   const uploadInputProps = {
     name: "upload_file",
     type: "text",
@@ -72,6 +72,7 @@ export default function PostForm (props) {
 
   const inputProps = [titleInputProps, descInputProps, uploadInputProps];
   const selectProps = [typeProps, interestProps];
+
 
   const inputList = inputProps.map((input, i) => {
     return (

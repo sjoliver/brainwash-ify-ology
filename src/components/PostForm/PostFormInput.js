@@ -4,7 +4,7 @@ export default function PostFormInput(props) {
   const { name, type, placeholder, postState, onChange} = props;
 
   return (
-    <input 
+    <input
       name={name} 
       type={type} 
       placeholder={placeholder}
