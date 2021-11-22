@@ -3,10 +3,9 @@ import PostList from './PostList';
 import axios from 'axios';
 
 export default function PostIndex(props) {
-  const [ postData, setPostData ] = useState({
-    posts: [],
-    interests: []
-  });
+  const { interests } = props;
+
+  const [ postData, setPostData ] = useState([]);
 
   useEffect(() => {
     const getData = function() {
@@ -14,12 +13,7 @@ export default function PostIndex(props) {
         .get('http://localhost:3000/posts')
         .then(res => { 
           // console.log(res.data)
-          setPostData(() => {
-            return {
-              posts: res.data.posts,
-              interests: res.data.interests
-            }
-          })
+          setPostData(() => res.data )
         })
         .catch(e => console.error(e))
     }
@@ -30,7 +24,8 @@ export default function PostIndex(props) {
   return (
     <>
       <PostList 
-        postData={postData}     
+        postData={postData}
+        interests={interests}     
       />
     </>
   )

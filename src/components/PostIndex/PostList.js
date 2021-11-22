@@ -3,7 +3,7 @@ import React from 'react';
 import PostListItem from './PostListItem';
 
 export default function PostList(props) {
-  const { postData } = props;
+  const { postData, interests } = props;
 
   const postList = postData.posts.map((post) => {
     
