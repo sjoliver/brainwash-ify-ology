@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
-import PostList from './components/Posts/PostList';
+
+import PostIndex from './components/PostIndex/PostIndex';
 
 function App() {
   return (
     <div className="App">
-      < PostList />
+      < PostIndex />
     </div>
   );
 }
