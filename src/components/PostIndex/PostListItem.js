@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PostForm from '../PostForm/PostForm';
+import PostShow from '../PostShow/PostShow';
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 
 import './PostListItem.scss'
 
@@ -22,16 +23,14 @@ export default function PostListItem(props) {
     }
   }
 
-  const indexUrl = '/posts'
-  const newPostURL = '/posts/new'
-
   return (
     <div className="post-card">
       <div>
         <img className="post-thumbnail" src={upload_file} alt="content card"/>
-        <h4><Link to={newPostURL}>{title}</Link></h4>
+        <h4><Link to={`/posts/${id}`}>{title}</Link></h4>
         <p>{userName} | {interest} | {post_type}</p>
       </div>
+      <Outlet/>
     </div>
   );
 }
