@@ -29,11 +29,12 @@ export default function PostShow (props) {
     getPostData();
   }, [])
 
-  const submit = () => {
-    
+   //on submit, post request to back end to save comment to post show data
+   const submit = () => {
     axios
     .post(`http://localhost:3000/posts/${post.id}`, {content: comment})
     .then(res => {
+      //only updates post show data if successful
       setPostShowData([
         ...postShowData,
         {content: comment}
@@ -74,7 +75,7 @@ export default function PostShow (props) {
      </div>
 
       {postShowData.map((obj, i) => (
-        <ul key={i}>
+        <ul>
           {obj.content}
        </ul>
       ))}
