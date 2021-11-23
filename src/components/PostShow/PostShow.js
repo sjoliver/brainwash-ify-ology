@@ -31,7 +31,7 @@ export default function PostShow (props) {
   }, [])
 
    //on submit, post request to back end to save comment to post show data
-   const submit = () => {
+   const submitComment = () => {
     axios
     .post(`http://localhost:3000/comments`, {content: comment, user_id: 2, post_id: post.id})
     .then(res => {
@@ -40,6 +40,21 @@ export default function PostShow (props) {
         ...postShowData,
         {content: comment}
       ])
+      setComment("")
+    })
+    .catch(e => console.error(e))
+  }
+
+  const comment_id = 8;
+
+  const deleteComment = () => {
+    axios
+    .delete(`http://localhost:3000/comments/${comment_id}`)
+    .then(res => {
+      setPostShowData((prev) => {
+        //filter out all comments that are not the one we want to delete
+        return prev.filter((comment) => comment.id !== comment_id)
+      })  
     })
     .catch(e => console.error(e))
   }
@@ -70,7 +85,7 @@ export default function PostShow (props) {
                 onChange={(event) => setComment(event.target.value)}
               />
             </label>
-            <button type="submit" onClick={submit}>Submit</button>
+            <button type="submitComment" onClick={submitComment}>Submit</button>
           </fieldset>
        </form>
      </div>
@@ -78,7 +93,7 @@ export default function PostShow (props) {
       {postShowData.map((obj, i) => (
         <ul>
           {obj.content}
-          <button>Delete</button>
+          <button type="deleteComment" onClick={deleteComment}>Delete</button>
        </ul>
       ))}
     </>
