@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import PostList from './PostList';
 import axios from 'axios';
+import PostList from './PostList';
 
 export default function PostIndex(props) {
   const { interests } = props;

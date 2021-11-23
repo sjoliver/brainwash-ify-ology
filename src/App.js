@@ -22,11 +22,13 @@ function App() {
 
   return (
     <div className="App">
-      < NavBar />
-      < PostForm interests={interests}/>
-      < PostIndex interests={interests}/>
+      <div>
+        <NavBar />
+        <PostIndex interests={interests} />
+      </div>
     </div>
   );
 }
+{/* <PostForm interests={interests} /> */}
 
 export default App;
