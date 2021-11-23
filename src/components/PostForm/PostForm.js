@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import PostFormInput from './PostFormInput';
 import PostFormSelect from './PostFormSelect';
+import { Outlet } from 'react-router-dom';
 
 export default function PostForm (props) {
   // destructure props
@@ -94,6 +95,7 @@ export default function PostForm (props) {
         {selectList}
         <button onClick={createData}>Create new post</button>
       </form>
+      <Outlet/>
     </>
   )
 }

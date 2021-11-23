@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link, Outlet } from 'react-router-dom';
 import axios from 'axios';
 import PostList from './PostList';
 
@@ -21,16 +22,18 @@ export default function PostIndex(props) {
     getPosts();
   }, [])
 
-
-  console.log(users);
+  const newPostURL = '/posts/new'
 
   return (
     <>
+      <h1>Ur Mom</h1>
+      <button onClick><Link to={newPostURL}>New Post</Link></button>
       <PostList 
         posts={posts}
         users={users}
         interests={interests}     
       />
+      <Outlet/>
     </>
   )
 }

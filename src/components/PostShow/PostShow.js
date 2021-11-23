@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { Outlet, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './PostShow.scss';
 
 export default function PostShow (props) {
   const [ postShowData, setPostShowData ] = useState([]);
   const [ comment, setComment ] = useState("")
+  const { id } = useParams();
+
   
   //Holder data until actual post information passed through props
   const post = {
@@ -16,13 +19,22 @@ export default function PostShow (props) {
     user_id: 1,
     interest_id: 1
   }
+
+  useEffect(() => {
+    axios.get(`http://localhost:3000/posts/${id}`)
+      .then(res => {
+        console.log("********", res.data)
+      })
+  }, [])
+
+
   // fetch comments for specific post id (comments related to post)
   useEffect(() => {
     const getPostData = function() {
       axios
-      .get(`http://localhost:3000/posts/${post.id}`)
+      .get(`http://localhost:3000/posts/${id}`)
       .then(res => {
-        setPostShowData(res.data)
+        setPostShowData(res.data.comments)
       })
       .catch(e => console.error(e))
     }
@@ -30,9 +42,8 @@ export default function PostShow (props) {
   }, [])
 
   const submit = () => {
-    
     axios
-    .post(`http://localhost:3000/posts/${post.id}`, {content: comment})
+    .post(`http://localhost:3000/posts/${id}`, {content: comment})
     .then(res => {
       setPostShowData([
         ...postShowData,
@@ -78,6 +89,7 @@ export default function PostShow (props) {
           {obj.content}
        </ul>
       ))}
+      <Outlet/>
     </>
   );
 }
