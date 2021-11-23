@@ -30,10 +30,16 @@ export default function PostShow (props) {
   }, [])
 
   const submit = () => {
-    setPostShowData([
-      ...postShowData,
-      {content: comment}
-    ])
+    
+    axios
+    .post(`http://localhost:3000/posts/${post.id}`, {content: comment})
+    .then(res => {
+      setPostShowData([
+        ...postShowData,
+        {content: comment}
+      ])
+    })
+    .catch(e => console.error(e))
   }
   
   return (
