@@ -16,9 +16,10 @@ export default function PostShow (props) {
     user_id: 1,
     interest_id: 1
   }
+
   // fetch comments for specific post id (comments related to post)
   useEffect(() => {
-    const getPostData = function() {
+    const getCommentData = function() {
       axios
       .get(`http://localhost:3000/posts/${post.id}`)
       .then(res => {
@@ -26,13 +27,13 @@ export default function PostShow (props) {
       })
       .catch(e => console.error(e))
     }
-    getPostData();
+    getCommentData();
   }, [])
 
    //on submit, post request to back end to save comment to post show data
    const submit = () => {
     axios
-    .post(`http://localhost:3000/posts/${post.id}`, {content: comment})
+    .post(`http://localhost:3000/comments`, {content: comment, user_id: 2, post_id: post.id})
     .then(res => {
       //only updates post show data if successful
       setPostShowData([
@@ -77,6 +78,7 @@ export default function PostShow (props) {
       {postShowData.map((obj, i) => (
         <ul>
           {obj.content}
+          <button>Delete</button>
        </ul>
       ))}
     </>
