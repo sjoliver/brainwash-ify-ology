@@ -5,6 +5,7 @@ import './App.scss';
 import NavBar from './components/Nav/NavBar';
 import PostIndex from './components/PostIndex/PostIndex';
 import PostForm from './components/PostForm/PostForm';
+import PostShow from './components/PostShow/PostShow';
 
 
 function App() {
@@ -16,12 +17,15 @@ function App() {
       .then(res => { setInterests(() => res.data) })
       .catch(e => console.error(e))
   }, []);
-
+  
+  // < PostForm interests={interests}/>
+  // < PostIndex interests={interests}/>
   return (
     <div className="App">
       < NavBar />
-      < PostForm interests={interests}/>
-      < PostIndex interests={interests}/>
+     
+
+      < PostShow />
     </div>
   );
 }
