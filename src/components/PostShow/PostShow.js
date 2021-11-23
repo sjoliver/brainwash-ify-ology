@@ -3,16 +3,10 @@ import axios from 'axios';
 import './PostShow.scss';
 
 export default function PostShow (props) {
-  //Need to bring in individual post data through props (title, content, description, id, & likes)
-  //Passing in user information related to that post
-  const [ postShowData, setPostShowData ] = useState({
-    userId: [],
-    comments: [],
-    comment: ""
-  });
-
-  //set state object for the post data info
+  const [ postShowData, setPostShowData ] = useState([]);
+  const [ comment, setComment ] = useState("")
   
+  //Holder data until actual post information passed through props
   const post = {
     id: 1,
     title: "How to cook a sweet potato",
@@ -28,29 +22,30 @@ export default function PostShow (props) {
       axios
       .get(`http://localhost:3000/posts/${post.id}`)
       .then(res => {
-        
-        setPostShowData(() => {
-          for (const item of res.data) {
-            // console.log(item.user_id)
-            // console.log(item.content)
-            return {
-              userId: item.user_id,
-              comments: item.content
-            }
-          }
-        })
+        setPostShowData(res.data)
       })
       .catch(e => console.error(e))
     }
     getPostData();
   }, [])
 
-  // console.log("postShowData", postShowData)
+  const submit = () => {
+    setPostShowData([
+      ...postShowData,
+      {content: comment}
+    ])
+  }
+  
   return (
     <>
       <h1>{post.title}</h1>
       <div>
-        <img style={{height:"400px"}} className="show-image" src={post.upload_file} alt="image on show page"/>
+        <img 
+        style={{height:"400px"}} 
+        className="show-image" 
+        src={post.upload_file} 
+        alt="image on show page"
+        />
         {post.description}
       </div>
 
@@ -60,23 +55,23 @@ export default function PostShow (props) {
           <fieldset>
             <label>
               <input 
-               name="comment" 
-               type="text"
-               placeholder="Write comment here"
-               value={postShowData.comment}
-               onChange={(event) => setPostShowData(
-                 {...postShowData, comment: event.target.value}
-                 )}
+                name="comment" 
+                type="text"
+                placeholder="Write comment here"
+                value={comment}
+                onChange={(event) => setComment(event.target.value)}
               />
             </label>
-            <button type="submit">Submit</button>
+            <button type="submit" onClick={submit}>Submit</button>
           </fieldset>
-   
        </form>
      </div>
 
-      <strong>{postShowData.userId} -- </strong>
-      {postShowData.comments}
+      {postShowData.map((obj, i) => (
+        <ul key={i}>
+          {obj.content}
+       </ul>
+      ))}
     </>
   );
 }
