@@ -48,6 +48,35 @@ export default function PostShow (props) {
   // console.log("postShowData", postShowData)
   return (
     <>
+      <h1>{post.title}</h1>
+      <div>
+        <img style={{height:"400px"}} className="show-image" src={post.upload_file} alt="image on show page"/>
+        {post.description}
+      </div>
+
+      <div className="wrapper">
+        <h1>Comment Section</h1>
+        <form onSubmit={event => event.preventDefault()} >
+          <fieldset>
+            <label>
+              <input 
+               name="comment" 
+               type="text"
+               placeholder="Write comment here"
+               value={postShowData.comment}
+               onChange={(event) => setPostShowData(
+                 {...postShowData, comment: event.target.value}
+                 )}
+              />
+            </label>
+            <button type="submit">Submit</button>
+          </fieldset>
+   
+       </form>
+     </div>
+
+      <strong>{postShowData.userId} -- </strong>
+      {postShowData.comments}
     </>
   );
 }
