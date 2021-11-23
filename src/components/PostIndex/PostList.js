@@ -1,16 +1,21 @@
 import React from 'react';
-
 import PostListItem from './PostListItem';
+import PostForm from '../PostForm/PostForm';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import './PostList.scss'
 
 export default function PostList(props) {
-  const { postData } = props;
+  const { posts, users, interests } = props;
 
-  const postList = postData.posts.map((post) => {
-    
+  // creates array of PostListItem components which are passed the post details object as props
+  const postList = posts.map((post) => {
     return (
       <PostListItem 
         key={post.id} 
         {...post}
+        interests={interests}
+        users={users}
       />
     )
   })
@@ -22,10 +27,22 @@ export default function PostList(props) {
   //     .catch(e => console.error(e))
   // }
 
+  const indexUrl = '/posts'
+  const newPostURL = '/posts/new'
+
   return(
     <>
-      <h1>HEYS</h1>
-      {postList}
+      <h1>Ur Mom</h1>
+      <Router>
+        <Routes>
+          <Route exact path={newPostURL} element={<PostForm />}/>
+          <Route exact path={indexUrl} element={
+            <div className="post-list">
+              {postList}
+            </div>
+          }/>
+        </Routes>
+      </Router>
     </>
   );
 }

@@ -12,22 +12,23 @@ function App() {
   const [interests, setInterests] = useState([]);
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3000/interests')
-      .then(res => { setInterests(() => res.data) })
-      .catch(e => console.error(e))
+    const getInterests = function() {
+      axios
+        .get('http://localhost:3000/interests')
+        .then(res => { setInterests(() => res.data) })
+        .catch(e => console.error(e))
+    }
+    getInterests();
   }, []);
   
-  // < PostForm interests={interests}/>
-  // < PostIndex interests={interests}/>
   return (
     <div className="App">
-      < NavBar />
-     
-
-      < PostShow />
+        < NavBar />
+        < PostIndex interests={interests} />
+        < PostShow />
     </div>
   );
 }
+{/* <PostForm interests={interests} /> */}
 
 export default App;

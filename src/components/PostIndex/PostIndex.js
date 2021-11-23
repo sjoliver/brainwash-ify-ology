@@ -1,36 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import PostList from './PostList';
 import axios from 'axios';
+import PostList from './PostList';
 
 export default function PostIndex(props) {
-  const [ postData, setPostData ] = useState({
-    posts: [],
-    interests: []
-  });
+  const { interests } = props;
+
+  const [ posts, setPosts ] = useState([]);
+  const [ users, setUsers ] = useState([]);
 
   useEffect(() => {
-    const getData = function() {
+    const getPosts = function() {
       axios
         .get('http://localhost:3000/posts')
         .then(res => { 
-          // console.log(res.data)
-          setPostData(() => {
-            return {
-              posts: res.data.posts,
-              interests: res.data.interests
-            }
-          })
+          setPosts(() => res.data.posts );
+          setUsers(() => res.data.users );
         })
         .catch(e => console.error(e))
     }
-
-    getData();
+    getPosts();
   }, [])
+
+
+  console.log(users);
 
   return (
     <>
       <PostList 
-        postData={postData}     
+        posts={posts}
+        users={users}
+        interests={interests}     
       />
     </>
   )
