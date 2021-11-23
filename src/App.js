@@ -5,6 +5,7 @@ import './App.scss';
 import NavBar from './components/Nav/NavBar';
 import PostIndex from './components/PostIndex/PostIndex';
 import PostForm from './components/PostForm/PostForm';
+import PostShow from './components/PostShow/PostShow';
 
 
 function App() {
@@ -19,13 +20,12 @@ function App() {
     }
     getInterests();
   }, []);
-
+  
   return (
     <div className="App">
-      <div>
-        <NavBar />
-        <PostIndex interests={interests} />
-      </div>
+        < NavBar />
+        < PostIndex interests={interests} />
+        < PostShow />
     </div>
   );
 }
