@@ -3,7 +3,7 @@ import axios from 'axios';
 import './PostShow.scss';
 
 export default function PostShow (props) {
-  const [ postShowData, setPostShowData ] = useState([]);
+  const [ postComments, setPostComments ] = useState([]);
   const [ comment, setComment ] = useState("")
   
   //Holder data until actual post information passed through props
@@ -23,42 +23,44 @@ export default function PostShow (props) {
       axios
       .get(`http://localhost:3000/posts/${post.id}`)
       .then(res => {
-        setPostShowData(res.data)
+        setPostComments(res.data)
       })
       .catch(e => console.error(e))
     }
     getCommentData();
   }, [])
 
-   //on submit, post request to back end to save comment to post show data
+  
+   //on submit, post request to back end to save comment to postComments
    const submitComment = () => {
     axios
     .post(`http://localhost:3000/comments`, {content: comment, user_id: 2, post_id: post.id})
     .then(res => {
-      //only updates post show data if successful
-      setPostShowData([
-        ...postShowData,
-        {content: comment}
+      //receives comment json from back end and adds it to postComments
+      const newComment = res.data      
+      setPostComments([
+        ...postComments,
+        newComment
       ])
+      //clears input form on submit
       setComment("")
     })
     .catch(e => console.error(e))
   }
 
-  const comment_id = 8;
-
-  const deleteComment = () => {
+  //deletes comment via comment_id passed through function call
+  const deleteComment = (comment_id) => {
     axios
     .delete(`http://localhost:3000/comments/${comment_id}`)
     .then(res => {
-      setPostShowData((prev) => {
+      setPostComments((prev) => {
         //filter out all comments that are not the one we want to delete
         return prev.filter((comment) => comment.id !== comment_id)
       })  
     })
     .catch(e => console.error(e))
   }
-  
+
   return (
     <>
       <h1>{post.title}</h1>
@@ -89,11 +91,11 @@ export default function PostShow (props) {
           </fieldset>
        </form>
      </div>
-
-      {postShowData.map((obj, i) => (
+      {/* id accessible through postComments obj - sent through delete comment function call */}
+      {postComments.map((obj, i) => (
         <ul>
           {obj.content}
-          <button type="deleteComment" onClick={deleteComment}>Delete</button>
+          <button type="deleteComment" onClick={() => {deleteComment(obj.id)}}>Delete</button>
        </ul>
       ))}
     </>
