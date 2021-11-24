@@ -9,7 +9,7 @@ import Profile from './Profile';
 import axios from 'axios';
 
 export default function NavBar(props) {
-  const { setDbUser } = props
+  const { dbUser, setDbUser } = props
   const { user, isAuthenticated} = useAuth0();
   
   useEffect(() => {
@@ -29,12 +29,14 @@ export default function NavBar(props) {
           setDbUser(prev => res.data)
         })
     }
+    console.log("it triggered");
   }, [user])
 
 
   return (
     <section className="navbar">
       <p><Link to={'/'}>Home</Link></p>
+      <Link to={`/profile/${dbUser.username}`}>My Profile</Link>
       <Profile />
       {!isAuthenticated && <LoginButton />}
       {isAuthenticated && <LogoutButton />}
