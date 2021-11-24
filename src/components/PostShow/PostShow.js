@@ -9,6 +9,7 @@ import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs'
 
 export default function PostShow (props) {
   const { dbUser } = props;
+  //Do we want to show comments to users unauthorized users??? 
   const { isAuthenticated } = useAuth0();
   const [ postComments, setPostComments ] = useState([]);
   const [ comment, setComment ] = useState("");
@@ -18,9 +19,6 @@ export default function PostShow (props) {
   // set like to a user Id if exists
   const [ like , setLike ] = useState();
   const { id } = useParams();
-
-  console.log(isAuthenticated);
-  console.log(dbUser.id);
 
   // fetch comments for specific post id (comments related to post)
   useEffect(() => {
@@ -120,9 +118,9 @@ export default function PostShow (props) {
         {post.description}
       </div>
       { !like ?
-        (< BsSuitHeartFill type="like" onClick={likePost}/>)
+        (< BsSuitHeart type="like" onClick={likePost}/>)
         :
-        (< BsSuitHeart type="unlike" onClick={unlikePost} />)
+        (< BsSuitHeartFill type="unlike" onClick={unlikePost} />)
       }
     
 
