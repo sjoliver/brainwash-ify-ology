@@ -3,7 +3,7 @@ import { Outlet, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './PostShow.scss';
 //prefix of icon (Ai or Fi for ex) is what lib it belongs to, must import with that lib
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
+import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs'
 
 export default function PostShow (props) {
   const [ postComments, setPostComments ] = useState([]);
@@ -113,10 +113,11 @@ export default function PostShow (props) {
         {post.description}
       </div>
       { !like ?
-        (< AiFillHeart type="like" onClick={likePost}/>)
+        (< BsSuitHeartFill type="like" onClick={likePost}/>)
         :
-        (< AiOutlineHeart type="unlike" onClick={unlikePost} />)
+        (< BsSuitHeart type="unlike" onClick={unlikePost} />)
       }
+    
 
       <p>Like count: {likes.length}</p>
       <p>Comment count: {postComments.length}</p>
