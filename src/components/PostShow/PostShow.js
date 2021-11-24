@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './PostShow.scss';
+//prefix of icon (Ai or Fi for ex) is what lib it belongs to, must import with that lib
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 
 export default function PostShow (props) {
   const [ postComments, setPostComments ] = useState([]);
@@ -98,8 +100,6 @@ export default function PostShow (props) {
     .catch(e => console.error(e))
   }
 
- console.log(like)
-
   return (
     <>
       <h1>{post.title}</h1>
@@ -112,16 +112,14 @@ export default function PostShow (props) {
         />
         {post.description}
       </div>
-      {/* render like/unlike button depending if like already exists */}
       { !like ?
-        (<button type="like" onClick={likePost}> Like </button>)
+        (< AiFillHeart type="like" onClick={likePost}/>)
         :
-        (<button type="unlike" onClick={unlikePost}> Unlike </button>)
+        (< AiOutlineHeart type="unlike" onClick={unlikePost} />)
       }
 
       <p>Like count: {likes.length}</p>
       <p>Comment count: {postComments.length}</p>
-  
 
       <div className="wrapper">
         <h1>Comment Section</h1>
