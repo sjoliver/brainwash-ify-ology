@@ -10,8 +10,6 @@ import Profile from './Profile';
 export default function NavBar(props) {
   const { isAuthenticated } = useAuth0();
 
-  console.log("heeereerere", isAuthenticated)
-
   return (
     <section className="navbar">
       <p><Link to={'/'}>Home</Link></p>
