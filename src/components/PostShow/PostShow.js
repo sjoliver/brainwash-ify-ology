@@ -4,7 +4,7 @@ import axios from 'axios';
 import './PostShow.scss';
 
 export default function PostShow (props) {
-  const [ postShowData, setPostShowData ] = useState([]);
+  const [ postComments, setPostComments ] = useState([]);
   const [ comment, setComment ] = useState("")
   const { id } = useParams();
 
@@ -27,32 +27,51 @@ export default function PostShow (props) {
       })
   }, [])
 
-
+  
   // fetch comments for specific post id (comments related to post)
   useEffect(() => {
-    const getPostData = function() {
+    const getCommentData = function() {
       axios
       .get(`http://localhost:3000/posts/${id}`)
       .then(res => {
-        setPostShowData(res.data.comments)
+        setPostComments(res.data)
       })
       .catch(e => console.error(e))
     }
-    getPostData();
+    getCommentData();
   }, [])
 
-  const submit = () => {
+   //on submit, post request to back end to save comment to postComments
+   const submitComment = () => {
     axios
-    .post(`http://localhost:3000/posts/${id}`, {content: comment})
+    .post(`http://localhost:3000/comments`, {content: comment, user_id: 2, post_id: post.id})
+
     .then(res => {
-      setPostShowData([
-        ...postShowData,
-        {content: comment}
+      //receives comment json from back end and adds it to postComments
+      const newComment = res.data      
+      setPostComments([
+        ...postComments,
+        newComment
       ])
+      //clears input form on submit
+      setComment("")
     })
     .catch(e => console.error(e))
   }
-  
+
+  //deletes comment via comment_id passed through function call
+  const deleteComment = (comment_id) => {
+    axios
+    .delete(`http://localhost:3000/comments/${comment_id}`)
+    .then(res => {
+      setPostComments((prev) => {
+        //filter out all comments that are not the one we want to delete
+        return prev.filter((comment) => comment.id !== comment_id)
+      })  
+    })
+    .catch(e => console.error(e))
+  }
+
   return (
     <>
       <h1>{post.title}</h1>
@@ -79,14 +98,15 @@ export default function PostShow (props) {
                 onChange={(event) => setComment(event.target.value)}
               />
             </label>
-            <button type="submit" onClick={submit}>Submit</button>
+            <button type="submitComment" onClick={submitComment}>Submit</button>
           </fieldset>
        </form>
      </div>
-
-      {postShowData.map((obj, i) => (
-        <ul key={i}>
+      {/* id accessible through postComments obj - sent through delete comment function call */}
+      {postComments.map((obj, i) => (
+        <ul>
           {obj.content}
+          <button type="deleteComment" onClick={() => {deleteComment(obj.id)}}>Delete</button>
        </ul>
       ))}
       <Outlet/>
