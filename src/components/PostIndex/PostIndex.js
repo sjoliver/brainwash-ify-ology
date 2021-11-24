@@ -22,12 +22,10 @@ export default function PostIndex(props) {
     getPosts();
   }, [])
 
-  const newPostURL = '/posts/new'
-
   return (
     <>
       <h1>Ur Mom</h1>
-      <button><Link to={newPostURL}>New Post</Link></button>
+      <button><Link to={'/posts/new'}>New Post</Link></button>
       <PostList 
         posts={posts}
         users={users}

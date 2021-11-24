@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link, Outlet } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react';
 import './NavBar.scss'
 
@@ -9,7 +10,7 @@ import axios from 'axios';
 
 export default function NavBar(props) {
   const { setDbUser } = props
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   
   useEffect(() => {
     if (user) {
@@ -32,14 +33,11 @@ export default function NavBar(props) {
 
   return (
     <section className="navbar">
-    
-        <a href="/home">Home</a>
-        <Profile />
-        <a href="/Settings">Settings</a>
-        <LoginButton />
-        <LogoutButton />
-        <a href="/Signup">Signup</a>
-  
+      <p><Link to={'/'}>Home</Link></p>
+      <Profile />
+      {!isAuthenticated && <LoginButton />}
+      {isAuthenticated && <LogoutButton />}
+      <Outlet />
     </section>
   )
 }

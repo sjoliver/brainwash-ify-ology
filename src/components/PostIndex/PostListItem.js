@@ -1,7 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import PostShow from '../PostShow/PostShow';
-import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 import './PostListItem.scss'
 
