@@ -70,7 +70,22 @@ export default function PostShow (props) {
       .catch(e => console.error(e))
   }
 
- 
+  //sends a post request on click to remove liked post from user.
+  const unlikePost = () => {
+    setLike(false)
+  }
+
+  // const unlikePost = (like_id) => {
+  //   axios
+  //     .delete(`http://localhost:3000/likes${like_id}`)
+  //     .then(res => {
+  //       console.log(res)
+  //       setLike(false)
+  //     })
+  //     .catch(e => console.error(e))
+  // }
+
+ console.log(like)
 
   return (
     <>
@@ -84,7 +99,13 @@ export default function PostShow (props) {
         />
         {post.description}
       </div>
-      <button type="like" onClick={likePost}> Like Post </button>
+      {/* render like/unlike button based on like boolean */}
+      { !like ?
+        (<button type="like" onClick={likePost}> Like </button>)
+        :
+        (<button type="unlike" onClick={unlikePost}> Unlike </button>)
+      }
+
       <p>Like count: {likes}</p>
       <p>Comment count: {postComments.length}</p>
   
