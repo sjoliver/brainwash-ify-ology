@@ -7,16 +7,9 @@ export default function PostShow (props) {
   const [ postComments, setPostComments ] = useState([]);
   const [ comment, setComment ] = useState("");
   const [ post, setPost ] = useState({});
+  const [ likes, setLikes ] = useState(0);
   const { id } = useParams();
 
-  useEffect(() => {
-    axios.get(`http://localhost:3000/posts/${id}`)
-      .then(res => {
-        console.log("********", res.data)
-      })
-  }, [])
-
-  
   // fetch comments for specific post id (comments related to post)
   useEffect(() => {
     const getCommentData = function() {
@@ -25,6 +18,7 @@ export default function PostShow (props) {
       .then(res => {
         setPostComments(res.data.comments)
         setPost(res.data.post)
+        setLikes(res.data.likeCount)
       })
       .catch(e => console.error(e))
     }
@@ -34,16 +28,16 @@ export default function PostShow (props) {
    //on submit, post request to back end to save comment to postComments
    const submitComment = () => {
     axios
-    .post(`http://localhost:3000/comments`, {content: comment, user_id: 2, post_id: id})
-    .then(res => {
-      //receives comment json from back end and adds it to postComments
-      const newComment = res.data    
-      setPostComments([
-        newComment,
-        ...postComments
-      ])
-      //clears input form on submit
-      setComment("")
+      .post(`http://localhost:3000/comments`, {content: comment, user_id: 2, post_id: id})
+      .then(res => {
+        //receives comment json from back end and adds it to postComments
+        const newComment = res.data    
+        setPostComments([
+          newComment,
+          ...postComments
+        ])
+        //clears input form on submit
+        setComment("")
     })
     .catch(e => console.error(e))
   }
@@ -51,14 +45,25 @@ export default function PostShow (props) {
   //deletes comment via comment_id passed through function call
   const deleteComment = (comment_id) => {
     axios
-    .delete(`http://localhost:3000/comments/${comment_id}`)
-    .then(res => {
-      setPostComments((prev) => {
-        //filter out all comments that are not the one we want to delete
-        return prev.filter((comment) => comment.id !== comment_id)
-      })  
-    })
-    .catch(e => console.error(e))
+      .delete(`http://localhost:3000/comments/${comment_id}`)
+      .then(res => {
+        setPostComments((prev) => {
+          //filter out all comments that are not the one we want to delete
+          return prev.filter((comment) => comment.id !== comment_id)
+        })  
+      })
+      .catch(e => console.error(e))
+  }
+
+  //sends a post request on click to add like to a given user id.
+  const like = () => {
+    axios
+      .post(`http://localhost:3000/likes`, {user_id: 2, post_id: id})
+      .then(res => {
+        //increase like count for post
+        setLikes((prev) => prev + 1)
+      })
+      .catch(e => console.error(e))
   }
 
   return (
@@ -66,13 +71,17 @@ export default function PostShow (props) {
       <h1>{post.title}</h1>
       <div>
         <img 
-        style={{height:"400px"}} 
+        style={{height:"300px"}} 
         className="show-image" 
         src={post.upload_file} 
         alt="image on show page"
         />
         {post.description}
       </div>
+      <button type="like" onClick={like}>Like Post</button>
+      <p>Like count: {likes}</p>
+      <p>Comment count: {postComments.length}</p>
+  
 
       <div className="wrapper">
         <h1>Comment Section</h1>
