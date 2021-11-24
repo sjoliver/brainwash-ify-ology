@@ -27,7 +27,7 @@ export default function PostIndex(props) {
   return (
     <>
       <h1>Ur Mom</h1>
-      <button onClick><Link to={newPostURL}>New Post</Link></button>
+      <button><Link to={newPostURL}>New Post</Link></button>
       <PostList 
         posts={posts}
         users={users}
