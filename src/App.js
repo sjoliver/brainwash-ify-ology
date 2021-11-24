@@ -26,7 +26,11 @@ function App() {
   return (
     <div className="App">
       <Router>
+<<<<<<< HEAD
       <NavBar setDbUser={setDbUser} dbUser={dbUser}/>
+=======
+      <NavBar setDbUser={setDbUser}/>
+>>>>>>> main
         <Routes>
           <Route path={"/"} element={<PostIndex interests={interests} />}/>
           <Route path={"/posts/new"} element={<PostForm />}/>
