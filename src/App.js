@@ -9,6 +9,7 @@ import PostForm from './components/PostForm/PostForm';
 import PostShow from './components/PostShow/PostShow';
 
 function App() {
+  const [dbUser, setDbUser] = useState({});
   const [interests, setInterests] = useState([]);
 
   useEffect(() => {
@@ -23,8 +24,8 @@ function App() {
   
   return (
     <div className="App">
-      <NavBar />
       <Router>
+      <NavBar setDbUser={setDbUser}/>
         <Routes>
           <Route path={"/"} element={<PostIndex interests={interests} />}/>
           <Route path={"/posts/new"} element={<PostForm />}/>
@@ -34,6 +35,5 @@ function App() {
     </div>
   );
 }
-{/* <PostForm interests={interests} /> */}
 
 export default App;
