@@ -18,6 +18,7 @@ export default function PostShow (props) {
   const [ likes, setLikes ] = useState([]);
   // set like to a user Id if exists
   const [ like , setLike ] = useState();
+  const [ postUsername, setPostUsername ] = useState("");
   const { id } = useParams();
 
   // fetch comments for specific post id (comments related to post)
@@ -29,12 +30,13 @@ export default function PostShow (props) {
         setPostComments(res.data.comments)
         setPost(res.data.post)
         setLikes(res.data.likes)
+        setPostUsername(res.data.userName)
       })
       .catch(e => console.error(e))
     }
     getCommentData();
   }, [])
-
+  
   //If likes change - user is hard coded at the moment
   useEffect(() => {
     const foundLike = likes.find((like) => like.user_id === dbUser.id)
@@ -115,8 +117,11 @@ export default function PostShow (props) {
           src={post.upload_file} 
           alt="image on show page"
         />
-        {post.description}
       </div>
+      <div>
+        <strong>{postUsername}</strong>
+      </div>
+      {post.description}
       { !like ?
         (< BsSuitHeart type="like" onClick={likePost}/>)
         :
