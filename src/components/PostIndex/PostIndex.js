@@ -4,18 +4,19 @@ import axios from 'axios';
 import PostList from './PostList';
 
 export default function PostIndex(props) {
-  const { interests } = props;
+  const { interests, initialFilter } = props;
 
   const [ posts, setPosts ] = useState([]);
   const [ users, setUsers ] = useState([]);
+  const [ filter, setFilter ] = useState(initialFilter ? [initialFilter] : []);
 
   useEffect(() => {
     const getPosts = function() {
       axios
-        .get('http://localhost:3000/posts')
+        .get('http://localhost:3000/posts', { params: {filter}})
         .then(res => { 
-          setPosts(() => res.data.posts );
-          setUsers(() => res.data.users );
+          setPosts(() => res.data.posts);
+          setUsers(() => res.data.users);
         })
         .catch(e => console.error(e))
     }
