@@ -24,8 +24,8 @@ function App() {
   
   return (
     <div className="App">
-      <NavBar setDbUser={setDbUser}/>
       <Router>
+      <NavBar setDbUser={setDbUser}/>
         <Routes>
           <Route path={"/"} element={<PostIndex interests={interests} />}/>
           <Route path={"/posts/new"} element={<PostForm />}/>
