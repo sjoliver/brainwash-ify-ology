@@ -23,8 +23,8 @@ function App() {
   
   return (
     <div className="App">
-      <NavBar />
       <Router>
+      <NavBar />
         <Routes>
           <Route path={"/"} element={<PostIndex interests={interests} />}/>
           <Route path={"/posts/new"} element={<PostForm />}/>
@@ -34,6 +34,5 @@ function App() {
     </div>
   );
 }
-{/* <PostForm interests={interests} /> */}
 
 export default App;
