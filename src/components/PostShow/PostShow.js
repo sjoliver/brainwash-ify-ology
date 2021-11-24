@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { Outlet, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './PostShow.scss';
 
 export default function PostShow (props) {
   const [ postComments, setPostComments ] = useState([]);
   const [ comment, setComment ] = useState("")
+  const { id } = useParams();
+
   
   //Holder data until actual post information passed through props
   const post = {
@@ -17,11 +20,19 @@ export default function PostShow (props) {
     interest_id: 1
   }
 
+  useEffect(() => {
+    axios.get(`http://localhost:3000/posts/${id}`)
+      .then(res => {
+        console.log("********", res.data)
+      })
+  }, [])
+
+  
   // fetch comments for specific post id (comments related to post)
   useEffect(() => {
     const getCommentData = function() {
       axios
-      .get(`http://localhost:3000/posts/${post.id}`)
+      .get(`http://localhost:3000/posts/${id}`)
       .then(res => {
         setPostComments(res.data)
       })
@@ -30,11 +41,11 @@ export default function PostShow (props) {
     getCommentData();
   }, [])
 
-  
    //on submit, post request to back end to save comment to postComments
    const submitComment = () => {
     axios
     .post(`http://localhost:3000/comments`, {content: comment, user_id: 2, post_id: post.id})
+
     .then(res => {
       //receives comment json from back end and adds it to postComments
       const newComment = res.data      
@@ -98,6 +109,7 @@ export default function PostShow (props) {
           <button type="deleteComment" onClick={() => {deleteComment(obj.id)}}>Delete</button>
        </ul>
       ))}
+      <Outlet/>
     </>
   );
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import PostListItem from './PostListItem';
-import PostForm from '../PostForm/PostForm';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import './PostList.scss'
 
@@ -27,22 +26,12 @@ export default function PostList(props) {
   //     .catch(e => console.error(e))
   // }
 
-  const indexUrl = '/posts'
-  const newPostURL = '/posts/new'
-
   return(
     <>
-      <h1>Ur Mom</h1>
-      <Router>
-        <Routes>
-          <Route exact path={newPostURL} element={<PostForm />}/>
-          <Route exact path={indexUrl} element={
-            <div className="post-list">
-              {postList}
-            </div>
-          }/>
-        </Routes>
-      </Router>
+      <div className="post-list">
+        {postList}
+      </div>
+      <Outlet/>
     </>
   );
 }

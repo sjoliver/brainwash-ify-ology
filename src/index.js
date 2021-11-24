@@ -5,6 +5,8 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from "@auth0/auth0-react";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import PostForm from './components/PostForm/PostForm';
 
 ReactDOM.render(
   <Auth0Provider
