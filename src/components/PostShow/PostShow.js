@@ -5,20 +5,9 @@ import './PostShow.scss';
 
 export default function PostShow (props) {
   const [ postComments, setPostComments ] = useState([]);
-  const [ comment, setComment ] = useState("")
+  const [ comment, setComment ] = useState("");
+  const [ post, setPost ] = useState({});
   const { id } = useParams();
-
-  
-  //Holder data until actual post information passed through props
-  const post = {
-    id: 1,
-    title: "How to cook a sweet potato",
-    description: "Watch me cook this huge sweet potato, she is so sweet",
-    upload_file: "https://video-images.vice.com/articles/5a4d3c2c195444648780c02a/lede/1515013133112-Screen-Shot-2018-01-03-at-35241-PM.png?crop=0.9197530864197531xw:1xh;center,center&resize=1200:*",
-    post_type: "video",
-    user_id: 1,
-    interest_id: 1
-  }
 
   useEffect(() => {
     axios.get(`http://localhost:3000/posts/${id}`)
@@ -35,6 +24,7 @@ export default function PostShow (props) {
       .get(`http://localhost:3000/posts/${id}`)
       .then(res => {
         setPostComments(res.data.comments)
+        setPost(res.data.post)
       })
       .catch(e => console.error(e))
     }
