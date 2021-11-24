@@ -118,15 +118,16 @@ export default function PostShow (props) {
           alt="image on show page"
         />
       </div>
-      <div>
-        <strong>{postUsername}</strong>
-      </div>
-      {post.description}
+  
       { !like ?
         (< BsSuitHeart type="like" onClick={likePost}/>)
         :
         (< BsSuitHeartFill type="unlike" onClick={unlikePost} />)
       }
+      <div>
+        <strong>{postUsername}</strong>
+      </div>
+      {post.description}
     
 
       <p>Like count: {likes.length}</p>
