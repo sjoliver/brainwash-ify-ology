@@ -7,7 +7,7 @@ export default function PostShow (props) {
   const [ postComments, setPostComments ] = useState([]);
   const [ comment, setComment ] = useState("");
   const [ post, setPost ] = useState({});
-  //sets ALL likes
+  //allows us to have a like count and array of all likes on initial render, updates if user likes post
   const [ likes, setLikes ] = useState([]);
   // set like to a user Id if exists
   const [ like , setLike ] = useState();
@@ -28,15 +28,14 @@ export default function PostShow (props) {
     getCommentData();
   }, [])
 
+  //If likes change - user is hard coded at the moment
   useEffect(() => {
     const foundLike = likes.find((like) => like.user_id === 2)
-   
     //gives you either the like or undefined
     if (foundLike) {
       //sets the find id
       setLike(foundLike.id)
     } 
-    
   }, [likes])
 
    //on submit, post request to back end to save comment to postComments
@@ -89,7 +88,9 @@ export default function PostShow (props) {
   axios
     .delete(`http://localhost:3000/likes/${like}`)
     .then(res => {
+      //remove like Id
       setLike(null)
+      //filter out all likes that are not the one we want to delete
       setLikes(prev => {
         return prev.filter((value) => value.id !== like)
       })
@@ -111,7 +112,7 @@ export default function PostShow (props) {
         />
         {post.description}
       </div>
-      {/* render like/unlike button based on like boolean */}
+      {/* render like/unlike button depending if like already exists */}
       { !like ?
         (<button type="like" onClick={likePost}> Like </button>)
         :
