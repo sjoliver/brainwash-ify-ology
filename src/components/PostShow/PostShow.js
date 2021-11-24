@@ -8,9 +8,9 @@ export default function PostShow (props) {
   const [ comment, setComment ] = useState("");
   const [ post, setPost ] = useState({});
   //sets ALL likes
-  const [ likes, setLikes ] = useState(0);
-  // sets like boolean for logged in user
-  const [ like , setLike ] = useState(false)
+  const [ likes, setLikes ] = useState([]);
+  // set like to a user Id if exists
+  const [ like , setLike ] = useState();
   const { id } = useParams();
 
   // fetch comments for specific post id (comments related to post)
@@ -21,12 +21,23 @@ export default function PostShow (props) {
       .then(res => {
         setPostComments(res.data.comments)
         setPost(res.data.post)
-        setLikes(res.data.likeCount)
+        setLikes(res.data.likes)
       })
       .catch(e => console.error(e))
     }
     getCommentData();
   }, [])
+
+  useEffect(() => {
+    const foundLike = likes.find((like) => like.user_id === 2)
+   
+    //gives you either the like or undefined
+    if (foundLike) {
+      //sets the find id
+      setLike(foundLike.id)
+    } 
+    
+  }, [likes])
 
    //on submit, post request to back end to save comment to postComments
    const submitComment = () => {
@@ -64,26 +75,27 @@ export default function PostShow (props) {
       .post(`http://localhost:3000/likes`, {user_id: 2, post_id: id})
       .then(res => {
         //increase like count for post
-        setLikes((prev) => prev + 1)
-        setLike(true)
+        setLike(res.data.id)
+        setLikes(prev => {
+          //joins new like to old likes
+          return [...prev, res.data]
+        })
       })
       .catch(e => console.error(e))
   }
 
   //sends a post request on click to remove liked post from user.
   const unlikePost = () => {
-    setLike(false)
+  axios
+    .delete(`http://localhost:3000/likes/${like}`)
+    .then(res => {
+      setLike(null)
+      setLikes(prev => {
+        return prev.filter((value) => value.id !== like)
+      })
+     })
+    .catch(e => console.error(e))
   }
-
-  // const unlikePost = (like_id) => {
-  //   axios
-  //     .delete(`http://localhost:3000/likes${like_id}`)
-  //     .then(res => {
-  //       console.log(res)
-  //       setLike(false)
-  //     })
-  //     .catch(e => console.error(e))
-  // }
 
  console.log(like)
 
@@ -106,7 +118,7 @@ export default function PostShow (props) {
         (<button type="unlike" onClick={unlikePost}> Unlike </button>)
       }
 
-      <p>Like count: {likes}</p>
+      <p>Like count: {likes.length}</p>
       <p>Comment count: {postComments.length}</p>
   
 
