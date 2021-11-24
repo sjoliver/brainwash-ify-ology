@@ -34,7 +34,7 @@ export default function PostShow (props) {
       axios
       .get(`http://localhost:3000/posts/${id}`)
       .then(res => {
-        setPostComments(res.data)
+        setPostComments(res.data.comments)
       })
       .catch(e => console.error(e))
     }
@@ -44,14 +44,13 @@ export default function PostShow (props) {
    //on submit, post request to back end to save comment to postComments
    const submitComment = () => {
     axios
-    .post(`http://localhost:3000/comments`, {content: comment, user_id: 2, post_id: post.id})
-
+    .post(`http://localhost:3000/comments`, {content: comment, user_id: 2, post_id: id})
     .then(res => {
       //receives comment json from back end and adds it to postComments
-      const newComment = res.data      
+      const newComment = res.data    
       setPostComments([
-        ...postComments,
-        newComment
+        newComment,
+        ...postComments
       ])
       //clears input form on submit
       setComment("")
