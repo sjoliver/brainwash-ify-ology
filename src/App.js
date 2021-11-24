@@ -29,7 +29,7 @@ function App() {
         <Routes>
           <Route path={"/"} element={<PostIndex interests={interests} initialFilter={"hey"}/>}/>
           <Route path={"/posts/new"} element={<PostForm />}/>
-          <Route path={"/posts/:id"} element={<PostShow />}/>
+          <Route path={"/posts/:id"} element={<PostShow dbUser={dbUser} />}/>
         </Routes>
       </Router>
     </div>
