@@ -26,7 +26,7 @@ export default function PostListItem(props) {
       <div>
         <img className="post-thumbnail" src={upload_file} alt="content card"/>
         <h4><Link to={`/posts/${id}`}>{title}</Link></h4>
-        <p>{userName} | {interest} | {post_type}</p>
+        <p>{userName} | {interest} | {post_type} | Likes: 5 | Comments: 2</p>
       </div>
       <Outlet/>
     </div>
