@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PostListItem from './PostListItem';
 import { Outlet } from 'react-router-dom';
 
@@ -7,17 +7,8 @@ import './PostList.scss'
 export default function PostList(props) {
   const { posts, users, interests } = props;
 
-  // creates array of PostListItem components which are passed the post details object as props
-  const postList = posts.map((post) => {
-    return (
-      <PostListItem 
-        key={post.id} 
-        {...post}
-        interests={interests}
-        users={users}
-      />
-    )
-  })
+  const [ searchInput, setSearchInput ] = useState("");
+  const [ filteredResults, setFilteredResults ] = useState([]);
 
   // const deleteData = function() {
   //   axios
@@ -26,10 +17,54 @@ export default function PostList(props) {
   //     .catch(e => console.error(e))
   // }
 
+  // SEARCH LOGIC // 
+  const searchItems = function(searchValue) {
+    setSearchInput(searchValue)
+    if (searchInput !== '') {
+    const filteredData = posts.filter((item) => {
+      // Filtering posts according to the search term
+      return (item.title).toLowerCase().includes(searchInput.toLowerCase())
+    })
+      setFilteredResults(filteredData);
+    }
+    else {
+      setFilteredResults(posts)
+    }
+  }
+
   return(
     <>
+      <div className="search-bar">
+        <input 
+          type="text" 
+          placeholder="Search..."
+          onChange={(e) => searchItems(e.target.value)}
+        />
+      </div>
       <div className="post-list">
-        {postList}
+        {searchInput.length >= 1 ? (
+          filteredResults.map((post) => {
+            return (
+              <PostListItem 
+                key={post.id} 
+                {...post}
+                interests={interests}
+                users={users}
+              />
+            )
+          })
+        ) : (
+          posts.map((post) => {
+            return (
+              <PostListItem 
+                key={post.id} 
+                {...post}
+                interests={interests}
+                users={users}
+              />
+            )
+          })
+        )}
       </div>
       <Outlet/>
     </>
