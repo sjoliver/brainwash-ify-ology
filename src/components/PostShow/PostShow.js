@@ -7,7 +7,10 @@ export default function PostShow (props) {
   const [ postComments, setPostComments ] = useState([]);
   const [ comment, setComment ] = useState("");
   const [ post, setPost ] = useState({});
+  //sets ALL likes
   const [ likes, setLikes ] = useState(0);
+  // sets like boolean for logged in user
+  const [ like , setLike ] = useState(false)
   const { id } = useParams();
 
   // fetch comments for specific post id (comments related to post)
@@ -56,29 +59,32 @@ export default function PostShow (props) {
   }
 
   //sends a post request on click to add like to a given user id.
-  const like = () => {
+  const likePost = () => {
     axios
       .post(`http://localhost:3000/likes`, {user_id: 2, post_id: id})
       .then(res => {
         //increase like count for post
         setLikes((prev) => prev + 1)
+        setLike(true)
       })
       .catch(e => console.error(e))
   }
+
+ 
 
   return (
     <>
       <h1>{post.title}</h1>
       <div>
         <img 
-        style={{height:"300px"}} 
-        className="show-image" 
-        src={post.upload_file} 
-        alt="image on show page"
+          style={{height:"300px"}} 
+          className="show-image" 
+          src={post.upload_file} 
+          alt="image on show page"
         />
         {post.description}
       </div>
-      <button type="like" onClick={like}>Like Post</button>
+      <button type="like" onClick={likePost}> Like Post </button>
       <p>Like count: {likes}</p>
       <p>Comment count: {postComments.length}</p>
   
