@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios';
 import './PostShow.scss';
 //prefix of icon (Ai or Fi for ex) is what lib it belongs to, must import with that lib
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
+import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs'
+
 
 export default function PostShow (props) {
+  const { dbUser } = props;
+  //Do we want to show comments to users unauthorized users??? 
+  const { isAuthenticated } = useAuth0();
   const [ postComments, setPostComments ] = useState([]);
   const [ comment, setComment ] = useState("");
   const [ post, setPost ] = useState({});
@@ -13,6 +18,7 @@ export default function PostShow (props) {
   const [ likes, setLikes ] = useState([]);
   // set like to a user Id if exists
   const [ like , setLike ] = useState();
+  const [ postUsername, setPostUsername ] = useState("");
   const { id } = useParams();
 
   // fetch comments for specific post id (comments related to post)
@@ -24,15 +30,16 @@ export default function PostShow (props) {
         setPostComments(res.data.comments)
         setPost(res.data.post)
         setLikes(res.data.likes)
+        setPostUsername(res.data.userName)
       })
       .catch(e => console.error(e))
     }
     getCommentData();
   }, [])
-
+  
   //If likes change - user is hard coded at the moment
   useEffect(() => {
-    const foundLike = likes.find((like) => like.user_id === 2)
+    const foundLike = likes.find((like) => like.user_id === dbUser.id)
     //gives you either the like or undefined
     if (foundLike) {
       //sets the find id
@@ -43,7 +50,7 @@ export default function PostShow (props) {
    //on submit, post request to back end to save comment to postComments
    const submitComment = () => {
     axios
-      .post(`http://localhost:3000/comments`, {content: comment, user_id: 2, post_id: id})
+      .post(`http://localhost:3000/comments`, {content: comment, user_id: dbUser.id, post_id: id})
       .then(res => {
         //receives comment json from back end and adds it to postComments
         const newComment = res.data    
@@ -73,7 +80,7 @@ export default function PostShow (props) {
   //sends a post request on click to add like to a given user id.
   const likePost = () => {
     axios
-      .post(`http://localhost:3000/likes`, {user_id: 2, post_id: id})
+      .post(`http://localhost:3000/likes`, {user_id: dbUser.id, post_id: id})
       .then(res => {
         //increase like count for post
         setLike(res.data.id)
@@ -110,13 +117,18 @@ export default function PostShow (props) {
           src={post.upload_file} 
           alt="image on show page"
         />
-        {post.description}
       </div>
+  
       { !like ?
-        (< AiFillHeart type="like" onClick={likePost}/>)
+        (< BsSuitHeart type="like" onClick={likePost}/>)
         :
-        (< AiOutlineHeart type="unlike" onClick={unlikePost} />)
+        (< BsSuitHeartFill type="unlike" onClick={unlikePost} />)
       }
+      <div>
+        <strong>{postUsername}</strong>
+      </div>
+      {post.description}
+    
 
       <p>Like count: {likes.length}</p>
       <p>Comment count: {postComments.length}</p>
