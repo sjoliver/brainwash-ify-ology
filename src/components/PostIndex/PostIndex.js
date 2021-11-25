@@ -25,7 +25,7 @@ export default function PostIndex(props) {
       axios
         .get('http://localhost:3000/posts', {params: {filter}})
         .then(res => { 
-          console.log(res.data)
+          console.log("this thang:",res.data)
           setLikeCounts(() => res.data.postCounts);
           setPosts(() => res.data.posts);
           setUsers(() => res.data.users);

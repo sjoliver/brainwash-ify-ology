@@ -7,7 +7,7 @@ import PostIndex from '../PostIndex/PostIndex';
 import axios from 'axios';
 
 export default function ProfilePage(props) {
-  const { interests, dbUser } = props;
+  const { interests, dbUser, likeCounts, setLikeCounts } = props;
   let { id } = useParams();
   const { user } = useAuth0();
   const [localUser, setLocalUser] = useState({});
@@ -38,7 +38,7 @@ export default function ProfilePage(props) {
         </div>
       </div>
       <h1>Posts from {localUser.username}</h1>
-      <PostIndex interests={interests} userFilter={userFilter}/>
+      <PostIndex interests={interests} userFilter={userFilter} likeCounts={likeCounts} setLikeCounts={setLikeCounts}/>
     </>
   )
 }
