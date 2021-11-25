@@ -5,18 +5,23 @@ import axios from 'axios';
 import PostList from './PostList';
 
 export default function PostIndex(props) {
-  const { interests, initialFilter } = props;
+  const { interests, userFilter } = props;
 
   const [ posts, setPosts ] = useState([]);
   const [ users, setUsers ] = useState([]);
-  const [ filter, setFilter ] = useState(initialFilter ? [initialFilter] : []);
+  const [ interestsFilter, setInterestsFilter ] = useState([]);
 
   const interestNames = interests.map((interestObj) => {
     return {label: interestObj.name, value: interestObj.id}
   })
   
+
   useEffect(() => {
     const getPosts = function() {
+      const filter = {
+        interests: interestsFilter,
+        user_id: userFilter || null
+      }
       axios
         .get('http://localhost:3000/posts', {params: {filter}})
         .then(res => { 
@@ -27,7 +32,7 @@ export default function PostIndex(props) {
         .catch(e => console.error(e))
     }
     getPosts();
-  }, [filter])
+  }, [interestsFilter, userFilter])
 
   return (
     <>
@@ -35,8 +40,8 @@ export default function PostIndex(props) {
       <button><Link to={'/posts/new'}>New Post</Link></button>
       <MultiSelect 
         options={interestNames}
-        value={filter}
-        onChange={setFilter}
+        value={interestsFilter}
+        onChange={setInterestsFilter}
         labelledBy="Select"
       />
       <PostList 
