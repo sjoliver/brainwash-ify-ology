@@ -1,0 +1,11 @@
+// When you call the PostIndex element, pass in a filter prop (if you need to filter)
+
+**** Inside PostIndex Element ****
+// pull in filter from props => const { filter } = props
+// pass filter array in with the axios.get request
+
+
+**** Inside Rails posts#create ****
+// pull in :filter param (or however it will be sent over)
+// if filter = empty array => Post.all search
+// if filter not empty => build active record query based on the filter
