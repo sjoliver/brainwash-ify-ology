@@ -163,8 +163,6 @@ export default function PostShow (props) {
           }
        </ul>
       ))}
-       </ul>)
-      )}
 
       <Outlet/>
     </>
