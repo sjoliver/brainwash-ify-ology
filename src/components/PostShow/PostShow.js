@@ -5,6 +5,7 @@ import axios from 'axios';
 import './PostShow.scss';
 //prefix of icon (Ai or Fi for ex) is what lib it belongs to, must import with that lib
 import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs'
+import { BsTrash } from 'react-icons/bs'
 
 
 export default function PostShow (props) {
@@ -131,6 +132,7 @@ export default function PostShow (props) {
       </div>
       {post.description}
     
+     
 
       <p>Like count: {likes.length}</p>
       <p>Comment count: {postComments.length}</p>
@@ -157,7 +159,7 @@ export default function PostShow (props) {
         <ul>
           {obj.content}
           {(obj.user_id === dbUser.id) && 
-            <button type="deleteComment" onClick={() => {deleteComment(obj.id)}}>Delete</button>
+            < BsTrash type="deleteComment" onClick={() => {deleteComment(obj.id)}}/>
           }
        </ul>
       ))}
