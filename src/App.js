@@ -12,6 +12,7 @@ import ProfilePage from './components/ProfilePage/ProfilePage';
 function App() {
   const [dbUser, setDbUser] = useState({});
   const [interests, setInterests] = useState([]);
+  const [likeCounts, setLikeCounts] = useState([]);
 
   useEffect(() => {
     const getInterests = function() {
@@ -28,10 +29,10 @@ function App() {
       <Router>
       <NavBar setDbUser={setDbUser} dbUser={dbUser}/>
         <Routes>
-          <Route path={"/*"} element={<PostIndex interests={interests} />}/>
+          <Route path={"/*"} element={<PostIndex interests={interests} likeCounts={likeCounts} setLikeCounts={setLikeCounts} />}/>
           <Route path={"/posts/new"} element={<PostForm />}/>
           <Route path={"/posts/:id"} element={<PostShow dbUser={dbUser} />}/>
-          <Route path={"/profile/:id"} element={<ProfilePage interests={interests} dbUser={dbUser}/>}/>
+          <Route path={"/profile/:id"} element={<ProfilePage interests={interests} dbUser={dbUser} likeCounts={likeCounts} setLikeCounts={setLikeCounts}/>}/>
         </Routes>
       </Router>
     </div>

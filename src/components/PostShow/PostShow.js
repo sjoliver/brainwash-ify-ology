@@ -152,11 +152,11 @@ export default function PostShow (props) {
      </div>
       {/* id accessible through postComments obj - sent through delete comment function call */}
       {postComments.map((obj, i) => (
-        <ul>
+        <ul key={i}>
           {obj.content}
           <button type="deleteComment" onClick={() => {deleteComment(obj.id)}}>Delete</button>
-       </ul>
-      ))}
+       </ul>)
+      )}
       <Outlet/>
     </>
   );
