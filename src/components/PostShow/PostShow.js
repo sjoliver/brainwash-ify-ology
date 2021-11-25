@@ -11,7 +11,6 @@ import { BsTrash } from 'react-icons/bs'
 export default function PostShow (props) {
   const { dbUser } = props;
   //Do we want to show comments to users unauthorized users??? 
-  const { isAuthenticated } = useAuth0();
   const [ postComments, setPostComments ] = useState([]);
   const [ comment, setComment ] = useState("");
   const [ post, setPost ] = useState({});
@@ -22,7 +21,6 @@ export default function PostShow (props) {
   const [ postUsername, setPostUsername ] = useState("");
   const { id } = useParams();
   
-  console.log(postComments)
 
   // fetch comments for specific post id (comments related to post)
   useEffect(() => {
@@ -34,6 +32,8 @@ export default function PostShow (props) {
         setPost(res.data.post)
         setLikes(res.data.likes)
         setPostUsername(res.data.userName)
+        //Bring in comment user info
+        console.log(res.data.commentUserInfo)
       })
       .catch(e => console.error(e))
     }
