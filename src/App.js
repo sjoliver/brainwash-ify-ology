@@ -41,10 +41,9 @@ function App() {
       axios
         .post('http://localhost:3000/users', params)
         .then(res => {
-          setDbUser(prev => res.data)
+          setDbUser(() => res.data)
         })
     }
-    console.log("it triggered");
   }, [user])
   
   return (
