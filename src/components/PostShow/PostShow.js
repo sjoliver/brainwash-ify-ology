@@ -20,6 +20,8 @@ export default function PostShow (props) {
   const [ like , setLike ] = useState();
   const [ postUsername, setPostUsername ] = useState("");
   const { id } = useParams();
+  
+  console.log(postComments)
 
   // fetch comments for specific post id (comments related to post)
   useEffect(() => {
@@ -154,7 +156,9 @@ export default function PostShow (props) {
       {postComments.map((obj, i) => (
         <ul>
           {obj.content}
-          <button type="deleteComment" onClick={() => {deleteComment(obj.id)}}>Delete</button>
+          {(obj.user_id === dbUser.id) && 
+            <button type="deleteComment" onClick={() => {deleteComment(obj.id)}}>Delete</button>
+          }
        </ul>
       ))}
       <Outlet/>
