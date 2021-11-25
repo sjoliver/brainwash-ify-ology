@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom';
 import './PostList.scss'
 
 export default function PostList(props) {
-  const { posts, users, interests } = props;
+  const { posts, users, interests, likeCounts, setLikeCounts } = props;
 
   const [ searchInput, setSearchInput ] = useState("");
   const [ filteredResults, setFilteredResults ] = useState([]);
@@ -50,6 +50,8 @@ export default function PostList(props) {
                 {...post}
                 interests={interests}
                 users={users}
+                likeCounts={likeCounts} 
+                setLikeCounts={setLikeCounts}   
               />
             )
           })
@@ -61,6 +63,8 @@ export default function PostList(props) {
                 {...post}
                 interests={interests}
                 users={users}
+                likeCounts={likeCounts} 
+                setLikeCounts={setLikeCounts}   
               />
             )
           })
