@@ -7,6 +7,7 @@ import NavBar from './components/Nav/NavBar';
 import PostIndex from './components/PostIndex/PostIndex';
 import PostForm from './components/PostForm/PostForm';
 import PostShow from './components/PostShow/PostShow';
+import ProfilePage from './components/ProfilePage/ProfilePage';
 
 function App() {
   const [dbUser, setDbUser] = useState({});
@@ -25,11 +26,12 @@ function App() {
   return (
     <div className="App">
       <Router>
-      <NavBar setDbUser={setDbUser}/>
+      <NavBar setDbUser={setDbUser} dbUser={dbUser}/>
         <Routes>
           <Route path={"/*"} element={<PostIndex interests={interests} />}/>
           <Route path={"/posts/new"} element={<PostForm />}/>
           <Route path={"/posts/:id"} element={<PostShow dbUser={dbUser} />}/>
+          <Route path={"/profile/:id"} element={<ProfilePage interests={interests} dbUser={dbUser}/>}/>
         </Routes>
       </Router>
     </div>

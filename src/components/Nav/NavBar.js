@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react';
-import './NavBar.scss'
 
+import './NavBar.scss'
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 import Profile from './Profile';
 import axios from 'axios';
 
 export default function NavBar(props) {
-  const { setDbUser } = props
-  const { user, isAuthenticated } = useAuth0();
+  const { dbUser, setDbUser } = props
+  const { user, isAuthenticated} = useAuth0();
   
   useEffect(() => {
     if (user) {
@@ -29,11 +29,13 @@ export default function NavBar(props) {
           setDbUser(prev => res.data)
         })
     }
+    console.log("it triggered");
   }, [user])
 
   return (
     <section className="navbar">
       <p><Link to={'/'}>Home</Link></p>
+      {isAuthenticated && <Link to={`/profile/${dbUser.id}`}>My Profile</Link>}
       <Profile />
       {!isAuthenticated && <LoginButton />}
       {isAuthenticated && <LogoutButton />}
