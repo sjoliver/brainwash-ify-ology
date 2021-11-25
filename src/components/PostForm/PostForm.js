@@ -8,16 +8,16 @@ import { Outlet } from 'react-router-dom';
 export default function PostForm (props) {
   // destructure props
   const { dbUser } = props
-
-  //post state variable
-  const [post, setPost] = useState ({
+  const initialPostState = {
     title: "",
     description: "",
     interest_name: "",
     upload_file: "",
     post_type: "",
     user_id: dbUser.id || null
-  });
+  }
+  //post state variable
+  const [post, setPost] = useState (initialPostState);
 
   //axios request to create data from post form and persist to db 
   const createData = function() {
@@ -33,7 +33,10 @@ export default function PostForm (props) {
 
     axios
       .post('http://localhost:3000/posts', { post })
-      .then(res => { console.log("*************", res); })
+      .then(() => {
+        setPost(() => initialPostState)
+        alert("Your post was successfully saved!")
+      })
       .catch(e => console.error(e))
   }
 
