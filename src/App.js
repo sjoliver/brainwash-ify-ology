@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 
 import './App.scss';
@@ -10,6 +11,8 @@ import PostShow from './components/PostShow/PostShow';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 
 function App() {
+  const { user } = useAuth0();
+
   const [dbUser, setDbUser] = useState({});
   const [interests, setInterests] = useState([]);
   const [likeCounts, setLikeCounts] = useState([]);
@@ -23,11 +26,31 @@ function App() {
     }
     getInterests();
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      const { email, name, picture, username, nickname } = user;
+      const params = {
+        email,
+        name,
+        avatar: picture,
+        username: username || nickname,
+        social_id: user.sub
+      }
+
+      axios
+        .post('http://localhost:3000/users', params)
+        .then(res => {
+          setDbUser(prev => res.data)
+        })
+    }
+    console.log("it triggered");
+  }, [user])
   
   return (
     <div className="App">
       <Router>
-      <NavBar setDbUser={setDbUser} dbUser={dbUser}/>
+      <NavBar dbUser={dbUser}/>
         <Routes>
           <Route path={"/*"} element={<PostIndex interests={interests} likeCounts={likeCounts} setLikeCounts={setLikeCounts} />}/>
           <Route path={"/posts/new"} element={<PostForm dbUser={dbUser}/>}/>

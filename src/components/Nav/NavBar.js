@@ -9,34 +9,14 @@ import Profile from './Profile';
 import axios from 'axios';
 
 export default function NavBar(props) {
-  const { dbUser, setDbUser } = props
-  const { user, isAuthenticated} = useAuth0();
-  
-  useEffect(() => {
-    if (user) {
-      const { email, name, picture, username, nickname } = user;
-      const params = {
-        email,
-        name,
-        avatar: picture,
-        username: username || nickname,
-        social_id: user.sub
-      }
-
-      axios
-        .post('http://localhost:3000/users', params)
-        .then(res => {
-          setDbUser(prev => res.data)
-        })
-    }
-    console.log("it triggered");
-  }, [user])
+  const { dbUser } = props
+  const { isAuthenticated} = useAuth0();
 
   return (
     <section className="navbar">
       <p><Link to={'/'}>Home</Link></p>
       {isAuthenticated && <Link to={`/profile/${dbUser.id}`}>My Profile</Link>}
-      <Profile />
+      <Profile dbUser={dbUser}/>
       {!isAuthenticated && <LoginButton />}
       {isAuthenticated && <LogoutButton />}
       <Outlet />
