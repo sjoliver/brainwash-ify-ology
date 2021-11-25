@@ -11,6 +11,7 @@ export default function ProfilePage(props) {
   let { id } = useParams();
   const { user } = useAuth0();
   const [localUser, setLocalUser] = useState({});
+  const [userFilter, setUserFilter] = useState(dbUser.id);
 
   id = Number(id);
 
@@ -18,7 +19,10 @@ export default function ProfilePage(props) {
       if (dbUser.id !== id) {
         axios
           .get(`http://localhost:3000/users/${id}`)
-          .then(res => setLocalUser(() => res.data))
+          .then(res => {
+            setLocalUser(() => res.data)
+            setUserFilter(() => res.data.id)
+          })
       } else {
         setLocalUser(() => dbUser);
       }
@@ -34,7 +38,7 @@ export default function ProfilePage(props) {
         </div>
       </div>
       <h1>Posts from {localUser.username}</h1>
-      <PostIndex interests={interests} initialFilter={`user_id:${localUser.id}`}/>
+      <PostIndex interests={interests} userFilter={userFilter}/>
     </>
   )
 }

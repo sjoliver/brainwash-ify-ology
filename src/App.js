@@ -30,7 +30,7 @@ function App() {
       <NavBar setDbUser={setDbUser} dbUser={dbUser}/>
         <Routes>
           <Route path={"/*"} element={<PostIndex interests={interests} likeCounts={likeCounts} setLikeCounts={setLikeCounts} />}/>
-          <Route path={"/posts/new"} element={<PostForm />}/>
+          <Route path={"/posts/new"} element={<PostForm dbUser={dbUser}/>}/>
           <Route path={"/posts/:id"} element={<PostShow dbUser={dbUser} />}/>
           <Route path={"/profile/:id"} element={<ProfilePage interests={interests} dbUser={dbUser} likeCounts={likeCounts} setLikeCounts={setLikeCounts}/>}/>
         </Routes>
