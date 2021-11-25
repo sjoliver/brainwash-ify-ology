@@ -7,7 +7,8 @@ import { Outlet } from 'react-router-dom';
 
 export default function PostForm (props) {
   // destructure props
-  
+  const { dbUser } = props
+
   //post state variable
   const [post, setPost] = useState ({
     title: "",
@@ -15,7 +16,7 @@ export default function PostForm (props) {
     interest_name: "",
     upload_file: "",
     post_type: "",
-    user_id: 2
+    user_id: dbUser.id || null
   });
 
   //axios request to create data from post form and persist to db 
