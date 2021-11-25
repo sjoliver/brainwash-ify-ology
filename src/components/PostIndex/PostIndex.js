@@ -5,7 +5,7 @@ import axios from 'axios';
 import PostList from './PostList';
 
 export default function PostIndex(props) {
-  const { interests, userFilter } = props;
+  const { interests, userFilter, likeCounts, setLikeCounts } = props;
 
   const [ posts, setPosts ] = useState([]);
   const [ users, setUsers ] = useState([]);
@@ -26,6 +26,7 @@ export default function PostIndex(props) {
         .get('http://localhost:3000/posts', {params: {filter}})
         .then(res => { 
           console.log(res.data)
+          setLikeCounts(() => res.data.postCounts);
           setPosts(() => res.data.posts);
           setUsers(() => res.data.users);
         })
@@ -47,7 +48,9 @@ export default function PostIndex(props) {
       <PostList 
         posts={posts}
         users={users}
-        interests={interests}     
+        interests={interests}  
+        likeCounts={likeCounts} 
+        setLikeCounts={setLikeCounts}   
       />
       <Outlet/>
     </>

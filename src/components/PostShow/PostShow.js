@@ -5,12 +5,12 @@ import axios from 'axios';
 import './PostShow.scss';
 //prefix of icon (Ai or Fi for ex) is what lib it belongs to, must import with that lib
 import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs'
+import { BsTrash } from 'react-icons/bs'
 
 
 export default function PostShow (props) {
   const { dbUser } = props;
   //Do we want to show comments to users unauthorized users??? 
-  const { isAuthenticated } = useAuth0();
   const [ postComments, setPostComments ] = useState([]);
   const [ comment, setComment ] = useState("");
   const [ post, setPost ] = useState({});
@@ -20,6 +20,7 @@ export default function PostShow (props) {
   const [ like , setLike ] = useState();
   const [ postUsername, setPostUsername ] = useState("");
   const { id } = useParams();
+  
 
   // fetch comments for specific post id (comments related to post)
   useEffect(() => {
@@ -31,6 +32,8 @@ export default function PostShow (props) {
         setPost(res.data.post)
         setLikes(res.data.likes)
         setPostUsername(res.data.userName)
+        //Bring in comment user info
+        console.log(res.data.commentUserInfo)
       })
       .catch(e => console.error(e))
     }
@@ -129,6 +132,7 @@ export default function PostShow (props) {
       </div>
       {post.description}
     
+     
 
       <p>Like count: {likes.length}</p>
       <p>Comment count: {postComments.length}</p>
@@ -152,11 +156,14 @@ export default function PostShow (props) {
      </div>
       {/* id accessible through postComments obj - sent through delete comment function call */}
       {postComments.map((obj, i) => (
-        <ul>
+        <ul key={i}>
           {obj.content}
-          <button type="deleteComment" onClick={() => {deleteComment(obj.id)}}>Delete</button>
+          {(obj.user_id === dbUser.id) && 
+            < BsTrash type="deleteComment" onClick={() => {deleteComment(obj.id)}}/>
+          }
        </ul>
       ))}
+
       <Outlet/>
     </>
   );
