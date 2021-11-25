@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
-// import { Link, Outlet } from 'react-router-dom';
+import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useParams } from 'react-router-dom';
+import { BiEditAlt } from 'react-icons/bi'
 
 import PostIndex from '../PostIndex/PostIndex';
-import axios from 'axios';
+import ProfileInfo from './ProfileInfo';
+import EditProfileInfo from './EditProfileInfo';
 
 export default function ProfilePage(props) {
   const { interests, dbUser, likeCounts, setLikeCounts } = props;
+
   let { id } = useParams();
   const { user } = useAuth0();
+
   const [localUser, setLocalUser] = useState({});
   const [userFilter, setUserFilter] = useState(dbUser.id);
+  const [mode, setMode] = useState("");
 
   id = Number(id);
 
@@ -24,18 +29,25 @@ export default function ProfilePage(props) {
             setUserFilter(() => res.data.id)
           })
       } else {
-        setLocalUser(() => dbUser);
+        setLocalUser(() => {return {...dbUser};});
       }
   }, [id])
+
+  const editMode = function() {
+    setMode(prev => prev ? "" : "EDIT"); 
+  }
 
   return (
     <>
       <div>
-        <img src={localUser.avatar} alt="Profile Image" />
-        <div>
-          <h1>{localUser.name}</h1>
-          <p>{localUser.bio || "This is where your bio would be if you weren't such a dumb dumb"}</p>
+        <div onClick={editMode}>
+          <BiEditAlt size={32}/><span>Edit Profile</span>
         </div>
+        <div>
+          <img src={localUser.avatar} alt="Profile Image" />
+        </div>  
+        {!mode && <ProfileInfo localUser={localUser}/>}
+        {mode && <EditProfileInfo localUser={localUser}/>}
       </div>
       <h1>Posts from {localUser.username}</h1>
       <PostIndex interests={interests} userFilter={userFilter} likeCounts={likeCounts} setLikeCounts={setLikeCounts}/>
