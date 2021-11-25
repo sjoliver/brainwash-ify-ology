@@ -28,9 +28,9 @@ function App() {
       <Router>
       <NavBar setDbUser={setDbUser} dbUser={dbUser}/>
         <Routes>
-          <Route path={"/"} element={<PostIndex interests={interests} />}/>
+          <Route path={"/*"} element={<PostIndex interests={interests} />}/>
           <Route path={"/posts/new"} element={<PostForm />}/>
-          <Route path={"/posts/:id"} element={<PostShow />}/>
+          <Route path={"/posts/:id"} element={<PostShow dbUser={dbUser} />}/>
           <Route path={"/profile/:id"} element={<ProfilePage interests={interests} dbUser={dbUser}/>}/>
         </Routes>
       </Router>
