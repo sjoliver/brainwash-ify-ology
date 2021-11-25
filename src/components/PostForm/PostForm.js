@@ -20,6 +20,16 @@ export default function PostForm (props) {
 
   //axios request to create data from post form and persist to db 
   const createData = function() {
+    if (!post.post_type) {
+      alert("Please select a type")
+      return;
+    }
+
+    if (!post.interest_name) {
+      alert("Please select an interest")
+      return;
+    }
+
     axios
       .post('http://localhost:3000/posts', { post })
       .then(res => { console.log("*************", res); })
@@ -58,7 +68,7 @@ export default function PostForm (props) {
   // post_type Props
   const typeProps = {
     name: "post_type",
-    options: ["Video", "Audio", "Image"],
+    options: ["<select>","Video", "Audio", "Image"],
     postState: post.post_type,
     onChange: event => setPost({...post, post_type: event.target.value})
   }
@@ -66,7 +76,7 @@ export default function PostForm (props) {
   // interest props
   const interestProps = {
     name: "interest_name",
-    options: ["Cooking", "Home Improvements", "Gardening"],
+    options: ["<select>", "Cooking", "Home Improvements", "Gardening"],
     postState: post.interest_name,
     onChange: event => setPost({...post, interest_name: event.target.value})
   }
