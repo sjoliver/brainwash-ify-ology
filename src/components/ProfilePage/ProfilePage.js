@@ -6,6 +6,7 @@ import { BiEditAlt } from 'react-icons/bi'
 
 import PostIndex from '../PostIndex/PostIndex';
 import ProfileInfo from './ProfileInfo';
+import EditProfileInfo from './EditProfileInfo';
 
 export default function ProfilePage(props) {
   const { interests, dbUser, likeCounts, setLikeCounts } = props;
@@ -28,7 +29,7 @@ export default function ProfilePage(props) {
             setUserFilter(() => res.data.id)
           })
       } else {
-        setLocalUser(() => dbUser);
+        setLocalUser(() => {return {...dbUser};});
       }
   }, [id])
 
@@ -45,8 +46,8 @@ export default function ProfilePage(props) {
         <div>
           <img src={localUser.avatar} alt="Profile Image" />
         </div>  
-        {mode && <ProfileInfo localUser={localUser}/>}
-        {!mode && <div>Testing this guy</div>}
+        {!mode && <ProfileInfo localUser={localUser}/>}
+        {mode && <EditProfileInfo localUser={localUser}/>}
       </div>
       <h1>Posts from {localUser.username}</h1>
       <PostIndex interests={interests} userFilter={userFilter} likeCounts={likeCounts} setLikeCounts={setLikeCounts}/>

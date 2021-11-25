@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import InputForm from './InputForm';
 
 export default function EditProfileInfo(props) {
   const { localUser } = props;
+  const [edit, setEdit] = useState({});
 
   const editUser = function() {
     console.log("clicked");
@@ -10,8 +11,8 @@ export default function EditProfileInfo(props) {
 
   return (
     <form onSubmit={event => event.preventDefault()}>
-      <InputForm localUser={localUser}/>
-      <button onClick={editUser}>Create new post</button>
+      <InputForm localUser={localUser} field={"username"}/>
+      <button onClick={editUser}>Submit</button>
     </form>
   )
 }
