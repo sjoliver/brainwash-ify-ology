@@ -39,6 +39,7 @@ export default function PostShow (props) {
     }
     getCommentData();
   }, [])
+
   
   //If likes change - user is hard coded at the moment
   useEffect(() => {
@@ -163,7 +164,6 @@ export default function PostShow (props) {
           }
        </ul>
       ))}
-
       <Outlet/>
     </>
   );

@@ -12,12 +12,12 @@ export default function PostForm (props) {
     title: "",
     description: "",
     interest_name: "",
-    upload_file: "",
+    upload_file: {},
     post_type: "",
     user_id: dbUser.id || null
   }
   //post state variable
-  const [post, setPost] = useState (initialPostState);
+  const [post, setPost] = useState(initialPostState);
 
   //axios request to create data from post form and persist to db 
   const createData = function() {
@@ -101,14 +101,54 @@ export default function PostForm (props) {
     )
   })
 
+  
+  const onChange = (event) => {
+    setPost(prev => {
+      const form = new FormData();
+      form.append("upload_file", event.target.files[0]);
+
+      const change = {
+        ...prev
+      }
+
+      change["upload_file"] = form;
+
+      return change;
+    })
+  }
+  
+  const onSubmit = (event) => {
+    event.preventDefault();
+
+    // const form = new FormData();
+    // form.append("upload_file", post.upload_file)
+
+    console.log("im a form", post.upload_file);
+
+    // axios
+    //   .post('http://localhost:3000/posts', {post: form})
+    //   .then(res => console.log(res.data))
+  }
+
   return (
     <>
       <h1>Create Your Post</h1>
-      <form onSubmit={event => event.preventDefault()}>
+      <form onSubmit={(event) => event.preventDefault()}>
         {inputList}
         {selectList}
         <button onClick={createData}>Create new post</button>
       </form>
+
+      <div>
+        <h1>New Upload!</h1>
+        <form onSubmit={onSubmit}>
+          <label>File</label>
+          <input type="file" name="file" value={post.upload_file} onChange={onChange}/>
+          <br/>
+          <input type="submit" value="Save"/>
+        </form>
+      </div>
+
       <Outlet/>
     </>
   )
