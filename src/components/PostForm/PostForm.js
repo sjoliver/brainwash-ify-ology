@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import PostFormInput from './PostFormInput';
@@ -8,6 +8,8 @@ import { Outlet } from 'react-router-dom';
 export default function PostForm (props) {
   // destructure props
   const { dbUser } = props
+  console.log(dbUser.id);
+
   const initialPostState = {
     title: "",
     description: "",
@@ -16,11 +18,35 @@ export default function PostForm (props) {
     post_type: "",
     user_id: dbUser.id || null
   }
+
   //post state variable
   const [post, setPost] = useState(initialPostState);
 
-  //axios request to create data from post form and persist to db 
-  const createData = function() {
+  // do this in case dbUser isn't initially loaded when accessing this page somehow (happened a lot in testing)
+  useEffect(() => {
+    setPost(prev => {
+      return {
+        ...prev,
+        user_id: dbUser.id
+      }
+    })
+  }, [dbUser])
+
+  // File input change function
+  const onChange = (event) => {
+    setPost(prev => {
+      return {
+        ...prev,
+        upload_file: event.target.files[0]
+      }
+    })
+  }
+  
+  // submit data to backend using axios and FormData
+  const onSubmit = (event) => {
+    event.preventDefault();
+    
+    // prevent empty select fields
     if (!post.post_type) {
       alert("Please select a type")
       return;
@@ -31,15 +57,22 @@ export default function PostForm (props) {
       return;
     }
 
-    axios
-      .post('http://localhost:3000/posts', { post })
-      .then(() => {
-        setPost(() => initialPostState)
-        alert("Your post was successfully saved!")
-      })
-      .catch(e => console.error(e))
-  }
+    // create FormData object and populate with post state data
+    const form = new FormData();
+    Object.keys(post).forEach(elem => {
+      form.append(elem, post[elem]);
+    })
 
+    // axios config to set the content-type to let rails know we're sending form data
+    const config = {     
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }
+
+    axios
+      .post('http://localhost:3000/posts', form, config)
+      .then(res => console.log(res.data))
+  }
+  
   // Create props objects to pass to each element
 
   // Title Input props
@@ -60,15 +93,6 @@ export default function PostForm (props) {
     onChange: event => setPost({...post, description: event.target.value})
   }
 
-  // File link Input props
-  const uploadInputProps = {
-    name: "upload_file",
-    type: "text",
-    placeholder: "Post a url",
-    postState: post.upload_file,
-    onChange: event => setPost({...post, upload_file: event.target.value})
-  }
-
   // post_type Props
   const typeProps = {
     name: "post_type",
@@ -85,7 +109,7 @@ export default function PostForm (props) {
     onChange: event => setPost({...post, interest_name: event.target.value})
   }
 
-  const inputProps = [titleInputProps, descInputProps, uploadInputProps];
+  const inputProps = [titleInputProps, descInputProps];
   const selectProps = [typeProps, interestProps];
 
 
@@ -101,55 +125,17 @@ export default function PostForm (props) {
     )
   })
 
-  
-  const onChange = (event) => {
-    setPost(prev => {
-      const change = {
-        ...prev,
-        upload_file: event.target.files[0]
-      }
-
-      return change;
-    })
-  }
-  
-  const onSubmit = (event) => {
-    event.preventDefault();
-
-    const form = new FormData();
-    Object.keys(post).forEach(elem =>{
-      form.append(elem, post[elem]);
-    })
-
-
-    const config = {     
-      headers: { 'Content-Type': 'multipart/form-data' }
-  }
-
-    axios
-      .post('http://localhost:3000/posts', form, config)
-      .then(res => console.log(res.data))
-  }
-
   return (
     <>
       <h1>Create Your Post</h1>
-      <form onSubmit={(event) => event.preventDefault()}>
+      <form onSubmit={onSubmit}>
         {inputList}
         {selectList}
-        <button onClick={createData}>Create new post</button>
+        <label>File</label>
+        <input type="file" name="upload_file" onChange={onChange}/>
+        <br/>
+        <input type="submit" value="Create new post"/>
       </form>
-
-      <div>
-        <h1>New Upload!</h1>
-        <form onSubmit={onSubmit}>
-          <label>File</label>
-          <input type="file" name="upload_file" onChange={onChange}/>
-          <br/>
-          <input type="submit" value="Save"/>
-        </form>
-      </div>
-
       <Outlet/>
     </>
   )
