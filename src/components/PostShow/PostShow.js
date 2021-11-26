@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
-import { useAuth0 } from "@auth0/auth0-react";
+import { Outlet, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import './PostShow.scss';
 //prefix of icon (Ai or Fi for ex) is what lib it belongs to, must import with that lib
@@ -18,8 +17,18 @@ export default function PostShow (props) {
   const [ likes, setLikes ] = useState([]);
   // set like to a user Id if exists
   const [ like , setLike ] = useState();
-  const [ postUsername, setPostUsername ] = useState("");
+  const [ postUserInfo, setPostUserInfo ] = useState({
+    username: "",
+    id: null
+  });
   const { id } = useParams();
+  const [ upload, setUpload ] = useState({
+    upload_file: "",
+    content: ""
+  });
+
+  console.log("im post!!!", post)
+  console.log("id ", id)
   
 
   // fetch comments for specific post id (comments related to post)
@@ -31,9 +40,10 @@ export default function PostShow (props) {
         setPostComments(res.data.comments)
         setPost(res.data.post)
         setLikes(res.data.likes)
-        setPostUsername(res.data.userName)
+        setPostUserInfo(res.data.userName)
+        setUpload(res.data.file)
         //Bring in comment user info
-        console.log(res.data.commentUserInfo)
+        // console.log(res.data.commentUserInfo)
       })
       .catch(e => console.error(e))
     }
@@ -114,27 +124,23 @@ export default function PostShow (props) {
   return (
     <>
       <h1>{post.title}</h1>
-      <div>
-        <img 
-          style={{height:"300px"}} 
-          className="show-image" 
-          src={post.upload_file} 
-          alt="image on show page"
-        />
-      </div>
-  
-      { !like ?
-        (< BsSuitHeart type="like" onClick={likePost}/>)
-        :
-        (< BsSuitHeartFill type="unlike" onClick={unlikePost} />)
-      }
-      <div>
-        <strong>{postUsername}</strong>
+     
+        {upload.content.includes("video") && 
+          <video width="320" height="240" controls>
+            <source src={upload.upload_file} type="video/mp4"/>
+          </video>
+        }
+
+        <div>
+        { !like ?
+          (< BsSuitHeart type="like" onClick={likePost}/>)
+          :
+          (< BsSuitHeartFill type="unlike" onClick={unlikePost} />)
+        }
+        <strong>< Link to={`/profile/${postUserInfo.id}`}> {postUserInfo.username}</Link></strong>
       </div>
       {post.description}
     
-     
-
       <p>Like count: {likes.length}</p>
       <p>Comment count: {postComments.length}</p>
 
