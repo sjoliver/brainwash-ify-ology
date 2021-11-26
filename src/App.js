@@ -33,7 +33,7 @@ function App() {
       const params = {
         email,
         name,
-        avatar: picture,
+        social_img: picture,
         username: username || nickname,
         social_id: user.sub
       }

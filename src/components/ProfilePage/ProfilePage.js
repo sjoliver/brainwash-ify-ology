@@ -44,7 +44,7 @@ export default function ProfilePage(props) {
           <BiEditAlt size={32}/><span>Edit Profile</span>
         </div>
         <div>
-          <img src={localUser.avatar} alt="Profile Image" />
+          <img src={localUser.social_img} alt="Profile Image" />
         </div>  
         {!mode && <ProfileInfo localUser={localUser}/>}
         {mode && <EditProfileInfo localUser={localUser}/>}
