@@ -21,7 +21,10 @@ export default function PostForm (props) {
 
   //post state variable
   const [post, setPost] = useState(initialPostState);
-  const [image, setImage] = useState("");
+  const [content, setContent] = useState({
+    src: "",
+    type: ""
+  });
 
   // do this in case dbUser isn't initially loaded when accessing this page somehow (happened a lot in testing)
   useEffect(() => {
@@ -61,8 +64,8 @@ export default function PostForm (props) {
     
     // create FormData object and populate with post state data
     const form = new FormData();
-    Object.keys(post).forEach(elem => {
-      form.append(elem, post[elem]);
+    Object.keys(post).forEach(key => {
+      form.append(key, post[key]);
     })
     
     // axios config to set the content-type to let rails know we're sending form data
@@ -72,7 +75,12 @@ export default function PostForm (props) {
     
     axios
     .post('http://localhost:3000/posts', form, config)
-    .then(res => setImage(res.data.file))
+    .then(res => setContent(() => {
+      return {
+        src: res.data.file,
+        type: res.data.content
+      }
+    }))
   }
   
   // Create props objects to pass to each element
@@ -145,9 +153,12 @@ export default function PostForm (props) {
         <br/>
         <input type="submit" value="Create new post"/>
       </form>
-      <video width="320" height="240" controls>
-        <source src={image} type="video/mp4"/>
-      </video>
+      {
+      content.type.includes("video") && 
+        <video width="320" height="240" controls>
+          <source src={content.src} type="video/mp4"/>
+        </video>
+      }
       <Outlet/>
     </>
   )
