@@ -5,7 +5,7 @@ import './PostListItem.scss'
 
 export default function PostListItem(props) {
 
-  const { id, title, interest_id, upload_file, post_type, user_id, interests, users, likeCounts, setLikeCounts } = props;
+  const { id, title, interest_id, upload_file, post_type, user_id, interests, users, likeCounts, thumbnails } = props;
 
   let interest = "";
   for (let interestObj of interests) {
@@ -33,7 +33,7 @@ export default function PostListItem(props) {
   return (
     <div className="post-card">
       <div>
-        <img className="post-thumbnail" src={upload_file} alt="content card"/>
+        <img className="post-thumbnail" src={thumbnails[id]} alt="content card"/>
         <h4><Link to={`/posts/${id}`}>{title}</Link></h4>
         <p>{userName} | {interest} | {post_type} | Likes: {likes} | Comments: {comments}</p>
       </div>

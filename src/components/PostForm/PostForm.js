@@ -15,6 +15,7 @@ export default function PostForm (props) {
     description: "",
     interest_id: "",
     upload_file: {},
+    thumbnail: {},
     post_type: "",
     user_id: dbUser.id || null
   }
@@ -23,7 +24,9 @@ export default function PostForm (props) {
   const [post, setPost] = useState(initialPostState);
   const [content, setContent] = useState({
     src: "",
-    type: ""
+    type: "",
+    t_src: "",
+    t_type: ""
   });
 
   // do this in case dbUser isn't initially loaded when accessing this page somehow (happened a lot in testing)
@@ -38,11 +41,21 @@ export default function PostForm (props) {
 
   
   // File input change function
-  const onChange = (event) => {
+  const fileOnChange = (event) => {
     setPost(prev => {
       return {
         ...prev,
         upload_file: event.target.files[0]
+      }
+    })
+  }
+
+  // Thumbnail input change function
+  const thumbnailOnChange = (event) => {
+    setPost(prev => {
+      return {
+        ...prev,
+        thumbnail: event.target.files[0]
       }
     })
   }
@@ -78,7 +91,9 @@ export default function PostForm (props) {
     .then(res => setContent(() => {
       return {
         src: res.data.file,
-        type: res.data.content
+        type: res.data.content,
+        t_src: res.data.thumbnail_file,
+        t_type: res.data.thumbnail_content
       }
     }))
   }
@@ -129,7 +144,6 @@ export default function PostForm (props) {
   const inputProps = [titleInputProps, descInputProps];
   const selectProps = [typeProps, interestProps];
   
-  
   const inputList = inputProps.map((input, i) => {
     return (
       <PostFormInput key={i} {...input}/>
@@ -142,24 +156,32 @@ export default function PostForm (props) {
     )
   })
 
+  console.log(content.t_src)
+
   return (
     <>
       <h1>Create Your Post</h1>
       <form onSubmit={onSubmit}>
         {inputList}
         {selectList}
+        <br/>
+        <label>Thumbnail</label>
+        <input type="file" name="thumbnail" onChange={thumbnailOnChange}/>
+        <br/>
         <label>File</label>
-        <input type="file" name="upload_file" onChange={onChange}/>
+        <input type="file" name="upload_file" onChange={fileOnChange}/>
         <br/>
         <input type="submit" value="Create new post"/>
       </form>
-      {
-      content.type.includes("video") && 
-        <video width="320" height="240" controls>
-          <source src={content.src} type="video/mp4"/>
-        </video>
+      {content.type.includes("video") && 
+        <div>
+          <video width="320" height="240" controls>
+            <source src={content.src} type="video/mp4"/>
+          </video>
+          <img width="320" height="240" alt="thumbnail" src={content.t_src}/>
+        </div>
       }
       <Outlet/>
     </>
   )
-}
+} 
