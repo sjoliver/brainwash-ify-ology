@@ -104,14 +104,10 @@ export default function PostForm (props) {
   
   const onChange = (event) => {
     setPost(prev => {
-      const form = new FormData();
-      form.append("upload_file", event.target.files[0]);
-
       const change = {
-        ...prev
+        ...prev,
+        upload_file: event.target.files[0]
       }
-
-      change["upload_file"] = form;
 
       return change;
     })
@@ -120,14 +116,19 @@ export default function PostForm (props) {
   const onSubmit = (event) => {
     event.preventDefault();
 
-    // const form = new FormData();
-    // form.append("upload_file", post.upload_file)
+    const form = new FormData();
+    Object.keys(post).forEach(elem =>{
+      form.append(elem, post[elem]);
+    })
 
-    console.log("im a form", post.upload_file);
 
-    // axios
-    //   .post('http://localhost:3000/posts', {post: form})
-    //   .then(res => console.log(res.data))
+    const config = {     
+      headers: { 'Content-Type': 'multipart/form-data' }
+  }
+
+    axios
+      .post('http://localhost:3000/posts', form, config)
+      .then(res => console.log(res.data))
   }
 
   return (
@@ -143,7 +144,7 @@ export default function PostForm (props) {
         <h1>New Upload!</h1>
         <form onSubmit={onSubmit}>
           <label>File</label>
-          <input type="file" name="file" value={post.upload_file} onChange={onChange}/>
+          <input type="file" name="upload_file" onChange={onChange}/>
           <br/>
           <input type="submit" value="Save"/>
         </form>
