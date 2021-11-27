@@ -10,6 +10,7 @@ export default function PostIndex(props) {
   const [ posts, setPosts ] = useState([]);
   const [ users, setUsers ] = useState([]);
   const [ interestsFilter, setInterestsFilter ] = useState([]);
+  const [ thumbnails, setThumbnails ] = useState({});
 
   const interestNames = interests.map((interestObj) => {
     return {label: interestObj.name, value: interestObj.id}
@@ -25,10 +26,11 @@ export default function PostIndex(props) {
       axios
         .get('http://localhost:3000/posts', {params: {filter}})
         .then(res => { 
-          console.log("this thang:",res.data)
+          console.log("this thang:", res.data)
           setLikeCounts(() => res.data.postCounts);
           setPosts(() => res.data.posts);
           setUsers(() => res.data.users);
+          setThumbnails(() => res.data.thumbnails)
         })
         .catch(e => console.error(e))
     }
@@ -50,7 +52,8 @@ export default function PostIndex(props) {
         users={users}
         interests={interests}  
         likeCounts={likeCounts} 
-        setLikeCounts={setLikeCounts}   
+        setLikeCounts={setLikeCounts}
+        thumbnails={thumbnails}
       />
       <Outlet/>
     </>
