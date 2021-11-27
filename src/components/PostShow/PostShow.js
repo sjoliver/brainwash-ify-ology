@@ -2,33 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { Outlet, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import './PostShow.scss';
-//prefix of icon (Ai or Fi for ex) is what lib it belongs to, must import with that lib
 import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs'
 import { BsTrash } from 'react-icons/bs'
 
 
 export default function PostShow (props) {
   const { dbUser } = props;
-  //Do we want to show comments to users unauthorized users??? 
-  const [ postComments, setPostComments ] = useState([]);
   const [ comment, setComment ] = useState("");
   const [ post, setPost ] = useState({});
   //allows us to have a like count and array of all likes on initial render, updates if user likes post
   const [ likes, setLikes ] = useState([]);
   // set like to a user Id if exists
   const [ like , setLike ] = useState();
-  const [ postUserInfo, setPostUserInfo ] = useState({
-    username: "",
-    id: null
-  });
+  const [ postUserInfo, setPostUserInfo ] = useState({ username: "", id: null });
   const { id } = useParams();
-  const [ upload, setUpload ] = useState({
-    upload_file: "",
-    content: ""
-  });
-
-  console.log("im post!!!", post)
-  console.log("id ", id)
+  const [ upload, setUpload ] = useState({ upload_file: "", content: "" });
+  const [ commentInfo, setCommentInfo ] = useState([]);
   
 
   // fetch comments for specific post id (comments related to post)
@@ -37,19 +26,16 @@ export default function PostShow (props) {
       axios
       .get(`http://localhost:3000/posts/${id}`)
       .then(res => {
-        setPostComments(res.data.comments)
         setPost(res.data.post)
         setLikes(res.data.likes)
         setPostUserInfo(res.data.userName)
         setUpload(res.data.file)
-        //Bring in comment user info
-        // console.log(res.data.commentUserInfo)
+        setCommentInfo(res.data.commentInfo)
       })
       .catch(e => console.error(e))
     }
     getCommentData();
   }, [])
-
   
   //If likes change - user is hard coded at the moment
   useEffect(() => {
@@ -66,12 +52,14 @@ export default function PostShow (props) {
     axios
       .post(`http://localhost:3000/comments`, {content: comment, user_id: dbUser.id, post_id: id})
       .then(res => {
-        //receives comment json from back end and adds it to postComments
-        const newComment = res.data    
-        setPostComments([
+        //have to create object to include user info and comment info
+        const newComment = {user: dbUser, comment: res.data}
+        console.log(res.data)
+
+        setCommentInfo([
           newComment,
-          ...postComments
-        ])
+          ...commentInfo])
+
         //clears input form on submit
         setComment("")
     })
@@ -83,9 +71,9 @@ export default function PostShow (props) {
     axios
       .delete(`http://localhost:3000/comments/${comment_id}`)
       .then(res => {
-        setPostComments((prev) => {
+        setCommentInfo((prev) => {
           //filter out all comments that are not the one we want to delete
-          return prev.filter((comment) => comment.id !== comment_id)
+          return prev.filter((commentInfo) => commentInfo.comment.id !== comment_id)
         })  
       })
       .catch(e => console.error(e))
@@ -139,10 +127,11 @@ export default function PostShow (props) {
         }
         <strong>< Link to={`/profile/${postUserInfo.id}`}> {postUserInfo.username}</Link></strong>
       </div>
+      
       {post.description}
     
       <p>Like count: {likes.length}</p>
-      <p>Comment count: {postComments.length}</p>
+      <p>Comment count: {commentInfo.length}</p>
 
       <div className="wrapper">
         <h1>Comment Section</h1>
@@ -161,12 +150,14 @@ export default function PostShow (props) {
           </fieldset>
        </form>
      </div>
-      {/* id accessible through postComments obj - sent through delete comment function call */}
-      {postComments.map((obj, i) => (
+      {commentInfo.map((obj, i) => (
         <ul key={i}>
-          {obj.content}
-          {(obj.user_id === dbUser.id) && 
-            < BsTrash type="deleteComment" onClick={() => {deleteComment(obj.id)}}/>
+          <img src={obj.user.social_img} width="40"/>
+          <strong>< Link to={`/profile/${obj.user.id}`}> {obj.user.username}</Link></strong>
+          <br/>
+          {obj.comment.content}
+          {(obj.comment.user_id === dbUser.id) && 
+            < BsTrash type="deleteComment" onClick={() => {deleteComment(obj.comment.id)}}/>
           }
        </ul>
       ))}
