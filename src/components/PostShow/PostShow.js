@@ -28,7 +28,7 @@ export default function PostShow (props) {
       .then(res => {
         setPost(res.data.post)
         setLikes(res.data.likes)
-        setPostUserInfo(res.data.userName)
+        setPostUserInfo(res.data.postUserInfo)
         setUpload(res.data.file)
         setCommentInfo(res.data.commentInfo)
       })
@@ -127,7 +127,6 @@ export default function PostShow (props) {
         }
         <strong>< Link to={`/profile/${postUserInfo.id}`}> {postUserInfo.username}</Link></strong>
       </div>
-      
       {post.description}
     
       <p>Like count: {likes.length}</p>
