@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../axios-instance';
 import React, { useState } from 'react'
 import InputForm from './InputForm';
 
@@ -14,7 +14,7 @@ export default function EditProfileInfo(props) {
     })
 
     axios
-      .patch(`http://localhost:3000/users/${localUser.id}`, form)
+      .patch(`users/${localUser.id}`, form)
       .then(res => {
         setLocalUser(() => {
           return {

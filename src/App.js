@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
-import axios from 'axios';
+import axios from './axios-instance';
 
 import './App.scss';
 import NavBar from './components/Nav/NavBar';
@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     const getInterests = function() {
       axios
-        .get('http://localhost:3000/interests')
+        .get('interests')
         .then(res => { setInterests(() => res.data) })
         .catch(e => console.error(e))
     }
@@ -39,7 +39,7 @@ function App() {
       }
 
       axios
-        .post('http://localhost:3000/users', params)
+        .post('users', params)
         .then(res => {
           setDbUser(() => {
             return {

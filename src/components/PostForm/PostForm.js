@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../../axios-instance';
 
 import PostFormInput from './PostFormInput';
 import PostFormSelect from './PostFormSelect';
@@ -87,7 +87,7 @@ export default function PostForm (props) {
     }
     
     axios
-    .post('http://localhost:3000/posts', form, config)
+    .post('posts', form, config)
     .then(res => setContent(() => {
       return {
         src: res.data.file,

@@ -1,7 +1,7 @@
 import React, { useDebugValue, useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { MultiSelect } from 'react-multi-select-component';
-import axios from 'axios';
+import axios from '../../axios-instance';
 import PostList from './PostList';
 
 export default function PostIndex(props) {
@@ -24,7 +24,7 @@ export default function PostIndex(props) {
         user_id: userFilter || null
       }
       axios
-        .get('http://localhost:3000/posts', {params: {filter}})
+        .get('posts', {params: {filter}})
         .then(res => { 
           setLikeCounts(() => res.data.postCounts);
           setPosts(() => res.data.posts);

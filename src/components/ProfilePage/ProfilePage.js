@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../../axios-instance';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useParams } from 'react-router-dom';
 import { BiEditAlt } from 'react-icons/bi'
@@ -28,7 +28,7 @@ export default function ProfilePage(props) {
   useEffect(()=> {
     const dbUserId = dbUser.id
     axios
-      .get(`http://localhost:3000/users/${id}?dbUserId=${dbUserId}`)
+      .get(`users/${id}?dbUserId=${dbUserId}`)
       .then(res => {
         setLocalUser(() => {
           return {
@@ -52,7 +52,7 @@ export default function ProfilePage(props) {
   const createFollow = () => {
     const followUsers = {followed_id: id, follower_id: dbUser.id}
     axios
-      .post(`http://localhost:3000/follows`, {follows: followUsers})
+      .post(`follows`, {follows: followUsers})
       .then((res) => {
         console.log(res.data)
         setFollows(prev => {
@@ -71,7 +71,7 @@ export default function ProfilePage(props) {
 
   const deleteFollow = () => {
     axios
-      .delete(`http://localhost:3000/follows/${follows.follow_id}`)
+      .delete(`follows/${follows.follow_id}`)
       .then((res) => {
         setFollows(prev => {
           return {
