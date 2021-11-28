@@ -9,7 +9,7 @@ export default function InputForm(props) {
         name={field} 
         type="text" 
         placeholder={placeholder}
-        value={edit[field]}
+        value={edit[field] || ""}
         onChange={event => setEdit(prev => {
           if (!event.target.value) {
             delete prev[field];

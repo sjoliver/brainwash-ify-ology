@@ -7,6 +7,7 @@ import { BiEditAlt } from 'react-icons/bi'
 import PostIndex from '../PostIndex/PostIndex';
 import ProfileInfo from './ProfileInfo';
 import EditProfileInfo from './EditProfileInfo';
+import { fetchImage } from '../../helpers/userHelpers';
 
 export default function ProfilePage(props) {
   const { interests, dbUser, likeCounts, setLikeCounts } = props;
@@ -18,14 +19,19 @@ export default function ProfilePage(props) {
   const [userFilter, setUserFilter] = useState(dbUser.id);
   const [mode, setMode] = useState("");
 
-  id = Number(id);
+  // id = Number(id);
 
   useEffect(()=> {
       if (dbUser.id !== id) {
         axios
           .get(`http://localhost:3000/users/${id}`)
           .then(res => {
-            setLocalUser(() => res.data)
+            setLocalUser(() => {
+              return {
+                ...res.data.user,
+                avatar: res.data.avatar
+              }
+            })
             setUserFilter(() => res.data.id)
           })
       } else {
@@ -44,13 +50,24 @@ export default function ProfilePage(props) {
           <BiEditAlt size={32}/><span>Edit Profile</span>
         </div>
         <div>
-          <img src={localUser.social_img} alt="Profile Image" />
+          <img src={fetchImage(localUser, true)} alt="Profile Image" />
         </div>  
         {!mode && <ProfileInfo localUser={localUser}/>}
-        {mode && <EditProfileInfo localUser={localUser}/>}
+        {mode && 
+          <EditProfileInfo 
+            localUser={localUser}
+            setLocalUser={setLocalUser}
+            setMode={setMode}
+          />
+        }
       </div>
       <h1>Posts from {localUser.username}</h1>
-      <PostIndex interests={interests} userFilter={userFilter} likeCounts={likeCounts} setLikeCounts={setLikeCounts}/>
+      <PostIndex
+        interests={interests}
+        userFilter={userFilter}
+        likeCounts={likeCounts}
+        setLikeCounts={setLikeCounts}
+      />
     </>
   )
 }
