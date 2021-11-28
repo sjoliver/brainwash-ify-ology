@@ -8,8 +8,7 @@ import { Outlet } from 'react-router-dom';
 export default function PostForm (props) {
   // destructure props
   const { dbUser, interests } = props
-  console.log(dbUser.id);
-
+  
   const initialPostState = {
     title: "",
     description: "",
