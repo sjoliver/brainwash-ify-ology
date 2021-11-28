@@ -7,6 +7,7 @@ import { BiEditAlt } from 'react-icons/bi'
 import PostIndex from '../PostIndex/PostIndex';
 import ProfileInfo from './ProfileInfo';
 import EditProfileInfo from './EditProfileInfo';
+import { fetchImage } from '../../helpers/userHelpers';
 
 export default function ProfilePage(props) {
   const { interests, dbUser, likeCounts, setLikeCounts } = props;
@@ -30,7 +31,12 @@ export default function ProfilePage(props) {
         axios
           .get(`http://localhost:3000/users/${id}?dbUserId=${dbUserId}`)
           .then(res => {
-            setLocalUser(() => res.data.user)
+            setLocalUser(() => {
+              return {
+                ...res.data.user,
+                avatar: res.data.avatar
+              }
+            })
             setUserFilter(() => res.data.user.id)
             setFollows(prev => {
               return {
@@ -102,14 +108,23 @@ export default function ProfilePage(props) {
           <p>Followers: {follows.how_many_followers_user_has}</p>
           <p>Following: {follows.how_many_user_is_following}</p>
         </div>
-        <div>
-          <img src={localUser.social_img} alt="Profile Image" />
-        </div>  
+        <img src={fetchImage(localUser, true)} alt="Profile Image" />
         {!mode && <ProfileInfo localUser={localUser}/>}
-        {mode && <EditProfileInfo localUser={localUser}/>}
+        {mode && 
+          <EditProfileInfo 
+            localUser={localUser}
+            setLocalUser={setLocalUser}
+            setMode={setMode}
+          />
+        }
       </div>
       <h1>Posts from {localUser.username}</h1>
-      <PostIndex interests={interests} userFilter={userFilter} likeCounts={likeCounts} setLikeCounts={setLikeCounts}/>
+      <PostIndex
+        interests={interests}
+        userFilter={userFilter}
+        likeCounts={likeCounts}
+        setLikeCounts={setLikeCounts}
+      />
     </>
   )
 }

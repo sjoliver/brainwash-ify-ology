@@ -4,6 +4,7 @@ import axios from 'axios';
 import './PostShow.scss';
 import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs'
 import { BsTrash } from 'react-icons/bs'
+import { fetchImage } from '../../helpers/userHelpers';
 
 
 export default function PostShow (props) {

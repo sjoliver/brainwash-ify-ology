@@ -41,7 +41,12 @@ function App() {
       axios
         .post('http://localhost:3000/users', params)
         .then(res => {
-          setDbUser(() => res.data)
+          setDbUser(() => {
+            return {
+              ...res.data.user,
+              avatar: res.data.avatar
+            }
+          })
         })
     }
   }, [user])

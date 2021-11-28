@@ -1,6 +1,8 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
+import { fetchImage } from "../../helpers/userHelpers";
+
 const Profile = (props) => {
   const { dbUser } = props;
   const { isAuthenticated, isLoading } = useAuth0();
@@ -12,7 +14,7 @@ const Profile = (props) => {
   return (
     isAuthenticated && (
       <div>
-        <img src={dbUser.social_img} alt={dbUser.username} />
+        <img src={fetchImage(dbUser, false)} alt={dbUser.username} />
         <h2>{dbUser.username}</h2>
       </div>
     )
