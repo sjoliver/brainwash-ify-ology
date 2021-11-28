@@ -111,7 +111,7 @@ export default function ProfilePage(props) {
           <p>Followers: {follows.how_many_followers_user_has}</p>
           <p>Following: {follows.how_many_user_is_following}</p>
         </div>
-        <img src={fetchImage(localUser, true)} alt="Profile Image" />
+        <img style={{width: "360px"}}src={fetchImage(localUser, false)} alt="Profile Image" />
         {!mode && <ProfileInfo localUser={localUser}/>}
         {mode && 
           <EditProfileInfo 
