@@ -17,21 +17,73 @@ export default function ProfilePage(props) {
   const [localUser, setLocalUser] = useState({});
   const [userFilter, setUserFilter] = useState(dbUser.id);
   const [mode, setMode] = useState("");
-
-  id = Number(id);
+  const [follows, setFollows] = useState({
+    follow_id: null,
+    how_many_user_is_following: null,
+    how_many_followers_user_has: null,
+    isFollowing: false
+  });
 
   useEffect(()=> {
       if (dbUser.id !== id) {
+        const dbUserId = dbUser.id
         axios
-          .get(`http://localhost:3000/users/${id}`)
+          .get(`http://localhost:3000/users/${id}?dbUserId=${dbUserId}`)
           .then(res => {
-            setLocalUser(() => res.data)
-            setUserFilter(() => res.data.id)
+            setLocalUser(() => res.data.user)
+            setUserFilter(() => res.data.user.id)
+            setFollows(prev => {
+              return {
+                ...prev,
+                follow_id: res.data.follow_id,
+                how_many_user_is_following: res.data.how_many_user_is_following,
+                how_many_followers_user_has: res.data.how_many_followers_user_has,
+                isFollowing: res.data.isFollowing
+            }
           })
+        })
       } else {
         setLocalUser(() => {return {...dbUser};});
       }
-  }, [id])
+  }, [id, dbUser])
+
+  console.log("folllowing???????", follows.isFollowing)
+
+  const createFollow = () => {
+    const followUsers = {followed_id: id, follower_id: dbUser.id}
+    axios
+      .post(`http://localhost:3000/follows`, {follows: followUsers})
+      .then((res) => {
+        console.log(res.data)
+        setFollows(prev => {
+          return {
+            ...prev,
+            how_many_followers_user_has: prev.how_many_followers_user_has + 1,
+            isFollowing: true
+          }
+        })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  const deleteFollow = () => {
+    axios
+      .delete(`http://localhost:3000/follows/${follows.follow_id}`)
+      .then((res) => {
+        setFollows(prev => {
+          return {
+            ...prev, 
+            how_many_followers_user_has: prev.how_many_followers_user_has - 1,
+            isFollowing: false
+          }
+        })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   const editMode = function() {
     setMode(prev => prev ? "" : "EDIT"); 
@@ -40,8 +92,15 @@ export default function ProfilePage(props) {
   return (
     <>
       <div>
+        {follows.isFollowing ? 
+        <button onClick={deleteFollow}>Unfollow</button> : <button onClick={createFollow}>Follow</button>
+        }
         <div onClick={editMode}>
           <BiEditAlt size={32}/><span>Edit Profile</span>
+        </div>
+        <div>
+          <p>Followers: {follows.how_many_followers_user_has}</p>
+          <p>Following: {follows.how_many_user_is_following}</p>
         </div>
         <div>
           <img src={localUser.social_img} alt="Profile Image" />
