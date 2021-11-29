@@ -8,13 +8,15 @@ export default function PostContent(props) {
 
   return (
     <>
-      <h1>{post.title}</h1>
+      <p className="post-title">{post.title}</p>
 
-      {upload.content.includes("video") && 
-        <video width="320" height="240" controls>
-          <source src={upload.upload_file} type="video/mp4"/>
-        </video>
-      }
+      <div className="video">
+        {upload.content.includes("video") && 
+          <video width="320" height="240" controls>
+            <source src={upload.upload_file} type="video/mp4"/>
+          </video>
+        }
+      </div>
 
       
         { !like ?

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useParams, Link } from 'react-router-dom';
 import axios from '../../axios-instance';
-import './PostShow.scss';
-
 import PostComments from './PostComments';
 import NewComment from './NewComment';
 import PostContent from './PostContent';
+import './PostShow.scss';
 
 
 export default function PostShow (props) {
@@ -108,7 +107,7 @@ export default function PostShow (props) {
   }
 
   return (
-    <>
+    < section className="postShow" >
       < PostContent 
         post={post} 
         upload={upload} 
@@ -120,8 +119,8 @@ export default function PostShow (props) {
         postUserInfo={postUserInfo}
         />
       < NewComment comment={comment} setComment={setComment} submitComment={submitComment} />
-      < PostComments commentInfo={commentInfo} dbUser={dbUser} deleteComment={deleteComment} />
-      <Outlet/>
-    </>
+      < PostComments commentInfo={commentInfo} dbUser={dbUser} deleteComment={deleteComment}/>
+      < Outlet />
+    </ section >
   );
 }
