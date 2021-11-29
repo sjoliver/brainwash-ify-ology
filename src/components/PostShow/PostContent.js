@@ -19,9 +19,13 @@ export default function PostContent(props) {
             <source src={upload.upload_file} type="video/mp4"/>
           </video>
         }
+        <Link to={`/profile/${postUserInfo.id}`}> {postUserInfo.username}</Link>
+        {post.description}
       </div>
       
-      <span className="like-counter">
+        
+
+      <span className="counters">
           { !like ?
             (< FavoriteBorderIcon className="click-like" type="like" onClick={likePost}/>)
             :
@@ -30,16 +34,7 @@ export default function PostContent(props) {
           {likes.length}&nbsp;&nbsp;
 
           < ChatIcon className="comment-count" /> {commentInfo.length}
-
-          < br />
         </span>
-
-        <strong>
-          <Link to={`/profile/${postUserInfo.id}`}> {postUserInfo.username}</Link>
-        </strong>
-     
-      {post.description}
-
     </>
   )
 }

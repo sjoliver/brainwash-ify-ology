@@ -8,6 +8,13 @@
     font-size: 35px;
   }
 
+  .counters {
+    display: flex;
+    align-items: flex-start;
+    justify-content: end;
+    margin: 20px;
+  }
+
   .click-like {
     color: pink;
     font-size: 32px;
