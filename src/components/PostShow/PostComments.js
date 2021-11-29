@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BsTrash } from 'react-icons/bs'
 import Avatar from '@mui/material/Avatar';
+import ClearIcon from '@mui/icons-material/Clear';
 
 export default function PostComments (props) {
   const { commentInfo, dbUser, deleteComment } = props;
@@ -17,7 +17,7 @@ export default function PostComments (props) {
           <div className="comment-delete">
           <span>{obj.comment.content}&nbsp;&nbsp;
           {(obj.comment.user_id === dbUser.id) && 
-            < BsTrash type="deleteComment" onClick={() => {deleteComment(obj.comment.id)}}/>
+            < ClearIcon type="deleteComment" className="delete-ex" onClick={() => {deleteComment(obj.comment.id)}}/>
           }</span>
           </div>
         </ul>
