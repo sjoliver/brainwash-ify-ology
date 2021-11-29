@@ -4,10 +4,9 @@ export default function NewComment(props) {
   const { comment, setComment, submitComment } = props;
 
   return (
-    <div className="wrapper">
+    <div className="new-comment">
       <h1>Comment Section</h1>
       <form onSubmit={event => event.preventDefault()} >
-        <fieldset>
           <label>
             <input 
               name="comment" 
@@ -18,7 +17,6 @@ export default function NewComment(props) {
             />
           </label>
           <button type="submitComment" onClick={submitComment}>Submit</button>
-        </fieldset>
       </form>
     </div>
   )
