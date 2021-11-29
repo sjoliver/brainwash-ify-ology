@@ -10,22 +10,28 @@ export default function PostContent(props) {
   const { post, upload, like, likes, likePost, unlikePost, commentInfo, postUserInfo } = props;
 
   return (
-    <>
-      <p className="post-title">{post.title}</p>
+    <div className="post-content">
 
-      <div className="video">
+      <p className="post-content__post-title">{post.title}</p>
+
+      <div className="post-content__video">
         {upload.content.includes("video") && 
-          <video width="320" height="240" controls>
+          <video height="275" controls>
             <source src={upload.upload_file} type="video/mp4"/>
           </video>
         }
-        <Link to={`/profile/${postUserInfo.id}`}> {postUserInfo.username}</Link>
-        {post.description}
-      </div>
-      
+        <div className="post-content__info">
+          <Link to={`/profile/${postUserInfo.id}`} id="poster-username" style={{ textDecoration: 'none' }}> 
+            {postUserInfo.username}
+          </Link>
         
+          <p>{post.description}</p>
+        </div>
+       
+      </div>
+  
 
-      <span className="counters">
+      <span className="post-content__counters">
           { !like ?
             (< FavoriteBorderIcon className="click-like" type="like" onClick={likePost}/>)
             :
@@ -35,6 +41,6 @@ export default function PostContent(props) {
 
           < ChatIcon className="comment-count" /> {commentInfo.length}
         </span>
-    </>
+    </div>
   )
 }

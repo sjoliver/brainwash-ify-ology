@@ -4,25 +4,55 @@
   margin-right: 5em;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
-  .post-title {
-    font-size: 35px;
-  }
+  .post-content {
 
-  .counters {
-    display: flex;
-    align-items: flex-start;
-    justify-content: end;
-    margin: 20px;
-  }
+    &__post-title {
+      font-size: 30px;
+    }
 
-  .click-like {
-    color: pink;
-    font-size: 32px;
-  }
+    &__counters {
+      display: flex;
+      align-items: flex-start;
+      justify-content: end;
+      margin: 20px;
 
-  .comment-count {
-    font-size: 30px;
-    color: grey;
+
+      .click-like {
+        color: pink;
+        font-size: 32px;
+      }
+
+      .comment-count {
+        font-size: 30px;
+        color: grey;
+      }
+    }
+
+    &__video {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    &__info {
+      width: 30%;
+      
+      p {
+        text-align: left; 
+        margin: 1em;
+      }
+
+      #poster-username {
+        text-align: left; 
+        text-decoration: none;
+        color: black;
+        font-size: 20px;
+      }
+      
+      #poster-username:hover {
+        color: grey;
+      }
+    }
   }
 
   // New comment //
@@ -48,10 +78,7 @@
     }
   }
 
-
-
   // Comments //
-  
   ul {
     margin: 10, 0, 10, 0;
     padding: 0;
