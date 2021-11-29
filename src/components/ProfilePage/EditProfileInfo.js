@@ -22,8 +22,9 @@ export default function EditProfileInfo(props) {
             avatar: res.data.avatar
           }
         })
+      })
+      .then(() => {
         setMode(() => "");
-        setEdit(() => {});
       })
       .catch(e => console.error(e))
   }
@@ -41,7 +42,6 @@ export default function EditProfileInfo(props) {
       }
 
       return change;
-
     })
   }
   
