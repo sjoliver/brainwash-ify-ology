@@ -114,6 +114,7 @@ export default function PostShow (props) {
         like={like} 
         likes={likes}
         likePost={likePost} 
+        unlikePost={unlikePost}
         unlike={unlikePost}
         commentInfo={commentInfo}
         postUserInfo={postUserInfo}

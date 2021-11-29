@@ -1,7 +1,10 @@
 import React from 'react';
 import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs'
 import { Link } from 'react-router-dom';
-import { fetchImage } from '../../helpers/userHelpers';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ChatIcon from '@mui/icons-material/Chat';
+
 
 export default function PostContent(props) {
   const { post, upload, like, likes, likePost, unlikePost, commentInfo, postUserInfo } = props;
@@ -17,21 +20,26 @@ export default function PostContent(props) {
           </video>
         }
       </div>
-
       
-        { !like ?
-          (< BsSuitHeart type="like" onClick={likePost}/>)
-          :
-          (< BsSuitHeartFill type="unlike" onClick={unlikePost} />)
-        }
-        <strong><
-           Link to={`/profile/${postUserInfo.id}`}> {postUserInfo.username}</Link>
+      <span className="like-counter">
+          { !like ?
+            (< FavoriteBorderIcon className="click-like" type="like" onClick={likePost}/>)
+            :
+            (< FavoriteIcon className="click-like" type="unlike" onClick={unlikePost} />)
+          }
+          {likes.length}&nbsp;&nbsp;
+
+          < ChatIcon className="comment-count" /> {commentInfo.length}
+
+          < br />
+        </span>
+
+        <strong>
+          <Link to={`/profile/${postUserInfo.id}`}> {postUserInfo.username}</Link>
         </strong>
      
       {post.description}
 
-      <p>Like count: {likes.length}</p>
-      <p>Comment count: {commentInfo.length}</p>
     </>
   )
 }

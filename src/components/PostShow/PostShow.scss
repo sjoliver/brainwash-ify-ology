@@ -8,6 +8,16 @@
     font-size: 35px;
   }
 
+  .click-like {
+    color: pink;
+    font-size: 32px;
+  }
+
+  .comment-count {
+    font-size: 30px;
+    color: grey;
+  }
+
   // New comment //
   .new-comment {
     display: flex;
@@ -17,6 +27,7 @@
 
      #standard-basic {
        width: 550px;
+       color: black
      }
 
      &__submit {
@@ -25,12 +36,12 @@
      }
 
      &__submit:hover {
-      color: grey;
+      color: #417c6a; 
       background-color: white;
     }
-    
-
   }
+
+
 
   // Comments //
   
@@ -44,15 +55,22 @@
     flex-direction: column;
   }
 
-   &__avatar {
+    &__avatar {
      margin-right: 10px;
-   }
+    }
 
-   &__username {
+    &__username {
      text-decoration: none;
      color: black;
      // padding-left: 20px;
-   }
+    }
+
+    .delete-ex:hover {
+      color: red;
+      cursor: pointer;
+    }
+  
+
 
   .avatar-username {
     display: flex;
