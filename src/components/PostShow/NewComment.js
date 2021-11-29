@@ -1,22 +1,25 @@
 import React from 'react';
+import { TextField } from '@mui/material';
+import { Button } from '@mui/material';
+
 
 export default function NewComment(props) {
   const { comment, setComment, submitComment } = props;
 
   return (
     <div className="new-comment">
-      <h1>Comment Section</h1>
       <form onSubmit={event => event.preventDefault()} >
           <label>
-            <input 
-              name="comment" 
-              type="text"
-              placeholder="Write comment here"
+            <TextField 
+              id="standard-basic" 
+              label="Would you like to comment?" 
+              variant="standard"
               value={comment}
               onChange={(event) => setComment(event.target.value)}
             />
           </label>
-          <button type="submitComment" onClick={submitComment}>Submit</button>
+        
+          <Button type="submitComment" className="new-comment__submit" onClick={submitComment}>Submit</Button>
       </form>
     </div>
   )
