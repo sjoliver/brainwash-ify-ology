@@ -5,6 +5,7 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from "@auth0/auth0-react";
+import CssBaseline from '@mui/material/CssBaseline';
 
 ReactDOM.render(
   <Auth0Provider
@@ -13,6 +14,7 @@ ReactDOM.render(
     redirectUri={window.location.origin}
   >
     <React.StrictMode>
+      <CssBaseline />
       <App />
     </React.StrictMode>
   </Auth0Provider>,
