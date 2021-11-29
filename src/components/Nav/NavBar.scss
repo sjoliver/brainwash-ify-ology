@@ -1,15 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap%27');
+
 .navbar {
-  height: 100%;  
-  width: 15%;  
+  height: 56px;  
+  width: 100%;  
   position: fixed; 
   z-index: 1; 
   top: 0; 
   left: 0; 
-  background-color:lightblue; 
-  transition: .5s ease; 
+  background-color: #417c6a; 
   overflow-x: hidden; 
-  padding-top: 20px; 
   display: flex; 
-  flex-direction: column; 
+  flex-direction: row; 
   align-items: center;
+  justify-content: space-between;
+  padding-left: 1em;
+  padding-right: 1em;
+
+  .MuiButton-text {
+    color: white;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 17%;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+  
+  #logo {
+    font-size: 26px;
+    font-family: 'Lobster', cursive;  
+  }
 }
+
+
