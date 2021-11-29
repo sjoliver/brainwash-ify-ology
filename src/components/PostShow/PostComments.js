@@ -11,14 +11,14 @@ export default function PostComments (props) {
       {commentInfo.map((obj, i) => (
         <ul key={i}>
           <div className="avatar-username">
-            <Avatar src={obj.user.social_img} sx={{ width: 36, height: 36 }}/>
-            <Link to={`/profile/${obj.user.id}`} className="username"> {obj.user.username}</Link>
+            <Avatar src={obj.user.social_img} className="postShow__avatar" sx={{ width: 36, height: 36 }}/>
+            <Link to={`/profile/${obj.user.id}`} className="postShow__username"> {obj.user.username}</Link>
           </div>
           <div className="comment-delete">
-          <p>{obj.comment.content}&nbsp;&nbsp;
+          <span>{obj.comment.content}&nbsp;&nbsp;
           {(obj.comment.user_id === dbUser.id) && 
             < BsTrash type="deleteComment" onClick={() => {deleteComment(obj.comment.id)}}/>
-          }</p>
+          }</span>
           </div>
         </ul>
       ))}

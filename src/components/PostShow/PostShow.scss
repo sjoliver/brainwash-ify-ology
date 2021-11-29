@@ -8,17 +8,40 @@
     font-size: 35px;
   }
 
+  // New comment //
+  .new-comment {
+
+    border: none;
+
+  }
+
+  // Comments //
+  
+  ul {
+    margin: 10, 0, 10, 0;
+    padding: 0;
+  }
+  
+  .comment {
+    display: flex;
+    flex-direction: column;
+  }
+
+   &__avatar {
+     margin-right: 10px;
+   }
+
+   &__username {
+     text-decoration: none;
+     color: black;
+     // padding-left: 20px;
+   }
+
   .avatar-username {
     display: flex;
-    justify-content: space-between;
     width: 25%;
     align-items: center;
 
-    .username {
-      text-decoration: none;
-      color: black;
-      padding-left: 20px;
-    }
 
     .username:hover {
       color: grey;
@@ -29,23 +52,6 @@
     display: flex;
     justify-content: right;
     align-items: center;
+
   }
-
 }
-
-
-
-
-// .wrapper {
-//   padding: 10px 20px;
-// }
-
-// .wrapper fieldset {
-//   margin: 20px 0;
-//   padding: 10px;
-//   border: none
-// }
-
-// .wrapper input {
-//   width: 50%
-// }
