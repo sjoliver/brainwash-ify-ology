@@ -26,21 +26,19 @@ export default function PostContent(props) {
           </Link>
         
           <p>{post.description}</p>
+
+          <span className="post-content__counters">
+            { !like ?
+              (< FavoriteBorderIcon className="click-like" type="like" onClick={likePost}/>)
+              :
+              (< FavoriteIcon className="click-like" type="unlike" onClick={unlikePost} />)
+            }
+            {likes.length}&nbsp;&nbsp;
+
+            < ChatIcon className="comment-count" /> {commentInfo.length}
+         </span>
         </div>
-       
       </div>
-  
-
-      <span className="post-content__counters">
-          { !like ?
-            (< FavoriteBorderIcon className="click-like" type="like" onClick={likePost}/>)
-            :
-            (< FavoriteIcon className="click-like" type="unlike" onClick={unlikePost} />)
-          }
-          {likes.length}&nbsp;&nbsp;
-
-          < ChatIcon className="comment-count" /> {commentInfo.length}
-        </span>
     </div>
   )
 }
