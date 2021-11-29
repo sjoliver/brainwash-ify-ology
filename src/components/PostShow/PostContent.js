@@ -14,9 +14,9 @@ export default function PostContent(props) {
 
       <p className="post-content__post-title">{post.title}</p>
 
-      <div className="post-content__video">
+      <div className="post-content__video-box">
         {upload.content.includes("video") && 
-          <video height="275" controls>
+          <video id="video" height="275" controls>
             <source src={upload.upload_file} type="video/mp4"/>
           </video>
         }
