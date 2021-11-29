@@ -8,6 +8,8 @@ export default function PostComments (props) {
 
   return (
     <div className="comment">
+    
+
       {commentInfo.map((obj, i) => (
         <ul key={i}>
           <Link to={`/profile/${obj.user.id}`} className="avatar-username" style={{ textDecoration: 'none' }}>
@@ -15,12 +17,13 @@ export default function PostComments (props) {
                 <span className="postShow__username">{obj.user.username}</span>
           </Link>
 
-          <div className="comment-delete">
+        
           <span>{obj.comment.content}&nbsp;&nbsp;
-          {(obj.comment.user_id === dbUser.id) && 
-            < ClearIcon type="deleteComment" className="delete-ex" onClick={() => {deleteComment(obj.comment.id)}}/>
-          }</span>
-          </div>
+            {(obj.comment.user_id === dbUser.id) && 
+              < ClearIcon type="deleteComment" className="delete-ex" onClick={() => {deleteComment(obj.comment.id)}}/>
+            }
+          </span>
+      
         </ul>
       ))}
     </div>
