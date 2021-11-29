@@ -10,9 +10,9 @@ export default function NewComment(props) {
     <div className="new-comment">
       <form onSubmit={event => event.preventDefault()} >
           <label>
-            <TextField 
+            <TextField color="grey"
               id="standard-basic" 
-              label="Would you like to comment?" 
+              label="Leave a comment..." 
               variant="standard"
               value={comment}
               onChange={(event) => setComment(event.target.value)}
