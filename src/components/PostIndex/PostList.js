@@ -10,13 +10,6 @@ export default function PostList(props) {
   const [ searchInput, setSearchInput ] = useState("");
   const [ filteredResults, setFilteredResults ] = useState([]);
 
-  // const deleteData = function() {
-  //   axios
-  //     .delete('http://localhost:3000/posts/3')
-  //     .then(res => console.log(res))
-  //     .catch(e => console.error(e))
-  // }
-
   // SEARCH LOGIC // 
   const searchItems = function(searchValue) {
     setSearchInput(searchValue)

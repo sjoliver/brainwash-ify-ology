@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../../axios-instance';
 import './PostShow.scss';
 import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs'
 import { BsTrash } from 'react-icons/bs'
@@ -25,7 +25,7 @@ export default function PostShow (props) {
   useEffect(() => {
     const getCommentData = function() {
       axios
-      .get(`http://localhost:3000/posts/${id}`)
+      .get(`posts/${id}`)
       .then(res => {
         setPost(res.data.post)
         setLikes(res.data.likes)
@@ -51,7 +51,7 @@ export default function PostShow (props) {
    //on submit, post request to back end to save comment to postComments
    const submitComment = () => {
     axios
-      .post(`http://localhost:3000/comments`, {content: comment, user_id: dbUser.id, post_id: id})
+      .post(`comments`, {content: comment, user_id: dbUser.id, post_id: id})
       .then(res => {
         //have to create object to include user info and comment info
         const newComment = {user: dbUser, comment: res.data}
@@ -70,7 +70,7 @@ export default function PostShow (props) {
   //deletes comment via comment_id passed through function call
   const deleteComment = (comment_id) => {
     axios
-      .delete(`http://localhost:3000/comments/${comment_id}`)
+      .delete(`comments/${comment_id}`)
       .then(res => {
         setCommentInfo((prev) => {
           //filter out all comments that are not the one we want to delete
@@ -83,7 +83,7 @@ export default function PostShow (props) {
   //sends a post request on click to add like to a given user id.
   const likePost = () => {
     axios
-      .post(`http://localhost:3000/likes`, {user_id: dbUser.id, post_id: id})
+      .post(`likes`, {user_id: dbUser.id, post_id: id})
       .then(res => {
         //increase like count for post
         setLike(res.data.id)
@@ -98,7 +98,7 @@ export default function PostShow (props) {
   //sends a post request on click to remove liked post from user.
   const unlikePost = () => {
   axios
-    .delete(`http://localhost:3000/likes/${like}`)
+    .delete(`likes/${like}`)
     .then(res => {
       //remove like Id
       setLike(null)

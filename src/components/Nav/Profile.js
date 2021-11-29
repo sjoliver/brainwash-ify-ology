@@ -14,7 +14,7 @@ const Profile = (props) => {
   return (
     isAuthenticated && (
       <div>
-        <img src={fetchImage(dbUser, false)} alt={dbUser.username} />
+        <img src={fetchImage(dbUser, true)} alt={dbUser.username} />
         <h2>{dbUser.username}</h2>
       </div>
     )
