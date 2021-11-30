@@ -104,29 +104,16 @@ export default function ProfilePage(props) {
   return (
     <>
       <div className="profile-page">
-       
-       
-        <Avatar sx={{ width: 175, height: 175 }} src={fetchImage(localUser, false)} alt="Profile Image" />
-        {!mode && <ProfileInfo localUser={localUser}/>}
+        <div>
+          <Avatar sx={{ width: 200, height: 200 }} src={fetchImage(localUser, false)} alt="Profile Image" />
+        </div>
+        {!mode && <ProfileInfo localUser={localUser} follows={follows} isMyProfile={isMyProfile} editMode={editMode} createFollow={createFollow} deleteFollow={deleteFollow}/>}
         {mode && 
           <EditProfileInfo 
           localUser={localUser}
           setLocalUser={setLocalUser}
           setMode={setMode}
           />
-        }
-        <div className="followers-following">
-          <p><b>{follows.how_many_followers_user_has}</b> followers &nbsp;&nbsp;</p>
-          <p><b>{follows.how_many_user_is_following}</b> following</p>
-        </div>
-      </div>
-        {!isMyProfile() && !follows.isFollowing && <Button variant="contained" onClick={createFollow}>Follow</Button>}
-        {!isMyProfile() && follows.isFollowing && <Button variant="contained" onClick={deleteFollow}>Unfollow</Button>}  
-      <div className="edit-profile">
-        {isMyProfile() &&
-          <div onClick={editMode}>
-            <Button variant="contained"><BiEditAlt size={26}/>&nbsp;&nbsp;Edit Profile</Button>
-          </div>
         }
       </div>
       <PostIndex
