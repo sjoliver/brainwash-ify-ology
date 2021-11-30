@@ -4,6 +4,16 @@ import axios from '../../axios-instance';
 import PostFormInput from './PostFormInput';
 import PostFormSelect from './PostFormSelect';
 import { Outlet } from 'react-router-dom';
+import FormControl from '@mui/material/FormControl'
+import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
+import Input from '@mui/icons-material/Input'
+import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
+import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
+
 
 export default function PostForm (props) {
   // destructure props
@@ -84,7 +94,7 @@ export default function PostForm (props) {
         t_type: res.data.thumbnail_content
       }
     }))
-  
+  }
   const interestNames = [];
   const interestIDs = [];
   interests.forEach(elem => {
@@ -92,39 +102,7 @@ export default function PostForm (props) {
     interestIDs.push(elem.id);
   })
 
-  // post_type Props
-  const typeProps = {
-    name: "post_type",
-    options: ["Video", "Audio", "Image"],
-    postState: post.post_type,
-    onChange: event => setPost({...post, post_type: event.target.value})
-  }
-  
-  // interest props
-  const interestProps = {
-    name: "interest_name",
-    options: interestNames,
-    postState: post.interest_id,
-    onChange: event => setPost({...post, interest_id: event.target.value})
-  }
-  
-  const inputProps = [titleInputProps, descInputProps];
-  const selectProps = [typeProps, interestProps];
-  
-  const inputList = inputProps.map((input, i) => {
-    return (
-      <PostFormInput key={i} {...input}/>
-      )
-    })
-    
-    const selectList = selectProps.map((select, i) => {
-    return (
-      <PostFormSelect key={i} {...select} interestIDs={interestIDs}/>
-    )
-  })
-
-  console.log(content.t_src)
-
+  const typeOptions = ['Video', 'Audio', 'Image'];
   return (
     <>
       <h1>Create Your Post</h1>
