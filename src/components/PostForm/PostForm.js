@@ -109,7 +109,7 @@ export default function PostForm (props) {
     <section className="postform">
       <h1>Create Your Post</h1>
       <form className="postform__form" onSubmit={onSubmit}>
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{margin: "0 0 0.5em 0"}}>
           <TextField
             required
             label="Title"
@@ -123,11 +123,13 @@ export default function PostForm (props) {
             })}
             />
         </FormControl>
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{margin: "0.5em 0 0.5em 0"}}>
             <TextField
+              className="postform__form__textfield--description"
               label="Description"
               name="description"
               multiline
+              rows={5}
               value={post.description}
               onChange={event => setPost(prev => {
                 return {
@@ -138,7 +140,7 @@ export default function PostForm (props) {
               />
           </FormControl>
         <div className="postform__form__content__select">
-          <FormControl sx={{m: 1, minWidth: "50%"}}>
+          <FormControl sx={{m: "0.5em 0 0.5em 0", minWidth: "47.5%"}}>
             <InputLabel id="postform__select-label--post-type">
               Media Type
             </InputLabel>
@@ -162,7 +164,7 @@ export default function PostForm (props) {
               }
             </Select>
           </FormControl>
-          <FormControl sx={{m: 1, minWidth: "50%"}}>
+          <FormControl sx={{m: "0.5em 0 0.5em 0", minWidth: "47.5%"}}>
             <InputLabel id="postform__select-label--interest">
               Category
             </InputLabel>
