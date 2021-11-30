@@ -23,7 +23,7 @@ export default function PostForm (props) {
     description: "",
     interest_id: "",
     upload_file: {},
-    thumbnail: {},
+    thumbnail: "",
     post_type: "",
     user_id: dbUser.id || null
   }
@@ -188,18 +188,26 @@ export default function PostForm (props) {
             </Select>
           </FormControl>
         </div>
-          <FormControl>
-            <label htmlFor="postform__button-file--upload-file">
-              <input id="postform__button-file--upload-file" type="file" name="upload_file" onChange={fileOnChange}/>
-              <Button variant="contained" component="span"><VideoLibraryIcon/>&nbsp;&nbsp;Upload File</Button>
-            </label>     
+        <div className="postform__button-file">
+          <div className="postform__button-file--upload-file--control-div">
+            <FormControl>
+              <label htmlFor="postform__button-file--upload-file">
+                <input id="postform__button-file--upload-file" type="file" name="upload_file" onChange={fileOnChange}/>
+                <Button variant="contained" component="span"><VideoLibraryIcon/>&nbsp;&nbsp;Upload File</Button>
+              </label>     
           </FormControl>
-          <FormControl>
-            <label htmlFor="postform__button-file--thumbnail">
-              <input id="postform__button-file--thumbnail" type="file" name="thumbnail" onChange={thumbnailOnChange}/>
-              <Button variant="contained" component="span"><InsertPhotoIcon/> &nbsp;&nbsp;Upload Thumbnail</Button>
-            </label>     
-          </FormControl>
+          {post.upload_file && <p>{post.upload_file.name}</p>}
+          </div>
+          <div className="postform__button-file--thumbnail--control-div">
+            <FormControl>
+              <label htmlFor="postform__button-file--thumbnail">
+                <input id="postform__button-file--thumbnail" type="file" name="thumbnail" onChange={thumbnailOnChange}/>
+                <Button variant="contained" component="span"><InsertPhotoIcon/> &nbsp;&nbsp;Upload Thumbnail</Button>
+              </label>     
+            </FormControl>
+            {post.thumbnail && <p>{post.thumbnail.name}</p>}
+          </div>
+        </div>
           <FormControl>
             <label htmlFor="postform__button-file--submit">
               <input id="postform__button-file--submit" type="submit"/>
