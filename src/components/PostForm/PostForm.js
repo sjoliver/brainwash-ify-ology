@@ -75,8 +75,8 @@ export default function PostForm (props) {
   // submit data to backend using axios and FormData
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(post);
-    // // prevent empty select fields
+    // console.log(post);
+    // prevent empty select fields
     // if (!post.post_type) {
     //   alert("Please select a type")
     //   return;
@@ -87,27 +87,27 @@ export default function PostForm (props) {
     //   return;
     // }
     
-    // // create FormData object and populate with post state data
-    // const form = new FormData();
-    // Object.keys(post).forEach(key => {
-    //   form.append(key, post[key]);
-    // })
+    // create FormData object and populate with post state data
+    const form = new FormData();
+    Object.keys(post).forEach(key => {
+      form.append(key, post[key]);
+    })
     
-    // // axios config to set the content-type to let rails know we're sending form data
-    // const config = {     
-    //   headers: { 'Content-Type': 'multipart/form-data' }
-    // }
+    // axios config to set the content-type to let rails know we're sending form data
+    const config = {     
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }
     
-    // axios
-    // .post('posts', form, config)
-    // .then(res => setContent(() => {
-    //   return {
-    //     src: res.data.file,
-    //     type: res.data.content,
-    //     t_src: res.data.thumbnail_file,
-    //     t_type: res.data.thumbnail_content
-    //   }
-    // }))
+    axios
+    .post('posts', form, config)
+    .then(res => setContent(() => {
+      return {
+        src: res.data.file,
+        type: res.data.content,
+        t_src: res.data.thumbnail_file,
+        t_type: res.data.thumbnail_content
+      }
+    }))
   }
   
   const interestNames = [];
@@ -204,13 +204,13 @@ export default function PostForm (props) {
         </div>
           <FormControl>
             <label htmlFor="postform__button-file--upload-file">
-              <Input id="postform__button-file--upload-file" type="file" name="upload_file" onChange={fileOnChange}/>
+              <input id="postform__button-file--upload-file" type="file" name="upload_file" onChange={fileOnChange}/>
               <Button variant="contained" component="span"><VideoLibraryIcon/>&nbsp;&nbsp;Upload File</Button>
             </label>     
           </FormControl>
           <FormControl>
             <label htmlFor="postform__button-file--thumbnail">
-              <Input id="postform__button-file--thumbnail" type="file" name="thumbnail" onChange={thumbnailOnChange}/>
+              <input id="postform__button-file--thumbnail" type="file" name="thumbnail" onChange={thumbnailOnChange}/>
               <Button variant="contained" component="span"><InsertPhotoIcon/> &nbsp;&nbsp;Upload Thumbnail</Button>
             </label>     
           </FormControl>
