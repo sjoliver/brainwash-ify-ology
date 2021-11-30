@@ -4,7 +4,7 @@
   align-items: center;
   width: 100%;
   margin-top: 70px;
-
+  
   &__form {
     display: flex;
     flex-direction: column;
@@ -22,8 +22,8 @@
       &__select {
         display: flex;
         flex-direction: row;
-        justify-content: center;
-        width: 95%;
+        justify-content: space-between;
+        width: 100%;
       }
     }
 
@@ -34,6 +34,34 @@
     }
   }
 
+  &__button-file {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    &--upload-file--control-div {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin: 0.5em 0 0.5em 0;
+
+      p {
+        margin-left: 2em;
+      }
+    }
+
+    &--thumbnail--control-div {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin: 0.5em 0 0.5em 0;
+
+      p {
+        margin-left: 2em;
+      }
+    }
+  }
+  
   input[type="file"] {
     display: none;
   }

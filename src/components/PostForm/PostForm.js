@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../axios-instance';
 
-import PostFormInput from './PostFormInput';
-import PostFormSelect from './PostFormSelect';
 import { Outlet } from 'react-router-dom';
 import FormControl from '@mui/material/FormControl'
 import TextField from '@mui/material/TextField';
@@ -25,7 +23,7 @@ export default function PostForm (props) {
     description: "",
     interest_id: "",
     upload_file: {},
-    thumbnail: {},
+    thumbnail: "",
     post_type: "",
     user_id: dbUser.id || null
   }
@@ -80,6 +78,7 @@ export default function PostForm (props) {
       form.append(key, post[key]);
     })
     
+    
     // axios config to set the content-type to let rails know we're sending form data
     const config = {     
       headers: { 'Content-Type': 'multipart/form-data' }
@@ -96,6 +95,7 @@ export default function PostForm (props) {
       }
     }))
   }
+  
   const interestNames = [];
   const interestIDs = [];
   interests.forEach(elem => {
@@ -106,10 +106,10 @@ export default function PostForm (props) {
   const typeOptions = ['Video', 'Audio', 'Image'];
 
   return (
-    <>
+    <section className="postform">
       <h1>Create Your Post</h1>
       <form className="postform__form" onSubmit={onSubmit}>
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{margin: "0 0 0.5em 0"}}>
           <TextField
             required
             label="Title"
@@ -123,11 +123,13 @@ export default function PostForm (props) {
             })}
             />
         </FormControl>
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={{margin: "0.5em 0 0.5em 0"}}>
             <TextField
+              className="postform__form__textfield--description"
               label="Description"
               name="description"
               multiline
+              rows={5}
               value={post.description}
               onChange={event => setPost(prev => {
                 return {
@@ -138,7 +140,7 @@ export default function PostForm (props) {
               />
           </FormControl>
         <div className="postform__form__content__select">
-          <FormControl sx={{m: 1, minWidth: "50%"}}>
+          <FormControl sx={{m: "0.5em 0 0.5em 0", minWidth: "47.5%"}}>
             <InputLabel id="postform__select-label--post-type">
               Media Type
             </InputLabel>
@@ -162,7 +164,7 @@ export default function PostForm (props) {
               }
             </Select>
           </FormControl>
-          <FormControl sx={{m: 1, minWidth: "50%"}}>
+          <FormControl sx={{m: "0.5em 0 0.5em 0", minWidth: "47.5%"}}>
             <InputLabel id="postform__select-label--interest">
               Category
             </InputLabel>
@@ -188,21 +190,29 @@ export default function PostForm (props) {
             </Select>
           </FormControl>
         </div>
-          <FormControl>
-            <label htmlFor="postform__button-file--upload-file">
-              <Input id="postform__button-file--upload-file" type="file" name="upload_file" onChange={fileOnChange}/>
-              <Button variant="contained" component="span"><VideoLibraryIcon/>&nbsp;&nbsp;Upload File</Button>
-            </label>     
+        <div className="postform__button-file">
+          <div className="postform__button-file--upload-file--control-div">
+            <FormControl>
+              <label htmlFor="postform__button-file--upload-file">
+                <input id="postform__button-file--upload-file" type="file" name="upload_file" onChange={fileOnChange}/>
+                <Button variant="contained" component="span"><VideoLibraryIcon/>&nbsp;&nbsp;Upload File</Button>
+              </label>     
           </FormControl>
-          <FormControl>
-            <label htmlFor="postform__button-file--thumbnail">
-              <Input id="postform__button-file--thumbnail" type="file" name="thumbnail" onChange={thumbnailOnChange}/>
-              <Button variant="contained" component="span"><InsertPhotoIcon/> &nbsp;&nbsp;Upload Thumbnail</Button>
-            </label>     
-          </FormControl>
+          {post.upload_file && <p>{post.upload_file.name}</p>}
+          </div>
+          <div className="postform__button-file--thumbnail--control-div">
+            <FormControl>
+              <label htmlFor="postform__button-file--thumbnail">
+                <input id="postform__button-file--thumbnail" type="file" name="thumbnail" onChange={thumbnailOnChange}/>
+                <Button variant="contained" component="span"><InsertPhotoIcon/> &nbsp;&nbsp;Upload Thumbnail</Button>
+              </label>     
+            </FormControl>
+            {post.thumbnail && <p>{post.thumbnail.name}</p>}
+          </div>
+        </div>
           <FormControl>
             <label htmlFor="postform__button-file--submit">
-              <Input id="postform__button-file--submit" type="submit"/>
+              <input id="postform__button-file--submit" type="submit"/>
               <Button variant="outlined" component="span">Create Post</Button>
             </label>     
           </FormControl>
@@ -216,6 +226,6 @@ export default function PostForm (props) {
         </div>
       }
       <Outlet/>
-    </>
+    </section>
   )
 } 
