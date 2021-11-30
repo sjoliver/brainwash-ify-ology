@@ -75,16 +75,6 @@ export default function PostForm (props) {
   const onSubmit = (event) => {
     event.preventDefault();
     console.log(post);
-    // prevent empty select fields
-    // if (!post.post_type) {
-    //   alert("Please select a type")
-    //   return;
-    // }
-    
-    // if (!post.interest_id) {
-    //   alert("Please select an interest")
-    //   return;
-    // }
     
     // create FormData object and populate with post state data
     const form = new FormData();
