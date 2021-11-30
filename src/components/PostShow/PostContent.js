@@ -1,5 +1,4 @@
 import React from 'react';
-import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs'
 import { Link } from 'react-router-dom';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
