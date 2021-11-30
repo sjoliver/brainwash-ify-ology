@@ -94,6 +94,7 @@ export default function PostForm (props) {
       }
     }))
   }
+  
   const interestNames = [];
   const interestIDs = [];
   interests.forEach(elem => {
