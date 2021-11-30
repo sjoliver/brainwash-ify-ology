@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { MultiSelect } from 'react-multi-select-component';
 import Button from '@mui/material/Button';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import './PostList.scss'
 import './PostIndex.scss'
@@ -12,6 +13,7 @@ import './PostIndex.scss'
 export default function PostList(props) {
   const { posts, users, interests, likeCounts, setLikeCounts, thumbnails, interestsFilter, setInterestsFilter } = props;
 
+  const { isAuthenticated } = useAuth0();
   const [ searchInput, setSearchInput ] = useState("");
   const [ filteredResults, setFilteredResults ] = useState([]);
 
@@ -62,7 +64,7 @@ export default function PostList(props) {
           />
         </div>
         <div className="new-post-container">
-          <Button variant="contained" id="new-post-btn"><Link id="new-post-link" to={'/posts/new'}><b>+</b>&nbsp;&nbsp;New Post</Link></Button>
+          {isAuthenticated && <Button variant="contained" id="new-post-btn"><Link id="new-post-link" to={'/posts/new'}><b>+</b>&nbsp;&nbsp;New Post</Link></Button>}
         </div>
       </div>
       <div className="post-list">
