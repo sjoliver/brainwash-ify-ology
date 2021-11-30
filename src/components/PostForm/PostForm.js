@@ -14,6 +14,7 @@ import Input from '@mui/icons-material/Input'
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 
+import './PostForm.scss';
 
 export default function PostForm (props) {
   // destructure props
@@ -103,6 +104,7 @@ export default function PostForm (props) {
   })
 
   const typeOptions = ['Video', 'Audio', 'Image'];
+
   return (
     <>
       <h1>Create Your Post</h1>
@@ -188,13 +190,13 @@ export default function PostForm (props) {
         </div>
           <FormControl>
             <label htmlFor="postform__button-file--upload-file">
-              <input id="postform__button-file--upload-file" type="file" name="upload_file" onChange={fileOnChange}/>
+              <Input id="postform__button-file--upload-file" type="file" name="upload_file" onChange={fileOnChange}/>
               <Button variant="contained" component="span"><VideoLibraryIcon/>&nbsp;&nbsp;Upload File</Button>
             </label>     
           </FormControl>
           <FormControl>
             <label htmlFor="postform__button-file--thumbnail">
-              <input id="postform__button-file--thumbnail" type="file" name="thumbnail" onChange={thumbnailOnChange}/>
+              <Input id="postform__button-file--thumbnail" type="file" name="thumbnail" onChange={thumbnailOnChange}/>
               <Button variant="contained" component="span"><InsertPhotoIcon/> &nbsp;&nbsp;Upload Thumbnail</Button>
             </label>     
           </FormControl>
