@@ -48,7 +48,7 @@ export default function PostListItem(props) {
         <CardActionArea>
           <CardMedia 
             component="img"
-            height="215"
+            height="200"
             image={thumbnails[id]}
             alt="content card"
           />
@@ -65,8 +65,8 @@ export default function PostListItem(props) {
                   <span> {userName} &nbsp;<PodcastsIcon /> </span>
                 )}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                <FavoriteIcon className="heart-icon" sx={{fontSize: 18}}/> {likes} &nbsp;&nbsp;&nbsp;<ChatIcon sx={{fontSize: 18}}/> {comments}
+              <Typography variant="body2" color="text.secondary" className="likes-comments">
+                <FavoriteIcon className="heart-icon" sx={{fontSize: 18}}/>&nbsp;{likes} &nbsp;&nbsp;&nbsp;<ChatIcon sx={{fontSize: 18}}/> &nbsp;{comments}
               </Typography>
             </div>
           </CardContent>

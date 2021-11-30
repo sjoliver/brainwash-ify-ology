@@ -1,32 +1,7 @@
 .post-index {
-  margin-top: 56px;
+  margin-top: 80px;
   margin-left: 2em;
   margin-right: 2em;
-
-  .search-filter-new-post {
-    display: flex;
-    flex-direction: row;
-
-    #new-post-btn {
-      background-color: green;
-    }
-
-    #new-post-link {
-      text-decoration: none;
-      color: white;
-    }
-  }
-  
-  div.rmsc.multi-select {
-    width: 250px;
-    height: 56px;
-  
-    .dropdown-container {
-      height: 55px;
-      display: flex;
-      align-items: center;
-    }
-  }
 }
 
 
