@@ -4,6 +4,7 @@
   align-items: center;
   width: 100%;
   margin-top: 70px;
+  font-family: 'Roboto', sans-serif;
   
   &__form {
     display: flex;
@@ -62,6 +63,25 @@
     }
   }
   
+  &--status {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 15%;
+    margin: 2em 0 0 0;
+    background-color:#417c6a;
+    align-items: center;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 1em;
+    padding: 1em 0 1em 0;
+  }
+
+  &__status-image {
+    margin-right: 2rem;
+    animation: rotate 1s linear infinite;
+  }
+
   input[type="file"] {
     display: none;
   }

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../axios-instance';
 
+import Loading from './Loading';
+
 import { Outlet } from 'react-router-dom';
 import FormControl from '@mui/material/FormControl'
 import TextField from '@mui/material/TextField';
@@ -8,7 +10,6 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
-import Input from '@mui/icons-material/Input'
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 
@@ -23,13 +24,17 @@ export default function PostForm (props) {
     description: "",
     interest_id: "",
     upload_file: {},
-    thumbnail: "",
+    thumbnail: {},
     post_type: "",
     user_id: dbUser.id || null
   }
 
   //post state variable
   const [post, setPost] = useState(initialPostState);
+  const [mode, setMode] = useState({
+    isLoading: false,
+    newPost: true
+  })
   const [content, setContent] = useState({
     src: "",
     type: "",
@@ -75,9 +80,23 @@ export default function PostForm (props) {
     // create FormData object and populate with post state data
     const form = new FormData();
     Object.keys(post).forEach(key => {
-      form.append(key, post[key]);
+      if (key === 'upload_file' || key === 'thumbnail') {
+        if (post[key].name) {
+          form.append(key, post[key]);
+        }
+      } else {
+        form.append(key, post[key]);
+      }
     })
     
+    //reset post form
+    setPost(() => initialPostState);
+    setMode(() => {
+      return {
+        isLoading: true,
+        newPost: false
+      }
+    });
     
     // axios config to set the content-type to let rails know we're sending form data
     const config = {     
@@ -86,14 +105,22 @@ export default function PostForm (props) {
     
     axios
     .post('posts', form, config)
-    .then(res => setContent(() => {
-      return {
-        src: res.data.file,
-        type: res.data.content,
-        t_src: res.data.thumbnail_file,
-        t_type: res.data.thumbnail_content
-      }
-    }))
+    .then(res => {
+      setContent(() => {
+        return {
+          src: res.data.file,
+          type: res.data.content,
+          t_src: res.data.thumbnail_file,
+          t_type: res.data.thumbnail_content
+        }
+      });
+      setMode(() => {
+        return {
+          isLoading: false,
+          newPost: true
+        }
+      });
+    })
   }
   
   const interestNames = [];
@@ -107,7 +134,7 @@ export default function PostForm (props) {
 
   return (
     <section className="postform">
-      <h1>Create Your Post</h1>
+      {mode.newPost && <><h1>Create Your Post</h1>
       <form className="postform__form" onSubmit={onSubmit}>
         <FormControl fullWidth sx={{margin: "0 0 0.5em 0"}}>
           <TextField
@@ -149,6 +176,7 @@ export default function PostForm (props) {
               labelId="postform__select-label--post-type"
               value={post.post_type}
               label="Media Type"
+              required
               onChange={event => setPost(prev => {
                 return {
                   ...prev,
@@ -216,16 +244,17 @@ export default function PostForm (props) {
               <Button variant="outlined" component="span">Create Post</Button>
             </label>     
           </FormControl>
-      </form>
-      {content.type.includes("video") && 
-        <div>
-          <video width="320" height="240" controls>
-            <source src={content.src} type="video/mp4"/>
-          </video>
-          <img width="320" height="240" alt="thumbnail" src={content.t_src}/>
-        </div>
-      }
+      </form></>}
+      {mode.isLoading && <Loading />}
       <Outlet/>
     </section>
   )
 } 
+// {content.type.includes("video") && 
+//   <div>
+//     <video width="320" height="240" controls>
+//       <source src={content.src} type="video/mp4"/>
+//     </video>
+//     <img width="320" height="240" alt="thumbnail" src={content.t_src}/>
+//   </div>
+// }
