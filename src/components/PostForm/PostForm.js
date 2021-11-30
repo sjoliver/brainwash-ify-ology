@@ -78,6 +78,7 @@ export default function PostForm (props) {
       form.append(key, post[key]);
     })
     
+    
     // axios config to set the content-type to let rails know we're sending form data
     const config = {     
       headers: { 'Content-Type': 'multipart/form-data' }
@@ -105,7 +106,7 @@ export default function PostForm (props) {
   const typeOptions = ['Video', 'Audio', 'Image'];
 
   return (
-    <>
+    <section className="postform">
       <h1>Create Your Post</h1>
       <form className="postform__form" onSubmit={onSubmit}>
         <FormControl fullWidth>
@@ -189,19 +190,19 @@ export default function PostForm (props) {
         </div>
           <FormControl>
             <label htmlFor="postform__button-file--upload-file">
-              <Input id="postform__button-file--upload-file" type="file" name="upload_file" onChange={fileOnChange}/>
+              <input id="postform__button-file--upload-file" type="file" name="upload_file" onChange={fileOnChange}/>
               <Button variant="contained" component="span"><VideoLibraryIcon/>&nbsp;&nbsp;Upload File</Button>
             </label>     
           </FormControl>
           <FormControl>
             <label htmlFor="postform__button-file--thumbnail">
-              <Input id="postform__button-file--thumbnail" type="file" name="thumbnail" onChange={thumbnailOnChange}/>
+              <input id="postform__button-file--thumbnail" type="file" name="thumbnail" onChange={thumbnailOnChange}/>
               <Button variant="contained" component="span"><InsertPhotoIcon/> &nbsp;&nbsp;Upload Thumbnail</Button>
             </label>     
           </FormControl>
           <FormControl>
             <label htmlFor="postform__button-file--submit">
-              <Input id="postform__button-file--submit" type="submit"/>
+              <input id="postform__button-file--submit" type="submit"/>
               <Button variant="outlined" component="span">Create Post</Button>
             </label>     
           </FormControl>
@@ -215,6 +216,6 @@ export default function PostForm (props) {
         </div>
       }
       <Outlet/>
-    </>
+    </section>
   )
 } 
