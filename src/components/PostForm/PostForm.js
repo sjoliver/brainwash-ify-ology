@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../axios-instance';
 
-import PostFormInput from './PostFormInput';
-import PostFormSelect from './PostFormSelect';
 import { Outlet } from 'react-router-dom';
 import FormControl from '@mui/material/FormControl'
 import TextField from '@mui/material/TextField';
