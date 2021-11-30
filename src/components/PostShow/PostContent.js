@@ -11,33 +11,35 @@ export default function PostContent(props) {
   return (
     <div className="post-content">
 
-      <p className="post-content__post-title">{post.title}</p>
+     
 
       <div className="post-content__video-box">
         {upload.content.includes("video") && 
-          <video id="video" height="325" controls>
+          <video id="video" height="375" controls>
             <source src={upload.upload_file} type="video/mp4"/>
           </video>
         }
-        <div className="post-content__info">
-          <Link to={`/profile/${postUserInfo.id}`} id="poster-username" style={{ textDecoration: 'none' }}> 
-            {postUserInfo.username}
-          </Link>
-        
-          <p>{post.description}</p>
-
           <span className="post-content__counters">
             { !like ?
               (< FavoriteBorderIcon className="click-like" type="like" onClick={likePost}/>)
               :
               (< FavoriteIcon className="click-like" type="unlike" onClick={unlikePost} />)
             }
-            {likes.length}&nbsp;&nbsp;
+            {likes.length}&nbsp;&nbsp;&nbsp;&nbsp;
 
             < ChatIcon className="comment-count" /> {commentInfo.length}
-         </span>
+          </span>
         </div>
-      </div>
+
+        <div className="post-content__info">
+        <p className="post-content__post-title">{post.title}</p>
+          <Link to={`/profile/${postUserInfo.id}`} id="poster-username" style={{ textDecoration: 'none' }}> 
+            {postUserInfo.username}
+          </Link>
+        
+          <p>{post.description}</p>
+        
+        </div>
     </div>
   )
 }
