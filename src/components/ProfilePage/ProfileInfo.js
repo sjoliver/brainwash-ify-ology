@@ -11,15 +11,13 @@ export default function ProfileInfo(props) {
 
       <div className="username-action-buttons">
         <h2 id="username">{localUser.username}</h2>
-        <div>
+        <div className="follow-buttons">
           {!isMyProfile() && !follows.isFollowing && <Button variant="contained" size="medium"  onClick={createFollow}>Follow</Button>}
           {!isMyProfile() && follows.isFollowing && <Button variant="contained" size="medium" onClick={deleteFollow}>Unfollow</Button>}  
         </div>
        <div className="edit-profile">
         {isMyProfile() &&
-          <div onClick={editMode}>
-            <Button variant="contained" size="medium"><BiEditAlt size={26}/>&nbsp;&nbsp;Edit</Button>
-          </div>
+          <Button variant="contained" size="medium" onClick={editMode}><BiEditAlt size={26}/>&nbsp;&nbsp;Edit</Button>
         }
         </div>
       </div>

@@ -14,17 +14,22 @@
     display: flex;
     flex-direction: row;
   }
-  
+
   #user-bio {
     margin-top: 0;
-    min-width: 100%;
+    width: 100%;
   }
-
+  
   .username-action-buttons {
     display: flex;
+    width: 100%;
+    justify-content: space-between;
     flex-direction: row;
     align-items: baseline;
-    justify-content: space-between;
+    
+    .follow-buttons {
+      margin-left: 40%;
+    }
 
     Button {
       padding-top: 3px;
