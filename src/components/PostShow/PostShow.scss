@@ -73,17 +73,18 @@
   .new-comment {
     display: flex;
     // justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
+    align-items: end;
+    flex-direction: column;
     margin-top: 15px;
-    margin-bottom: 30px;
-    border-bottom: 1px solid darkgrey;
+    margin-bottom: 20px;
+   
 
      #standard-basic {
        width: 32em;
        color: rgb(157, 156, 156);
        font-weight: 400;
        font-size: larger;
+       border-bottom: 1px solid darkgrey;
      }
 
      &__submit {
@@ -98,6 +99,13 @@
       border-color: rgb(89, 89, 89);
       background-color: rgb(237, 237, 237);
     }
+  }
+
+  .submit-comment {
+    display: flex;
+    justify-content: right;
+    align-items: right;
+    margin: 10px;
   }
 
   // Comments //
