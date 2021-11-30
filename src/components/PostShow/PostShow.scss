@@ -127,6 +127,11 @@
      color: black;
     }
 
+    .delete-ex {
+      color: darkgrey;
+      cursor: pointer;
+    }
+
     .delete-ex:hover {
       color: rgba(246, 75, 75, 0.996);
       cursor: pointer;
