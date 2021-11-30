@@ -17,12 +17,11 @@ export default function PostComments (props) {
                 <span className="postShow__username">{obj.user.username}</span>
           </Link>
 
-        
-          <span>{obj.comment.content}&nbsp;&nbsp;&nbsp;
-            {(obj.comment.user_id === dbUser.id) && 
-              < ClearIcon type="deleteComment" className="delete-ex" onClick={() => {deleteComment(obj.comment.id)}}/>
-            }
-          </span>
+     
+          <span class="postShow__comment-description">{obj.comment.content}&nbsp;&nbsp;
+          {(obj.comment.user_id === dbUser.id) && 
+            < ClearIcon type="deleteComment" className="delete-ex" onClick={() => {deleteComment(obj.comment.id)}}/>
+          }</span>
       
         </ul>
       ))}
