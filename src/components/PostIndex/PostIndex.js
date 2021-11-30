@@ -4,6 +4,9 @@ import { MultiSelect } from 'react-multi-select-component';
 import axios from '../../axios-instance';
 import PostList from './PostList';
 
+import Button from '@mui/material/Button';
+import './PostIndex.scss'
+
 export default function PostIndex(props) {
   const { interests, userFilter, likeCounts, setLikeCounts } = props;
 
@@ -15,7 +18,6 @@ export default function PostIndex(props) {
   const interestNames = interests.map((interestObj) => {
     return {label: interestObj.name, value: interestObj.id}
   })
-  
 
   useEffect(() => {
     const getPosts = function() {
@@ -37,15 +39,17 @@ export default function PostIndex(props) {
   }, [interestsFilter, userFilter])
 
   return (
-    <>
-      <h1>Ur Mom</h1>
-      <button><Link to={'/posts/new'}>New Post</Link></button>
-      <MultiSelect 
-        options={interestNames}
-        value={interestsFilter}
-        onChange={setInterestsFilter}
-        labelledBy="Select"
-      />
+    <section className="post-index">        
+      <h1>&nbsp;</h1>
+      <div className="search-filter-new-post">
+        <MultiSelect 
+          options={interestNames}
+          value={interestsFilter}
+          onChange={setInterestsFilter}
+          labelledBy="Select"
+        />
+        <Button variant="contained" id="new-post-btn"><Link id="new-post-link" to={'/posts/new'}>New Post</Link></Button>
+      </div>
       <PostList 
         posts={posts}
         users={users}
@@ -55,6 +59,6 @@ export default function PostIndex(props) {
         thumbnails={thumbnails}
       />
       <Outlet/>
-    </>
+    </section>
   )
 }

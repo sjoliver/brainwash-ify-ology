@@ -1,13 +1,161 @@
-.wrapper {
-  padding: 10px 20px;
-}
+.postShow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.4;
+  margin-top: 50px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
-.wrapper fieldset {
-  margin: 20px 0;
-  padding: 10px;
-  border: none
-}
+  .post-content {
+    font-weight: 200;
+    width: 100%;
 
-.wrapper input {
-  width: 50%
+    &__post-title {
+      font-size: 30px;
+      font-weight: 300;
+
+    }
+
+    &__counters {
+      display: flex;
+      align-items: flex-start;
+      justify-content: end;
+      margin: 20px;
+
+
+      .click-like {
+        color: pink;
+        font-size: 32px;
+      }
+
+      .comment-count {
+        font-size: 30px;
+        color: grey;
+      }
+    }
+
+    &__video-box {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      #video {
+        border-radius: 7px;
+        box-shadow: 0 19px 51px 0 rgba(0,0,0,0.16), 0 14px 19px 0 rgba(0,0,0,0.07);
+      }
+    }
+
+    &__info {
+      width: 30%;
+      text-align: left; 
+      margin: 1em;
+      font-size: 14px;
+
+      #poster-username {
+        text-align: left; 
+        text-decoration: none;
+        color: black;
+        font-size: 16px;
+        font-weight: 300;
+      }
+      
+      #poster-username:hover {
+        color: grey;
+      }
+    }
+  }
+
+  // New comment //
+  .new-comment {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 35px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid darkgrey;
+
+     #standard-basic {
+       width: 30em;
+       color: rgb(157, 156, 156);
+       font-weight: 400;
+       font-size: medium;
+     }
+
+     &__submit {
+       font-size: 10px;
+       font-weight: 400;
+       color: black;
+       border-color: rgb(86, 86, 86);
+     }
+
+     &__submit:hover {
+      color: black; 
+      border-color: rgb(89, 89, 89);
+      background-color: rgb(237, 237, 237);
+    }
+  }
+
+  // Comments //
+  ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 10, 0, 10, 0;
+    padding: 0;
+
+    span {
+      display: flex;
+    }
+  }
+  
+  .comment {
+    display: flex;
+    flex-direction: column;
+    font-weight: 200;
+    font-size: 14px;
+    width: 75%;
+  }
+
+    &__avatar {
+     margin-right: 10px;
+    }
+
+    &__username {
+     text-decoration: none;
+     font-weight: 400;
+     color: black;
+    }
+
+    .delete-ex {
+      color: darkgrey;
+      cursor: pointer;
+    }
+
+    .delete-ex:hover {
+      color: rgba(246, 75, 75, 0.996);
+      cursor: pointer;
+    }
+
+    span {
+      text-align: left; 
+    }
+  
+
+  .avatar-username {
+    display: flex;
+    // width: 25%;
+    align-items: center;
+    margin-right: 2em;
+  }
+
+  .avatar-username:hover {
+    opacity: 0.5;
+  }
+
+  .comment-delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

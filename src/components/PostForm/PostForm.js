@@ -4,17 +4,6 @@ import axios from '../../axios-instance';
 import PostFormInput from './PostFormInput';
 import PostFormSelect from './PostFormSelect';
 import { Outlet } from 'react-router-dom';
-import './PostForm.scss'
-
-import TextField from '@mui/material/TextField';
-import Select from '@mui/material/Select'
-import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import Input from '@mui/material/Input';
-import Button from '@mui/material/Button';
-import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
-import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 
 export default function PostForm (props) {
   // destructure props
@@ -52,7 +41,6 @@ export default function PostForm (props) {
   
   // File input change function
   const fileOnChange = (event) => {
-    // console.log(event.target.files[0]);
     setPost(prev => {
       return {
         ...prev,
@@ -74,7 +62,6 @@ export default function PostForm (props) {
   // submit data to backend using axios and FormData
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(post);
     
     // create FormData object and populate with post state data
     const form = new FormData();
@@ -97,19 +84,49 @@ export default function PostForm (props) {
         t_type: res.data.thumbnail_content
       }
     }))
-  }
   
   const interestNames = [];
   const interestIDs = [];
   interests.forEach(elem => {
     interestNames.push(elem.name);
     interestIDs.push(elem.id);
-  })  
+  })
 
-  const typeOptions = ["Video", "Audio", "Image"];
+  // post_type Props
+  const typeProps = {
+    name: "post_type",
+    options: ["Video", "Audio", "Image"],
+    postState: post.post_type,
+    onChange: event => setPost({...post, post_type: event.target.value})
+  }
+  
+  // interest props
+  const interestProps = {
+    name: "interest_name",
+    options: interestNames,
+    postState: post.interest_id,
+    onChange: event => setPost({...post, interest_id: event.target.value})
+  }
+  
+  const inputProps = [titleInputProps, descInputProps];
+  const selectProps = [typeProps, interestProps];
+  
+  const inputList = inputProps.map((input, i) => {
+    return (
+      <PostFormInput key={i} {...input}/>
+      )
+    })
+    
+    const selectList = selectProps.map((select, i) => {
+    return (
+      <PostFormSelect key={i} {...select} interestIDs={interestIDs}/>
+    )
+  })
+
+  console.log(content.t_src)
 
   return (
-    <section className="postform">
+    <>
       <h1>Create Your Post</h1>
       <form className="postform__form" onSubmit={onSubmit}>
         <FormControl fullWidth>
@@ -219,6 +236,6 @@ export default function PostForm (props) {
         </div>
       }
       <Outlet/>
-    </section>
+    </>
   )
 } 
