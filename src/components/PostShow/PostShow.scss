@@ -11,7 +11,7 @@
     width: 100%;
 
     &__post-title {
-      font-size: 30px;
+      font-size: 35px;
       font-weight: 300;
 
     }
@@ -48,14 +48,14 @@
     &__info {
       width: 30%;
       text-align: left; 
-      margin: 1em;
-      font-size: 14px;
+      margin-left: 2em;
+      font-size: large;
 
       #poster-username {
         text-align: left; 
         text-decoration: none;
         color: black;
-        font-size: 16px;
+        font-size: 20px;
         font-weight: 300;
       }
       
@@ -68,22 +68,22 @@
   // New comment //
   .new-comment {
     display: flex;
-    justify-content: space-around;
+    // justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    margin-top: 35px;
+    margin-top: 15px;
     margin-bottom: 30px;
     border-bottom: 1px solid darkgrey;
 
      #standard-basic {
-       width: 30em;
+       width: 32em;
        color: rgb(157, 156, 156);
        font-weight: 400;
-       font-size: medium;
+       font-size: larger;
      }
 
      &__submit {
-       font-size: 10px;
+       font-size: 15px;
        font-weight: 400;
        color: black;
        border-color: rgb(86, 86, 86);
@@ -99,7 +99,7 @@
   // Comments //
   ul {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: flex-start;
     margin: 10, 0, 10, 0;
     padding: 0;
@@ -113,18 +113,24 @@
     display: flex;
     flex-direction: column;
     font-weight: 200;
-    font-size: 14px;
-    width: 75%;
+    font-size: large;
+    width: 65%;
+    
+    span {
+      margin-top: 10px;
+      text-align: left; 
+      margin-left: 1em;
+    } 
   }
-
-    &__avatar {
-     margin-right: 10px;
-    }
 
     &__username {
      text-decoration: none;
      font-weight: 400;
      color: black;
+    }
+
+    &__comment-description {
+      padding-left: 2em;
     }
 
     .delete-ex {
@@ -137,9 +143,6 @@
       cursor: pointer;
     }
 
-    span {
-      text-align: left; 
-    }
   
 
   .avatar-username {
