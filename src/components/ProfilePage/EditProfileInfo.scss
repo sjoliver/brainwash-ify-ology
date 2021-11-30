@@ -1,0 +1,16 @@
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 2em;
+  margin-top: 20px;
+
+  .MuiInput-input {
+    // padding-bottom: 10px;
+    padding-top: 10px;
+  }
+
+  &__username {
+    font-size: 50px;
+  }
+}
