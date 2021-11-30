@@ -52,7 +52,7 @@ export default function PostForm (props) {
   
   // File input change function
   const fileOnChange = (event) => {
-    console.log(event.target.file[0]);
+    // console.log(event.target.files[0]);
     setPost(prev => {
       return {
         ...prev,
@@ -63,7 +63,6 @@ export default function PostForm (props) {
 
   // Thumbnail input change function
   const thumbnailOnChange = (event) => {
-    console.log(event.target.file[0]);
     setPost(prev => {
       return {
         ...prev,
@@ -75,7 +74,7 @@ export default function PostForm (props) {
   // submit data to backend using axios and FormData
   const onSubmit = (event) => {
     event.preventDefault();
-    // console.log(post);
+    console.log(post);
     // prevent empty select fields
     // if (!post.post_type) {
     //   alert("Please select a type")
