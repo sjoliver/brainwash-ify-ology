@@ -1,6 +1,18 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+import CardHeader from '@mui/material/CardHeader';
+
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ChatIcon from '@mui/icons-material/Chat';
+import VideocamIcon from '@mui/icons-material/Videocam';
+import PodcastsIcon from '@mui/icons-material/Podcasts';
+
 import './PostListItem.scss'
 
 export default function PostListItem(props) {
@@ -17,7 +29,7 @@ export default function PostListItem(props) {
   let userName = "";
   for (let userObj of users) {
     if (userObj.id === user_id) {
-      userName = userObj.name
+      userName = userObj.username
     }
   }
 
@@ -31,13 +43,36 @@ export default function PostListItem(props) {
   }
 
   return (
-    <div className="post-card">
-      <div>
-        <img className="post-thumbnail" src={thumbnails[id]} alt="content card"/>
-        <h4><Link to={`/posts/${id}`}>{title}</Link></h4>
-        <p>{userName} | {interest} | {post_type} | Likes: {likes} | Comments: {comments}</p>
-      </div>
+    <Link to={`/posts/${id}`} className="post-card">
+      <Card className="card-component">
+        <CardActionArea>
+          <CardMedia 
+            component="img"
+            height="215"
+            image={thumbnails[id]}
+            alt="content card"
+          />
+          <CardContent>
+            <CardHeader 
+              title={title}
+              subheader={interest}
+            />
+            <div className="card-info">
+              <Typography variant="body2" color="text.secondary">
+               {post_type.toLowerCase() === "video" ? (
+                  <span> {userName}&nbsp; <VideocamIcon /> </span>
+                ) : (
+                  <span> {userName} &nbsp;<PodcastsIcon /> </span>
+                )}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                <FavoriteIcon className="heart-icon" sx={{fontSize: 18}}/> {likes} &nbsp;&nbsp;&nbsp;<ChatIcon sx={{fontSize: 18}}/> {comments}
+              </Typography>
+            </div>
+          </CardContent>
+        </CardActionArea>
+      </Card>
       <Outlet/>
-    </div>
+    </Link>
   );
 }

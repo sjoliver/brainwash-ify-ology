@@ -1,14 +1,27 @@
-.post-thumbnail {
-  max-height: 250px;
-  max-width: 444px;
-}
-
 .post-card {
-  border-style: solid;
-  border-width: 0.1em;
-  width: 475px;
-  padding: 20px;
-  height: 370px;
-  margin: 10px;
-  align-items: center;
+  text-decoration: none;
+  margin: 1em;
+
+  .card-component {
+    width: 400;
+  }
+
+  .heart-icon {
+    color: pink;
+  }
+
+  .card-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+
+    span {
+      display: flex;
+      align-items: center;
+    }
+  }
+
 }
