@@ -1,0 +1,10 @@
+.username-bio {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2em;
+
+  #username {
+    margin-bottom: 0;
+  }
+}

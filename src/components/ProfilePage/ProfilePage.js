@@ -9,6 +9,10 @@ import ProfileInfo from './ProfileInfo';
 import EditProfileInfo from './EditProfileInfo';
 import { fetchImage } from '../../helpers/userHelpers';
 
+import './ProfilePage.scss'
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+
 export default function ProfilePage(props) {
   const { interests, dbUser, likeCounts, setLikeCounts } = props;
 
@@ -99,19 +103,15 @@ export default function ProfilePage(props) {
 
   return (
     <>
-      <div>
-        {!isMyProfile() && follows.isFollowing && <button onClick={deleteFollow}>Unfollow</button>}  
-        {!isMyProfile() && !follows.isFollowing && <button onClick={createFollow}>Follow</button>}
+      <div className="profile-page">
+        {!isMyProfile() && follows.isFollowing && <Button variant="contained" onClick={deleteFollow}>Unfollow</Button>}  
+        {!isMyProfile() && !follows.isFollowing && <Button variant="contained" onClick={createFollow}>Follow</Button>}
         {isMyProfile() &&
           <div onClick={editMode}>
-            <BiEditAlt size={32}/><span>Edit Profile</span>
+            <BiEditAlt size={26}/><span>Edit Profile</span>
           </div>
         }
-        <div>
-          <p>Followers: {follows.how_many_followers_user_has}</p>
-          <p>Following: {follows.how_many_user_is_following}</p>
-        </div>
-        <img style={{width: "360px"}}src={fetchImage(localUser, false)} alt="Profile Image" />
+        <Avatar sx={{ width: 150, height: 150 }} src={fetchImage(localUser, false)} alt="Profile Image" />
         {!mode && <ProfileInfo localUser={localUser}/>}
         {mode && 
           <EditProfileInfo 
@@ -120,8 +120,11 @@ export default function ProfilePage(props) {
             setMode={setMode}
           />
         }
+        <div className="followers-following">
+          <p><b>{follows.how_many_followers_user_has}</b> followers &nbsp;&nbsp;</p>
+          <p><b>{follows.how_many_user_is_following}</b> following</p>
+        </div>
       </div>
-      <h1>Posts from {localUser.username}</h1>
       <PostIndex
         interests={interests}
         userFilter={userFilter}

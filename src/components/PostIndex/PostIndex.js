@@ -33,7 +33,6 @@ export default function PostIndex(props) {
 
   return (
     <section className="post-index">        
-      <h1>&nbsp;</h1>
       <PostList 
         posts={posts}
         users={users}
