@@ -48,7 +48,7 @@
     &__info {
       width: 30%;
       text-align: left; 
-      margin: 1em;
+      margin-left: 2em;
       font-size: large;
 
       #poster-username {
@@ -71,7 +71,7 @@
     // justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    margin-top: 45px;
+    margin-top: 15px;
     margin-bottom: 30px;
     border-bottom: 1px solid darkgrey;
 
@@ -117,7 +117,7 @@
     width: 65%;
     
     span {
-      margin-top: 15px;
+      margin-top: 10px;
       text-align: left; 
       margin-left: 1em;
     } 
@@ -132,8 +132,6 @@
     &__comment-description {
       padding-left: 2em;
     }
-
-
 
     .delete-ex {
       color: darkgrey;
