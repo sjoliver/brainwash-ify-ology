@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import PostListItem from './PostListItem';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { MultiSelect } from 'react-multi-select-component';
+import Button from '@mui/material/Button';
 
 import './PostList.scss'
+import './PostIndex.scss'
 
 export default function PostList(props) {
-  const { posts, users, interests, likeCounts, setLikeCounts, thumbnails } = props;
+  const { posts, users, interests, likeCounts, setLikeCounts, thumbnails, interestsFilter, setInterestsFilter } = props;
 
   const [ searchInput, setSearchInput ] = useState("");
   const [ filteredResults, setFilteredResults ] = useState([]);
@@ -27,25 +30,41 @@ export default function PostList(props) {
     }
   }
 
+  // FILTERING LOGIC //
+  const interestNames = interests.map((interestObj) => {
+    return {label: interestObj.name, value: interestObj.id}
+  })
+
   return(
     <>
-      <Box
-        component="form"
-        sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <div>
-          <TextField 
-            id="outlined-search" 
-            label="Search" 
-            type="search"
-            onChange={(e) => searchItems(e.target.value)}
+      <div className="search-filter-new-post">
+        <div className="search-filter">
+          <Box
+            component="form"
+            sx={{
+              '& .MuiTextField-root': { m: 1, width: '35ch' },
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <TextField 
+              id="outlined-search" 
+              label="Search" 
+              type="search"
+              onChange={(e) => searchItems(e.target.value)}
+            />
+          </Box>
+          <MultiSelect 
+            options={interestNames}
+            value={interestsFilter}
+            onChange={setInterestsFilter}
+            labelledBy="Select"
           />
         </div>
-      </Box>
+        <div className="new-post-container">
+          <Button variant="contained" id="new-post-btn"><Link id="new-post-link" to={'/posts/new'}><b>+</b>&nbsp;&nbsp;New Post</Link></Button>
+        </div>
+      </div>
       <div className="post-list">
         {searchInput.length >= 1 ? (
           filteredResults.map((post) => {
