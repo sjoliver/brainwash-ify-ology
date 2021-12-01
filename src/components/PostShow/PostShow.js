@@ -29,7 +29,17 @@ export default function PostShow (props) {
         setLikes(res.data.likes)
         setPostUserInfo(res.data.postUserInfo)
         setUpload(res.data.file)
-        setCommentInfo(res.data.commentInfo)
+        setCommentInfo(prev => {
+          return res.data.commentInfo.map(obj => {
+            return {
+              comment: obj.comment,
+              user: {
+                ...obj.user,
+                avatar: obj.avatar
+              }
+            }
+          })
+        })
       })
       .catch(e => console.error(e))
     }
