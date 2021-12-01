@@ -121,6 +121,7 @@ export default function ProfilePage(props) {
         userFilter={userFilter}
         likeCounts={likeCounts}
         setLikeCounts={setLikeCounts}
+        dbUser={dbUser}
       />
     </>
   )
