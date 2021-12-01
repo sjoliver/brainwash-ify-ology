@@ -1,14 +1,15 @@
 import React from "react";
 
-const Loading = function() {
+const Loading = function(props) {
+  const { message, element } = props
   return (
-    <section className="postform--status">
+    <section className={`${element}--status`}>
       <img
-        className="postform__status-image"
+        className={`${element}__status-image`}
         src="/images/status.png"
         alt="Loading"
       />
-      <h1>Loading Files</h1>
+      <h1>{message}</h1>
     </section>
   )
 }

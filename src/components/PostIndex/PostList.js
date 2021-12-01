@@ -14,7 +14,7 @@ import Button from '@mui/material/Button';
 import { useAuth0 } from '@auth0/auth0-react';
 
 export default function PostList(props) {
-  const { posts, users, interests, likeCounts, setLikeCounts, thumbnails, interestsFilter, setInterestsFilter, setLikesFilter, dbUser } = props;
+  const { posts, users, interests, likeCounts, setLikeCounts, thumbnails, interestsFilter, setInterestsFilter, setLikesFilter, setReload, dbUser } = props;
 
   const { isAuthenticated } = useAuth0();
   const [ searchInput, setSearchInput ] = useState("");
@@ -83,7 +83,9 @@ export default function PostList(props) {
                 users={users}
                 likeCounts={likeCounts} 
                 setLikeCounts={setLikeCounts}
-                thumbnails={thumbnails} 
+                thumbnails={thumbnails}
+                setReload={setReload}
+                dbUser={dbUser}
               />
             )
           })
@@ -97,7 +99,9 @@ export default function PostList(props) {
                 users={users}
                 likeCounts={likeCounts} 
                 setLikeCounts={setLikeCounts} 
-                thumbnails={thumbnails} 
+                thumbnails={thumbnails}
+                setReload={setReload}
+                dbUser={dbUser}
               />
             )
           })
