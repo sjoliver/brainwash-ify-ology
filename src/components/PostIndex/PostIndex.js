@@ -32,7 +32,7 @@ export default function PostIndex(props) {
         .catch(e => console.error(e))
     }
     getPosts();
-  }, [interestsFilter, userFilter, likesFilter, reload])
+  }, [interestsFilter, userFilter, likesFilter, reload, setLikeCounts])
 
   return (
     <section className="post-index">
@@ -41,7 +41,6 @@ export default function PostIndex(props) {
         users={users}
         interests={interests}  
         likeCounts={likeCounts} 
-        setLikeCounts={setLikeCounts}
         thumbnails={thumbnails}
         interestsFilter={interestsFilter}
         setInterestsFilter={setInterestsFilter}
