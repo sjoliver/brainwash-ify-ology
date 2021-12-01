@@ -2,11 +2,12 @@
   text-decoration: none;
   margin: 1em;
 
-
   .card-component {
     width: 350px;
+
     &_deleting {
       background-color: #b1b1b1;
+
       .postitem--status {
         display: flex;
         align-items: center;
@@ -14,8 +15,9 @@
         height: 200px;
         margin-top: 57.5px;
         margin-bottom: 57.5px;
-        background-color: #417c6a;
+        background-color: #014e86d3;
         color: white;
+        
         .postitem__status-image {
           margin-right: 2rem;
           animation: rotate 1s linear infinite;
