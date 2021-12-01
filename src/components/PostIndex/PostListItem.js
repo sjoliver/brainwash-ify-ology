@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 import Card from '@mui/material/Card';
@@ -12,12 +12,19 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatIcon from '@mui/icons-material/Chat';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import PodcastsIcon from '@mui/icons-material/Podcasts';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ClearIcon from '@mui/icons-material/Clear';
+
+import Loading from '../PostForm/Loading'
 
 import './PostListItem.scss'
+import axios from '../../axios-instance';
 
 export default function PostListItem(props) {
 
-  const { id, title, interest_id, upload_file, post_type, user_id, interests, users, likeCounts, thumbnails } = props;
+  const { id, title, interest_id, upload_file, post_type, user_id, interests, users, likeCounts, thumbnails, setReload, dbUser } = props;
+
+  const [mode, setMode] = useState("");
 
   let interest = "";
   for (let interestObj of interests) {
@@ -42,16 +49,36 @@ export default function PostListItem(props) {
     }
   }
 
+  const deletePost = event => {
+    // stop bubbling up to parent react router Link element
+    event.preventDefault();
+
+    setMode(prev => "DELETING");
+
+    axios
+      .delete(`posts/${id}`)
+      .then(() => {
+        setReload(prev => prev ? false : true);
+        // setMode(prev => "");
+      })
+  }
+
   return (
     <Link to={`/posts/${id}`} className="post-card">
-      <Card className="card-component">
-        <CardActionArea>
+      <Card className={`card-component ${mode === "DELETING" ? "card-component_deleting" : ""}`}>
+        {mode === "DELETING" ? <Loading message={"Deleting"} element={"postitem"}/> : <CardActionArea>
+        {(dbUser.id == user_id) && 
+          <div className="delete-post-icon">
+            <ClearIcon fontSize={"large"} onClick={deletePost}/>
+          </div>
+        }
           <CardMedia 
             component="img"
             height="200"
             image={thumbnails[id]}
             alt="content card"
           />
+          
           <CardContent>
             <CardHeader 
               title={title}
@@ -70,7 +97,7 @@ export default function PostListItem(props) {
               </Typography>
             </div>
           </CardContent>
-        </CardActionArea>
+        </CardActionArea>}
       </Card>
       <Outlet/>
     </Link>

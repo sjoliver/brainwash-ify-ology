@@ -11,7 +11,7 @@ import './PostList.scss'
 import './PostIndex.scss'
 
 export default function PostList(props) {
-  const { posts, users, interests, likeCounts, setLikeCounts, thumbnails, interestsFilter, setInterestsFilter } = props;
+  const { posts, users, interests, likeCounts, setLikeCounts, thumbnails, interestsFilter, setInterestsFilter, setReload, dbUser } = props;
 
   const { isAuthenticated } = useAuth0();
   const [ searchInput, setSearchInput ] = useState("");
@@ -78,7 +78,9 @@ export default function PostList(props) {
                 users={users}
                 likeCounts={likeCounts} 
                 setLikeCounts={setLikeCounts}
-                thumbnails={thumbnails} 
+                thumbnails={thumbnails}
+                setReload={setReload}
+                dbUser={dbUser}
               />
             )
           })
@@ -92,7 +94,9 @@ export default function PostList(props) {
                 users={users}
                 likeCounts={likeCounts} 
                 setLikeCounts={setLikeCounts} 
-                thumbnails={thumbnails} 
+                thumbnails={thumbnails}
+                setReload={setReload}
+                dbUser={dbUser}
               />
             )
           })

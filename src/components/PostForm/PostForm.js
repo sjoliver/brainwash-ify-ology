@@ -245,7 +245,7 @@ export default function PostForm (props) {
             </label>     
           </FormControl>
       </form></>}
-      {mode.isLoading && <Loading />}
+      {mode.isLoading && <Loading message={"Loading Files"} element={"postform"}/>}
       <Outlet/>
     </section>
   )

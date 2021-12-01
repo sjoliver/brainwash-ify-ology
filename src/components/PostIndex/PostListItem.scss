@@ -2,8 +2,36 @@
   text-decoration: none;
   margin: 1em;
 
+
   .card-component {
     width: 350px;
+    &_deleting {
+      background-color: #b1b1b1;
+      .postitem--status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 200px;
+        margin-top: 57.5px;
+        margin-bottom: 57.5px;
+        background-color: #417c6a;
+        color: white;
+        .postitem__status-image {
+          margin-right: 2rem;
+          animation: rotate 1s linear infinite;
+        }
+      }
+    }
+
+    .delete-post-icon {
+      display: none;
+      position: fixed;
+      margin-left: 314px;
+      padding-top: 3px;
+      padding-right: 5px;
+      color: red;
+      font-weight:400;
+    }
 
     .css-185gdzj-MuiCardHeader-root {
       padding-top: 0;
@@ -41,5 +69,9 @@
       align-items: center;
     }
   }
-
+   .card-component:hover {
+     .delete-post-icon {
+       display: flex;
+     }
+   }
 }

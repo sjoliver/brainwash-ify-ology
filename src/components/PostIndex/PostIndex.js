@@ -5,10 +5,11 @@ import PostList from './PostList';
 import './PostIndex.scss'
 
 export default function PostIndex(props) {
-  const { interests, userFilter, likeCounts, setLikeCounts } = props;
+  const { interests, userFilter, likeCounts, setLikeCounts, dbUser } = props;
 
   const [ posts, setPosts ] = useState([]);
   const [ users, setUsers ] = useState([]);
+  const [ reload, setReload] = useState(false);
   const [ interestsFilter, setInterestsFilter ] = useState([]);
   const [ thumbnails, setThumbnails ] = useState({});
 
@@ -29,10 +30,10 @@ export default function PostIndex(props) {
         .catch(e => console.error(e))
     }
     getPosts();
-  }, [interestsFilter, userFilter])
+  }, [interestsFilter, userFilter, reload])
 
   return (
-    <section className="post-index">        
+    <section className="post-index">
       <PostList 
         posts={posts}
         users={users}
@@ -42,6 +43,8 @@ export default function PostIndex(props) {
         thumbnails={thumbnails}
         interestsFilter={interestsFilter}
         setInterestsFilter={setInterestsFilter}
+        setReload={setReload}
+        dbUser={dbUser}
       />
       <Outlet/>
     </section>
