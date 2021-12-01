@@ -6,7 +6,7 @@ import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 
 
 export default function EditProfileInfo(props) {
-  const { localUser, setLocalUser, setMode } = props;
+  const { localUser, setLocalUser, setMode, isMyProfile, setDbUser } = props;
   const [edit, setEdit] = useState({});
 
   const editUser = function() {
@@ -25,6 +25,14 @@ export default function EditProfileInfo(props) {
             avatar: res.data.avatar
           }
         })
+        if (isMyProfile()) {
+          setDbUser(prev => {
+           return {
+              ...prev,
+              avatar: res.data.avatar
+            }
+          })
+        }
       })
       .then(() => {
         setMode(() => "");

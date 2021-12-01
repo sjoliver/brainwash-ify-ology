@@ -12,7 +12,7 @@ import './ProfilePage.scss'
 import Avatar from '@mui/material/Avatar';
 
 export default function ProfilePage(props) {
-  const { interests, dbUser, likeCounts, setLikeCounts } = props;
+  const { interests, dbUser, likeCounts, setLikeCounts, setDbUser } = props;
   let { id } = useParams();
   // const { user } = useAuth0();
   const [localUser, setLocalUser] = useState({});
@@ -109,6 +109,8 @@ export default function ProfilePage(props) {
           localUser={localUser}
           setLocalUser={setLocalUser}
           setMode={setMode}
+          isMyProfile={isMyProfile}
+          setDbUser={setDbUser}
           />
         }
       </div>
