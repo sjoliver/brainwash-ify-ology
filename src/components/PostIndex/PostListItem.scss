@@ -1,14 +1,78 @@
-.post-thumbnail {
-  max-height: 250px;
-  max-width: 444px;
-}
-
 .post-card {
-  border-style: solid;
-  border-width: 0.1em;
-  width: 475px;
-  padding: 20px;
-  height: 370px;
-  margin: 10px;
-  align-items: center;
+  text-decoration: none;
+  margin: 1em;
+
+  .card-component {
+    width: 350px;
+
+    &_deleting {
+      background-color: #b1b1b1;
+
+      .postitem--status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 200px;
+        margin-top: 57.5px;
+        margin-bottom: 57.5px;
+        background-color: #014e86d3;
+        color: white;
+        
+        .postitem__status-image {
+          margin-right: 2rem;
+          animation: rotate 1s linear infinite;
+        }
+      }
+    }
+
+    .delete-post-icon {
+      display: none;
+      position: relative;
+      margin-left: 314px;
+      padding-top: 3px;
+      padding-right: 5px;
+      color: red;
+    }
+
+    .css-185gdzj-MuiCardHeader-root {
+      padding-top: 0;
+    }
+
+    .MuiCardHeader-title {
+      font-size: 18px;
+    }
+
+    .MuiCardHeader-subheader {
+      font-size: 13px;
+    }
+  }
+
+  .heart-icon {
+    color: pink;
+  }
+
+  .card-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+
+    .likes-comments {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+    }
+  }
+   .card-component:hover {
+     .delete-post-icon {
+       display: flex;
+     }
+   }
 }

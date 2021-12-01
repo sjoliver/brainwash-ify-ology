@@ -1,9 +1,12 @@
 import axios from '../../axios-instance';
 import React, { useState } from 'react'
-import InputForm from './InputForm';
+import './EditProfileInfo.scss'
+import { TextField, Button } from '@mui/material';
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+
 
 export default function EditProfileInfo(props) {
-  const { localUser, setLocalUser, setMode } = props;
+  const { localUser, setLocalUser, setMode, isMyProfile, setDbUser } = props;
   const [edit, setEdit] = useState({});
 
   const editUser = function() {
@@ -22,6 +25,14 @@ export default function EditProfileInfo(props) {
             avatar: res.data.avatar
           }
         })
+        if (isMyProfile()) {
+          setDbUser(prev => {
+           return {
+              ...prev,
+              avatar: res.data.avatar
+            }
+          })
+        }
       })
       .then(() => {
         setMode(() => "");
@@ -45,13 +56,34 @@ export default function EditProfileInfo(props) {
     })
   }
   
+  const onChange = (event, field) => {
+    setEdit(prev => {
+      if (!event.target.value) {
+        delete prev[field];
+      }
+
+      let change = {
+        ...prev,
+      }
+
+      if (event.target.value) {
+        change[field] = event.target.value;
+      }
+
+      return change;
+    })
+  }
+
   return (
-    <form onSubmit={event => event.preventDefault()}>
-      <InputForm edit={edit} setEdit={setEdit} field={"username"} placeholder={localUser.username}/>
-      <InputForm edit={edit} setEdit={setEdit} field={"bio"} placeholder={localUser.bio || "enter your bio here..."}/>
-      <InputForm edit={edit} setEdit={setEdit} field={"name"} placeholder={localUser.name}/>
-      <input type="file" name="upload_file" onChange={imgChange}/>
-      <button onClick={editUser}>Submit</button>
+    <form className="edit-form" onSubmit={event => event.preventDefault()} >
+      <TextField size="small" className="form-input" onChange={event => onChange(event, "username")} placeholder={localUser.username}/>
+      <TextField size="small" className="form-input" onChange={event => onChange(event, "name")} placeholder={localUser.name}/>
+      <TextField multiline size="small" className="form-input" onChange={event => onChange(event, "bio")}placeholder={localUser.bio || "enter your bio here..."}/>
+      <label htmlFor="update-avatar">
+        <input id="update-avatar" type="file" name="upload_file" onChange={imgChange}/>
+        <Button id="img-submit" variant="outlined" component="span"><AddAPhotoIcon/>&nbsp;&nbsp;Update Image</Button>
+      </label>    
+      <Button onClick={editUser} variant="contained">Save</Button>
     </form>
   )
 }

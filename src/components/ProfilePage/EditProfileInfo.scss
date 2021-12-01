@@ -1,0 +1,57 @@
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 2em;
+  margin-top: 20px;
+  padding-bottom: 0px;
+
+  .form-input {
+    margin: 3px;
+  }
+
+  &__username {
+    font-size: 50px;
+  }
+
+  
+  #img-submit {
+    display: flex;
+    align-items: center;
+    width: 175px;
+    margin-top: 8px;
+    margin-left: 3px;
+  }
+  
+  input[type="file"] {
+    display: none;
+  }
+
+  .MuiButton-contained {
+    // margin-top: 15px;
+    align-self: center;
+    width: 100px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+  }
+
+  Button {
+    background-color: #014e86d3;
+  }
+
+  Button:hover {
+    background-color: #014e86;
+  }
+
+  #img-submit {
+    border-color: #014e86d3;
+    color: #014e86d3;
+  }
+
+  #img-submit:hover {
+    border-color: #014e86;
+    color: #014e86;
+  }
+
+}

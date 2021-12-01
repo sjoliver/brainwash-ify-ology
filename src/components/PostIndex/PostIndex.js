@@ -1,27 +1,25 @@
-import React, { useDebugValue, useEffect, useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import { MultiSelect } from 'react-multi-select-component';
+import React, { useEffect, useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import axios from '../../axios-instance';
 import PostList from './PostList';
+import './PostIndex.scss'
 
 export default function PostIndex(props) {
-  const { interests, userFilter, likeCounts, setLikeCounts } = props;
+  const { interests, userFilter, likeCounts, setLikeCounts, dbUser } = props;
 
   const [ posts, setPosts ] = useState([]);
   const [ users, setUsers ] = useState([]);
+  const [ reload, setReload] = useState(false);
   const [ interestsFilter, setInterestsFilter ] = useState([]);
+  const [ likesFilter, setLikesFilter ] = useState(null);
   const [ thumbnails, setThumbnails ] = useState({});
-
-  const interestNames = interests.map((interestObj) => {
-    return {label: interestObj.name, value: interestObj.id}
-  })
-  
 
   useEffect(() => {
     const getPosts = function() {
       const filter = {
         interests: interestsFilter,
-        user_id: userFilter || null
+        user_id: userFilter || null,
+        likesFilter: likesFilter
       }
       axios
         .get('posts', {params: {filter}})
@@ -34,27 +32,23 @@ export default function PostIndex(props) {
         .catch(e => console.error(e))
     }
     getPosts();
-  }, [interestsFilter, userFilter])
+  }, [interestsFilter, userFilter, likesFilter, reload, setLikeCounts])
 
   return (
-    <>
-      <h1>Ur Mom</h1>
-      <button><Link to={'/posts/new'}>New Post</Link></button>
-      <MultiSelect 
-        options={interestNames}
-        value={interestsFilter}
-        onChange={setInterestsFilter}
-        labelledBy="Select"
-      />
+    <section className="post-index">
       <PostList 
         posts={posts}
         users={users}
         interests={interests}  
         likeCounts={likeCounts} 
-        setLikeCounts={setLikeCounts}
         thumbnails={thumbnails}
+        interestsFilter={interestsFilter}
+        setInterestsFilter={setInterestsFilter}
+        setReload={setReload}
+        setLikesFilter={setLikesFilter}
+        dbUser={dbUser}
       />
       <Outlet/>
-    </>
+    </section>
   )
 }

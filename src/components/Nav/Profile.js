@@ -4,6 +4,8 @@ import { fetchImage } from "../../helpers/userHelpers";
 import { Link } from 'react-router-dom'
 import ImageAvatars from "./ImageAvatars";
 
+import './NavBar.scss'
+
 const Profile = (props) => {
   const { dbUser } = props;
   const { isAuthenticated, isLoading } = useAuth0();
@@ -14,8 +16,8 @@ const Profile = (props) => {
 
   return (
     isAuthenticated && (
-      <Link className="navbar__link" to={`/profile/${dbUser.id}`}>
-        <h4>{dbUser.username}&nbsp;&nbsp;</h4>
+      <Link className="navbar__link auth-user" to={`/profile/${dbUser.id}`}>
+        <p id="auth-user__username">{dbUser.username}&nbsp;&nbsp;</p>
         <ImageAvatars fetchImage={fetchImage} dbUser={dbUser} />
       </Link>
     )

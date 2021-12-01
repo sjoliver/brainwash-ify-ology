@@ -4,17 +4,18 @@
   height: 56px;  
   width: 100%;  
   position: fixed; 
-  z-index: 1; 
+  z-index: 500; 
   top: 0; 
   left: 0; 
-  background-color: #417c6a; 
+  background-color: white;
+  border-bottom: 1px solid rgba(var(--b6a,219,219,219),1);
   overflow-x: hidden; 
   display: flex; 
   flex-direction: row; 
   align-items: center;
   justify-content: space-between;
-  padding-left: 1em;
-  padding-right: 1em;
+  padding-left: 2em;
+  padding-right: 2em;
 
   .MuiButton-text {
     color: white;
@@ -25,7 +26,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 17%;
   }
 
   &__link {
@@ -37,9 +37,34 @@
   }
   
   #logo {
-    font-size: 26px;
-    font-family: 'Lobster', cursive;  
+    font-size: 30px;
+    font-family: 'Lobster', cursive; 
+    margin-bottom: 0;
+    margin-top: 0;
+    color: #014f86;
   }
 }
 
+.auth-user {
+  padding-right: 1.5em;
+}
 
+#auth-user__username {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  color: rgba(0, 0, 0, 0.87);
+  font-size: medium;
+  font-weight: 350;
+}
+
+.navbar .MuiButton-text{
+  color: rgba(0, 0, 0, 0.87);
+  font-size: medium;
+  font-weight: 350;
+}
+
+#logout-btn {
+  color: rgba(0, 0, 0, 0.692);
+  font-size: 20px;
+  font-weight: 150;
+}

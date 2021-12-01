@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../axios-instance';
-import { useAuth0 } from '@auth0/auth0-react';
+// import { useAuth0 } from '@auth0/auth0-react';
 import { useParams } from 'react-router-dom';
-import { BiEditAlt } from 'react-icons/bi'
 
 import PostIndex from '../PostIndex/PostIndex';
 import ProfileInfo from './ProfileInfo';
 import EditProfileInfo from './EditProfileInfo';
 import { fetchImage } from '../../helpers/userHelpers';
 
+import './ProfilePage.scss'
+import Avatar from '@mui/material/Avatar';
+
 export default function ProfilePage(props) {
-  const { interests, dbUser, likeCounts, setLikeCounts } = props;
-
+  const { interests, dbUser, likeCounts, setLikeCounts, setDbUser } = props;
   let { id } = useParams();
-  const { user } = useAuth0();
-
+  // const { user } = useAuth0();
   const [localUser, setLocalUser] = useState({});
   const [userFilter, setUserFilter] = useState(dbUser.id);
   const [mode, setMode] = useState("");
@@ -99,34 +99,27 @@ export default function ProfilePage(props) {
 
   return (
     <>
-      <div>
-        {!isMyProfile() && follows.isFollowing && <button onClick={deleteFollow}>Unfollow</button>}  
-        {!isMyProfile() && !follows.isFollowing && <button onClick={createFollow}>Follow</button>}
-        {isMyProfile() &&
-          <div onClick={editMode}>
-            <BiEditAlt size={32}/><span>Edit Profile</span>
-          </div>
-        }
+      <div className="profile-page">
         <div>
-          <p>Followers: {follows.how_many_followers_user_has}</p>
-          <p>Following: {follows.how_many_user_is_following}</p>
+          <Avatar sx={{ width: 200, height: 200 }} src={fetchImage(localUser, false)} alt="Profile Image" />
         </div>
-        <img style={{width: "360px"}}src={fetchImage(localUser, false)} alt="Profile Image" />
-        {!mode && <ProfileInfo localUser={localUser}/>}
+        {!mode && <ProfileInfo localUser={localUser} follows={follows} isMyProfile={isMyProfile} editMode={editMode} createFollow={createFollow} deleteFollow={deleteFollow}/>}
         {mode && 
           <EditProfileInfo 
-            localUser={localUser}
-            setLocalUser={setLocalUser}
-            setMode={setMode}
+          localUser={localUser}
+          setLocalUser={setLocalUser}
+          setMode={setMode}
+          isMyProfile={isMyProfile}
+          setDbUser={setDbUser}
           />
         }
       </div>
-      <h1>Posts from {localUser.username}</h1>
       <PostIndex
         interests={interests}
         userFilter={userFilter}
         likeCounts={likeCounts}
         setLikeCounts={setLikeCounts}
+        dbUser={dbUser}
       />
     </>
   )
