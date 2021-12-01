@@ -6,6 +6,10 @@
   margin-top: 70px;
   font-family: 'Roboto', sans-serif;
   
+  &__upload-file--error {
+    color: red;
+  }
+
   &__form {
     display: flex;
     flex-direction: column;
