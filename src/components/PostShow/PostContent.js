@@ -16,7 +16,7 @@ export default function PostContent(props) {
       <div className="post-content__video-box">
         {upload.content.includes("video") && 
           <video id="video" height="375" controls>
-            <source src={upload.upload_file} type="video/mp4"/>
+            <source src={upload.upload_file}/>
           </video>
         }
           <span className="post-content__counters">
