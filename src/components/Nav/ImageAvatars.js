@@ -5,6 +5,6 @@ export default function ImageAvatars(props) {
   const { fetchImage, dbUser } = props;
 
   return (
-    <Avatar alt={dbUser.username} src={fetchImage(dbUser, true)} sx={{ width: 33, height: 33 }}/>
+    <Avatar alt={dbUser.username} src={fetchImage(dbUser, false)} sx={{ width: 33, height: 33 }}/>
   );
 }
