@@ -63,7 +63,6 @@ export default function PostShow (props) {
     .then(res => {
       //have to create object to include user info and comment info
       const newComment = {user: dbUser, comment: res.data}
-      console.log(res.data)
       setCommentInfo([
         newComment,
         ...commentInfo])

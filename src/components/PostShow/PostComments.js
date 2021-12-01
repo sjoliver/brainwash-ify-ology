@@ -7,8 +7,6 @@ import { fetchImage } from '../../helpers/userHelpers';
 export default function PostComments (props) {
   const { commentInfo, dbUser, deleteComment } = props;
 
-  console.log(commentInfo);
-
   return (
     <div className="comment">
     
