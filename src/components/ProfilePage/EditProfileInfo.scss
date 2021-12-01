@@ -6,11 +6,19 @@
   margin-top: 20px;
 
   .MuiInput-input {
-    // padding-bottom: 10px;
     padding-top: 10px;
   }
 
   &__username {
     font-size: 50px;
   }
+
+  .MuiButton-contained {
+    margin-top: 15px;
+    align-self: center;
+    width: 100px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
 }
