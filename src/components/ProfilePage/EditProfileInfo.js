@@ -70,7 +70,7 @@ export default function EditProfileInfo(props) {
     <form className="edit-form" onSubmit={event => event.preventDefault()} >
       <TextField size="small" className="form-input" onChange={event => onChange(event, "username")} placeholder={localUser.username}/>
       <TextField size="small" className="form-input" onChange={event => onChange(event, "name")} placeholder={localUser.name}/>
-      <TextField size="small" className="form-input" onChange={event => onChange(event, "bio")}placeholder={localUser.bio || "enter your bio here..."}/>
+      <TextField multiline size="small" className="form-input" onChange={event => onChange(event, "bio")}placeholder={localUser.bio || "enter your bio here..."}/>
       <label htmlFor="update-avatar">
         <input id="update-avatar" type="file" name="upload_file" onChange={imgChange}/>
         <Button id="img-submit" variant="outlined" component="span"><AddAPhotoIcon/>&nbsp;&nbsp;Update Image</Button>
