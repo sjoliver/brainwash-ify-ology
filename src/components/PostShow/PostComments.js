@@ -19,7 +19,7 @@ export default function PostComments (props) {
           </Link>
 
      
-          <span class="postShow__comment-description">{obj.comment.content}&nbsp;&nbsp;
+          <span className="postShow__comment-description">{obj.comment.content}&nbsp;&nbsp;
           {(obj.comment.user_id === dbUser.id) && 
             < ClearIcon type="deleteComment" className="delete-ex" onClick={() => {deleteComment(obj.comment.id)}}/>
           }</span>

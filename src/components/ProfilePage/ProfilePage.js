@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../axios-instance';
-import { useAuth0 } from '@auth0/auth0-react';
+// import { useAuth0 } from '@auth0/auth0-react';
 import { useParams } from 'react-router-dom';
-import { BiEditAlt } from 'react-icons/bi'
 
 import PostIndex from '../PostIndex/PostIndex';
 import ProfileInfo from './ProfileInfo';
@@ -11,14 +10,11 @@ import { fetchImage } from '../../helpers/userHelpers';
 
 import './ProfilePage.scss'
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 
 export default function ProfilePage(props) {
   const { interests, dbUser, likeCounts, setLikeCounts } = props;
-
   let { id } = useParams();
-  const { user } = useAuth0();
-
+  // const { user } = useAuth0();
   const [localUser, setLocalUser] = useState({});
   const [userFilter, setUserFilter] = useState(dbUser.id);
   const [mode, setMode] = useState("");
