@@ -7,10 +7,12 @@ import { fetchImage } from '../../helpers/userHelpers';
 export default function PostComments (props) {
   const { commentInfo, dbUser, deleteComment } = props;
 
+  console.log(commentInfo);
+
   return (
     <div className="comment">
     
-
+      
       {commentInfo.map((obj, i) => (
         <ul key={i}>
           <Link to={`/profile/${obj.user.id}`} className="avatar-username" style={{ textDecoration: 'none' }}>

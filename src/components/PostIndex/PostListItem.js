@@ -65,7 +65,7 @@ const { id, title, interest_id, post_type, user_id, interests, users, likeCounts
     <Link to={`/posts/${id}`} className="post-card">
       <Card className={`card-component ${mode === "DELETING" ? "card-component_deleting" : ""}`}>
         {mode === "DELETING" ? <Loading message={"Deleting"} element={"postitem"}/> : <CardActionArea>
-        {(dbUser.id == user_id) && 
+        {(dbUser.id === user_id) && 
           <div className="delete-post-icon">
             <ClearIcon fontSize={"medium"} onClick={deletePost}/>
           </div>
