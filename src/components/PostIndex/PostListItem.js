@@ -12,7 +12,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatIcon from '@mui/icons-material/Chat';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import PodcastsIcon from '@mui/icons-material/Podcasts';
-import DeleteIcon from '@mui/icons-material/Delete';
 import ClearIcon from '@mui/icons-material/Clear';
 
 import Loading from '../PostForm/Loading'
@@ -68,7 +67,7 @@ const { id, title, interest_id, post_type, user_id, interests, users, likeCounts
         {mode === "DELETING" ? <Loading message={"Deleting"} element={"postitem"}/> : <CardActionArea>
         {(dbUser.id == user_id) && 
           <div className="delete-post-icon">
-            <ClearIcon fontSize={"large"} onClick={deletePost}/>
+            <ClearIcon fontSize={"medium"} onClick={deletePost}/>
           </div>
         }
           <CardMedia 

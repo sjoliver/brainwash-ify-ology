@@ -35,8 +35,7 @@ export default function PostList(props) {
     }
   }
 
-  // FILTERING LOGIC //
-  // Interests //
+  // INTERESTS FILTERING LOGIC //
   const interestNames = interests.map((interestObj) => {
     return {label: interestObj.name, value: interestObj.id}
   })
@@ -54,8 +53,9 @@ export default function PostList(props) {
             autoComplete="off"
           >
             <TextField 
-              id="outlined-search"
-              label="Search" 
+              size="small"
+              id="outlined-search" 
+              label="Search Titles" 
               type="search"
               onChange={(e) => searchItems(e.target.value)}
             />
@@ -65,10 +65,11 @@ export default function PostList(props) {
             value={interestsFilter}
             onChange={setInterestsFilter}
             labelledBy="Select"
+            overrideStrings={{"selectSomeItems": "Filter Interests", "allItemsAreSelected": "All interests selected",}}
           />
         </div>
         <span className="new-post-container">
-          {isAuthenticated && <Button variant="contained" id="new-post-btn"><Link id="new-post-link" to={'/posts/new'}><b>+</b>&nbsp;&nbsp;New Post</Link></Button>}
+          {isAuthenticated && <Link id="new-post-link" to={'/posts/new'}><Button variant="contained" id="new-post-btn"><b>+</b>&nbsp;&nbsp;New Post</Button></Link>}
         </span>
       </div>
       <BasicTabs setLikesFilter={setLikesFilter} dbUser={dbUser} />

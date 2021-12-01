@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import ClearIcon from '@mui/icons-material/Clear';
+import { fetchImage } from '../../helpers/userHelpers';
 
 export default function PostComments (props) {
   const { commentInfo, dbUser, deleteComment } = props;
@@ -13,7 +14,7 @@ export default function PostComments (props) {
       {commentInfo.map((obj, i) => (
         <ul key={i}>
           <Link to={`/profile/${obj.user.id}`} className="avatar-username" style={{ textDecoration: 'none' }}>
-              <Avatar src={obj.user.social_img} className="postShow__avatar" sx={{ width: 36, height: 36 }}/>
+              <Avatar src={fetchImage(obj.user, false)} className="postShow__avatar" sx={{ width: 36, height: 36 }}/>
                 <span className="postShow__username">{obj.user.username}</span>
           </Link>
 
