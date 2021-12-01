@@ -17,7 +17,7 @@ import './PostListItem.scss'
 
 export default function PostListItem(props) {
 
-  const { id, title, interest_id, upload_file, post_type, user_id, interests, users, likeCounts, thumbnails } = props;
+  const { id, title, interest_id, post_type, user_id, interests, users, likeCounts, thumbnails } = props;
 
   let interest = "";
   for (let interestObj of interests) {

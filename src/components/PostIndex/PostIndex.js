@@ -5,18 +5,20 @@ import PostList from './PostList';
 import './PostIndex.scss'
 
 export default function PostIndex(props) {
-  const { interests, userFilter, likeCounts, setLikeCounts } = props;
+  const { interests, userFilter, likeCounts, setLikeCounts, dbUser } = props;
 
   const [ posts, setPosts ] = useState([]);
   const [ users, setUsers ] = useState([]);
   const [ interestsFilter, setInterestsFilter ] = useState([]);
+  const [ likesFilter, setLikesFilter ] = useState(null);
   const [ thumbnails, setThumbnails ] = useState({});
 
   useEffect(() => {
     const getPosts = function() {
       const filter = {
         interests: interestsFilter,
-        user_id: userFilter || null
+        user_id: userFilter || null,
+        likesFilter: likesFilter
       }
       axios
         .get('posts', {params: {filter}})
@@ -29,7 +31,7 @@ export default function PostIndex(props) {
         .catch(e => console.error(e))
     }
     getPosts();
-  }, [interestsFilter, userFilter])
+  }, [interestsFilter, userFilter, likesFilter])
 
   return (
     <section className="post-index">        
@@ -42,6 +44,8 @@ export default function PostIndex(props) {
         thumbnails={thumbnails}
         interestsFilter={interestsFilter}
         setInterestsFilter={setInterestsFilter}
+        setLikesFilter={setLikesFilter}
+        dbUser={dbUser}
       />
       <Outlet/>
     </section>
