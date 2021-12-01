@@ -69,7 +69,7 @@ export default function PostList(props) {
           />
         </div>
         <span className="new-post-container">
-          {isAuthenticated && <Button variant="contained" id="new-post-btn"><Link id="new-post-link" to={'/posts/new'}><b>+</b>&nbsp;&nbsp;New Post</Link></Button>}
+          {isAuthenticated && <Link id="new-post-link" to={'/posts/new'}><Button variant="contained" id="new-post-btn"><b>+</b>&nbsp;&nbsp;New Post</Button></Link>}
         </span>
       </div>
       <BasicTabs setLikesFilter={setLikesFilter} dbUser={dbUser} />
