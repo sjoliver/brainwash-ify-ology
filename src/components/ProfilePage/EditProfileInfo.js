@@ -1,8 +1,7 @@
 import axios from '../../axios-instance';
 import React, { useState } from 'react'
-import InputForm from './InputForm';
 import './EditProfileInfo.scss'
-import { TextField, Button, Input } from '@mui/material';
+import { TextField, Button } from '@mui/material';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 
 

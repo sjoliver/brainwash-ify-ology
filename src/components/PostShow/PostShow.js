@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Outlet, useParams, Link } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import axios from '../../axios-instance';
 import PostComments from './PostComments';
 import NewComment from './NewComment';
@@ -34,7 +34,7 @@ export default function PostShow (props) {
       .catch(e => console.error(e))
     }
     getCommentData();
-  }, [])
+  }, [id])
   
   //If likes change - user is hard coded at the moment
   useEffect(() => {
