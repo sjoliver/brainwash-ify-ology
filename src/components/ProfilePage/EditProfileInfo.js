@@ -48,21 +48,34 @@ export default function EditProfileInfo(props) {
     })
   }
   
+  const onChange = (event, field) => {
+    setEdit(prev => {
+      if (!event.target.value) {
+        delete prev[field];
+      }
+
+      let change = {
+        ...prev,
+      }
+
+      if (event.target.value) {
+        change[field] = event.target.value;
+      }
+
+      return change;
+    })
+  }
+
   return (
     <form className="edit-form" onSubmit={event => event.preventDefault()} >
-      <TextField size="small" className="form-input"  edit={edit} setEdit={setEdit} field={"username"} placeholder={localUser.username}/>
-      <TextField size="small" className="form-input" edit={edit} setEdit={setEdit} field={"name"} placeholder={localUser.name}/>
-      <TextField size="small" className="form-input" edit={edit} setEdit={setEdit} multiline field={"bio"} placeholder={localUser.bio || "enter your bio here..."}/>
-
+      <TextField size="small" className="form-input" onChange={event => onChange(event, "username")} placeholder={localUser.username}/>
+      <TextField size="small" className="form-input" onChange={event => onChange(event, "name")} placeholder={localUser.name}/>
+      <TextField size="small" className="form-input" onChange={event => onChange(event, "bio")}placeholder={localUser.bio || "enter your bio here..."}/>
       <label htmlFor="update-avatar">
         <input id="update-avatar" type="file" name="upload_file" onChange={imgChange}/>
-        <Button id="img-submit" variant="contained" component="span"><AddAPhotoIcon/>&nbsp;&nbsp;Update Image</Button>
+        <Button id="img-submit" variant="outlined" component="span"><AddAPhotoIcon/>&nbsp;&nbsp;Update Image</Button>
       </label>    
-      
-
-
-      <Button onClick={editUser} variant="contained">Submit</Button>
-
+      <Button onClick={editUser} variant="contained">Save</Button>
     </form>
   )
 }

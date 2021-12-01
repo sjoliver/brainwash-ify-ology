@@ -253,7 +253,7 @@ export default function PostForm (props) {
             <FormControl>
               <label htmlFor="postform__button-file--upload-file">
                 <input id="postform__button-file--upload-file" type="file" name="upload_file" onChange={fileOnChange}/>
-                <Button variant="outlined" component="span"><VideoLibraryIcon/>&nbsp;&nbsp;Upload File</Button>
+                <Button variant="outlined" component="span" className="upload-file-button"><VideoLibraryIcon/>&nbsp;&nbsp;Upload File</Button>
               </label>     
           </FormControl>
           {post.upload_file.name ? <p>{post.upload_file.name}</p> : <p className="postform__upload-file--error">{post.upload_file}</p>}
@@ -262,18 +262,18 @@ export default function PostForm (props) {
             <FormControl>
               <label htmlFor="postform__button-file--thumbnail">
                 <input id="postform__button-file--thumbnail" type="file" name="thumbnail" onChange={thumbnailOnChange}/>
-                <Button variant="outlined" component="span"><InsertPhotoIcon/> &nbsp;&nbsp;Upload Thumbnail</Button>
+                <Button variant="outlined" component="span" className="upload-file-button"><InsertPhotoIcon/> &nbsp;&nbsp;Upload Thumbnail</Button>
               </label>     
             </FormControl>
             {post.thumbnail.name ? <p>{post.thumbnail.name}</p> : <p className="postform__upload-file--error">{post.thumbnail}</p>}
           </div>
-        </div>
           <FormControl>
             <label htmlFor="postform__button-file--submit">
               <input id="postform__button-file--submit" type="submit"/>
-              <Button variant="contained" component="span">Create Post</Button>
+              <Button variant="contained" component="span" className="create-post-button">Create Post</Button>
             </label>     
           </FormControl>
+        </div>
       </form></>}
       {mode.isLoading && <Loading message={"Loading Files"} element={"postform"}/>}
       <Outlet/>

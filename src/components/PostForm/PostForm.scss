@@ -44,6 +44,24 @@
     flex-direction: column;
     width: 100%;
 
+    .upload-file-button {
+      border-color: #014e86d3;
+      color: #014e86d3;
+    }
+
+    .upload-file-button:hover {
+      border-color: #014e86;
+      color: #014e86;
+    }
+
+    .create-post-button {
+      background-color: #014e86d3;
+    }
+
+    .create-post-button:hover {
+      background-color: #014e86;
+    }
+
     &--upload-file--control-div {
       display: flex;
       flex-direction: row;
@@ -73,7 +91,7 @@
     justify-content: center;
     width: 15%;
     margin: 2em 0 0 0;
-    background-color:#417c6a;
+    background-color:#014e86d3;
     align-items: center;
     color: white;
     font-family: 'Roboto', sans-serif;
