@@ -180,6 +180,7 @@ export default function PostForm (props) {
             })}
             />
         </FormControl>
+
         <FormControl fullWidth sx={{margin: "0.5em 0 0.5em 0"}}>
             <TextField
               className="postform__form__textfield--description"
@@ -196,6 +197,7 @@ export default function PostForm (props) {
               })}
               />
           </FormControl>
+
         <div className="postform__form__content__select">
           <FormControl sx={{m: "0.5em 0 0.5em 0", minWidth: "47.5%"}}>
             <InputLabel id="postform__select-label--post-type">
@@ -222,6 +224,7 @@ export default function PostForm (props) {
               }
             </Select>
           </FormControl>
+
           <FormControl sx={{m: "0.5em 0 0.5em 0", minWidth: "47.5%"}}>
             <InputLabel id="postform__select-label--interest">
               Category
@@ -248,6 +251,7 @@ export default function PostForm (props) {
             </Select>
           </FormControl>
         </div>
+
         <div className="postform__button-file">
           <div className="postform__button-file--upload-file--control-div">
             <FormControl>
@@ -258,6 +262,7 @@ export default function PostForm (props) {
           </FormControl>
           {post.upload_file.name ? <p>{post.upload_file.name}</p> : <p className="postform__upload-file--error">{post.upload_file}</p>}
           </div>
+
           <div className="postform__button-file--thumbnail--control-div">
             <FormControl>
               <label htmlFor="postform__button-file--thumbnail">
@@ -267,6 +272,7 @@ export default function PostForm (props) {
             </FormControl>
             {post.thumbnail.name ? <p>{post.thumbnail.name}</p> : <p className="postform__upload-file--error">{post.thumbnail}</p>}
           </div>
+          
           <FormControl>
             <label htmlFor="postform__button-file--submit">
               <input id="postform__button-file--submit" type="submit"/>
