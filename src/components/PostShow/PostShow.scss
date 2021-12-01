@@ -89,14 +89,16 @@
      &__submit {
        font-size: 15px;
        font-weight: 400;
-       color: black;
-       border-color: rgb(86, 86, 86);
+       color: white;
+       border-color: rgb(89, 89, 89);
+       background-color: #468FAF;
      }
 
      &__submit:hover {
-      color: black; 
+      color: white;
       border-color: rgb(89, 89, 89);
-      background-color: rgb(237, 237, 237);
+      background-color: #014f86
+      
     }
   }
 
