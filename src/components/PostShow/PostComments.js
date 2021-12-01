@@ -9,11 +9,6 @@ export default function PostComments (props) {
 
   return (
     <div className="comment">
-<<<<<<< HEAD
-=======
-    
-      
->>>>>>> f573d0d0e8339f812849152f275245fe59b51a24
       {commentInfo.map((obj, i) => (
         <ul key={i}>
           <Link to={`/profile/${obj.user.id}`} className="avatar-username" style={{ textDecoration: 'none' }}>
