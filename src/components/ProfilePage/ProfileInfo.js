@@ -17,7 +17,7 @@ export default function ProfileInfo(props) {
         </div>
        <div className="edit-profile">
         {isMyProfile() &&
-          <Button variant="contained" size="medium" onClick={editMode}><BiEditAlt size={26}/>&nbsp;&nbsp;Edit</Button>
+          <Button variant="contained" size="medium" onClick={editMode}><BiEditAlt size={20}/>&nbsp;&nbsp;Edit</Button>
         }
         </div>
       </div>

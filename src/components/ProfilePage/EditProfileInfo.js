@@ -53,7 +53,7 @@ export default function EditProfileInfo(props) {
       <TextField variant="standard" edit={edit} setEdit={setEdit} field={"name"} placeholder={localUser.name}/>
       <TextField variant="standard" edit={edit} setEdit={setEdit} multiline field={"bio"} placeholder={localUser.bio || "enter your bio here..."}/>
       <Input type="file" name="upload_file" onChange={imgChange}/>
-      <Button onClick={editUser} variant="contained">Submit</Button>
+      <Button onClick={editUser} variant="contained">Save</Button>
     </form>
   )
 }
