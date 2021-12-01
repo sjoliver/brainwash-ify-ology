@@ -8,25 +8,25 @@ export default function NewComment(props) {
 
   return (
     <>
-    <div className="new-comment">
-      <div>
-        <form onSubmit={event => event.preventDefault()} >
-            <label>
-              <TextField color="grey"
-                id="standard-basic" 
-                label="Leave a comment..." 
-                variant="standard"
-                InputProps={{ disableUnderline: true }}
-                value={comment}
-                onChange={(event) => setComment(event.target.value)}
-              />
-            </label>
-        </form>
+      <div className="new-comment">
+        <div>
+          <form onSubmit={event => event.preventDefault()} >
+              <label>
+                <TextField color="grey"
+                  id="standard-basic" 
+                  label="Leave a comment..." 
+                  variant="standard"
+                  InputProps={{ disableUnderline: true }}
+                  value={comment}
+                  onChange={(event) => setComment(event.target.value)}
+                />
+              </label>
+          </form>
+        </div>
+        <div className="submit-comment">
+        <Button type="submit" variant="contained" className="new-comment__submit" onClick={submitComment}>Submit</Button>
       </div>
-      <div className="submit-comment">
-       <Button type="submitComment" variant="outlined" className="new-comment__submit" onClick={submitComment}>Submit</Button>
-     </div>
-    </div>
-  </>
+      </div>
+    </>
   )
 }

@@ -91,14 +91,13 @@
      &__submit {
        font-size: 15px;
        font-weight: 400;
-       color: #014e86d3;
-       border-color: #014e86d3;
+      //  color: #014e86d3;
+      //  border-color: #014e86d3;
+        background-color: #014e86d3;
      }
 
      &__submit:hover {
-      color: #014e86; 
-      border-color: #014e86;
-      background-color: rgb(237, 237, 237);
+      background-color: #014e86;
     }
   }
 
