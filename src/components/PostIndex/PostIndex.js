@@ -11,13 +11,15 @@ export default function PostIndex(props) {
   const [ users, setUsers ] = useState([]);
   const [ reload, setReload] = useState(false);
   const [ interestsFilter, setInterestsFilter ] = useState([]);
+  const [ likesFilter, setLikesFilter ] = useState(null);
   const [ thumbnails, setThumbnails ] = useState({});
 
   useEffect(() => {
     const getPosts = function() {
       const filter = {
         interests: interestsFilter,
-        user_id: userFilter || null
+        user_id: userFilter || null,
+        likesFilter: likesFilter
       }
       axios
         .get('posts', {params: {filter}})
@@ -30,7 +32,7 @@ export default function PostIndex(props) {
         .catch(e => console.error(e))
     }
     getPosts();
-  }, [interestsFilter, userFilter, reload])
+  }, [interestsFilter, userFilter, likesFilter, reload])
 
   return (
     <section className="post-index">
@@ -44,6 +46,7 @@ export default function PostIndex(props) {
         interestsFilter={interestsFilter}
         setInterestsFilter={setInterestsFilter}
         setReload={setReload}
+        setLikesFilter={setLikesFilter}
         dbUser={dbUser}
       />
       <Outlet/>

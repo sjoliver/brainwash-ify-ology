@@ -6,8 +6,6 @@ import './NavBar.scss'
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 import Profile from './Profile';
-import HomeIcon from '@mui/icons-material/Home';
-import Button from '@mui/material/Button';
 import { FaBrain } from 'react-icons/fa';
 
 export default function NavBar(props) {

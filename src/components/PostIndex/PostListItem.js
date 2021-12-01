@@ -22,9 +22,8 @@ import axios from '../../axios-instance';
 
 export default function PostListItem(props) {
 
-  const { id, title, interest_id, upload_file, post_type, user_id, interests, users, likeCounts, thumbnails, setReload, dbUser } = props;
-
-  const [mode, setMode] = useState("");
+const [mode, setMode] = useState("");
+const { id, title, interest_id, post_type, user_id, interests, users, likeCounts, thumbnails, setReload, dbUser } = props;
 
   let interest = "";
   for (let interestObj of interests) {

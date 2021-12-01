@@ -1,10 +1,40 @@
 .username-bio {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  // align-items: flex-start;
   padding: 2em;
+  width: 50%;
+  text-align: left;
 
   #username {
     margin-bottom: 0;
+  }
+
+  .followers-following {
+    display: flex;
+    flex-direction: row;
+  }
+
+  #user-bio {
+    margin-top: 0;
+    width: 100%;
+  }
+  
+  .username-action-buttons {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: baseline;
+    
+    .follow-buttons {
+      margin-left: 40%;
+    }
+
+    Button {
+      padding-top: 3px;
+      padding-bottom: 3px;
+      margin-right: 14px;
+    }
   }
 }

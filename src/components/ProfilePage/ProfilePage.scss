@@ -1,14 +1,12 @@
 .profile-page {
-  margin-top: 80px;
+  margin-top: 90px;
   margin-left: 2em;
   margin-right: 2em;
   display: flex;
   justify-content: center;
   align-items: center;
 
-
-  .followers-following {
-    display: flex;
-    flex-direction: row;
+  .username-bio {
+    padding-bottom: 0;
   }
 }

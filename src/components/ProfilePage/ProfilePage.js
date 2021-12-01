@@ -104,26 +104,17 @@ export default function ProfilePage(props) {
   return (
     <>
       <div className="profile-page">
-        {!isMyProfile() && follows.isFollowing && <Button variant="contained" onClick={deleteFollow}>Unfollow</Button>}  
-        {!isMyProfile() && !follows.isFollowing && <Button variant="contained" onClick={createFollow}>Follow</Button>}
-        {isMyProfile() &&
-          <div onClick={editMode}>
-            <BiEditAlt size={26}/><span>Edit Profile</span>
-          </div>
-        }
-        <Avatar sx={{ width: 150, height: 150 }} src={fetchImage(localUser, false)} alt="Profile Image" />
-        {!mode && <ProfileInfo localUser={localUser}/>}
+        <div>
+          <Avatar sx={{ width: 200, height: 200 }} src={fetchImage(localUser, false)} alt="Profile Image" />
+        </div>
+        {!mode && <ProfileInfo localUser={localUser} follows={follows} isMyProfile={isMyProfile} editMode={editMode} createFollow={createFollow} deleteFollow={deleteFollow}/>}
         {mode && 
           <EditProfileInfo 
-            localUser={localUser}
-            setLocalUser={setLocalUser}
-            setMode={setMode}
+          localUser={localUser}
+          setLocalUser={setLocalUser}
+          setMode={setMode}
           />
         }
-        <div className="followers-following">
-          <p><b>{follows.how_many_followers_user_has}</b> followers &nbsp;&nbsp;</p>
-          <p><b>{follows.how_many_user_is_following}</b> following</p>
-        </div>
       </div>
       <PostIndex
         interests={interests}
