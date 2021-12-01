@@ -81,7 +81,10 @@ export default function EditProfileInfo(props) {
       <TextField multiline size="small" className="form-input" onChange={event => onChange(event, "bio")}placeholder={localUser.bio || "enter your bio here..."}/>
       <label htmlFor="update-avatar">
         <input id="update-avatar" type="file" name="upload_file" onChange={imgChange}/>
-        <Button id="img-submit" variant="outlined" component="span"><AddAPhotoIcon/>&nbsp;&nbsp;Update Image</Button>
+        <div className="edit-form__update-image">
+          <Button id="img-submit" variant="outlined" component="span"><AddAPhotoIcon/>&nbsp;&nbsp;Update Image</Button>
+          {edit.avatar ? <p>&nbsp;&nbsp;&nbsp;{edit.avatar.name}</p> : <p>&nbsp;&nbsp;&nbsp;No file chosen</p>}
+        </div>
       </label>    
       <Button onClick={editUser} variant="contained">Save</Button>
     </form>
