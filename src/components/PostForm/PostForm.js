@@ -23,8 +23,8 @@ export default function PostForm (props) {
     title: "",
     description: "",
     interest_id: "",
-    upload_file: {},
-    thumbnail: {},
+    upload_file: "",
+    thumbnail: "",
     post_type: "",
     user_id: dbUser.id || null
   }
@@ -52,31 +52,61 @@ export default function PostForm (props) {
     })
   }, [dbUser])
 
-  
+  const checkFile = (file, fSize) => {
+    if (!file) {
+       return "";
+      
+    } else if (file.size / 1000000 > fSize) {
+      return `File size too large! Must be under ${fSize} MB`
+    }
+    
+    return file;
+  }
+
   // File input change function
   const fileOnChange = (event) => {
+    let upload_file = event.target.files[0];
+    
+    upload_file = checkFile(upload_file, 100);
+  
     setPost(prev => {
       return {
         ...prev,
-        upload_file: event.target.files[0]
+        upload_file
       }
     })
-  }
+  } 
+  
 
   // Thumbnail input change function
   const thumbnailOnChange = (event) => {
+    let thumbnail = event.target.files[0];
+  
+    thumbnail = checkFile(thumbnail, 10);
+
     setPost(prev => {
       return {
         ...prev,
-        thumbnail: event.target.files[0]
+        thumbnail
       }
     })
   }
+  
   
   // submit data to backend using axios and FormData
   const onSubmit = (event) => {
     event.preventDefault();
     
+    if (post.upload_file && typeof post.upload_file === 'string') {
+      alert("File size too large, please choose another file");
+      return;
+    }
+
+    if (post.thumbnail && typeof post.thumbnail === 'string') {
+      alert("Thumbnail size too large, please choose another file");
+      return;
+    }
+
     // create FormData object and populate with post state data
     const form = new FormData();
     Object.keys(post).forEach(key => {
@@ -223,25 +253,25 @@ export default function PostForm (props) {
             <FormControl>
               <label htmlFor="postform__button-file--upload-file">
                 <input id="postform__button-file--upload-file" type="file" name="upload_file" onChange={fileOnChange}/>
-                <Button variant="contained" component="span"><VideoLibraryIcon/>&nbsp;&nbsp;Upload File</Button>
+                <Button variant="outlined" component="span"><VideoLibraryIcon/>&nbsp;&nbsp;Upload File</Button>
               </label>     
           </FormControl>
-          {post.upload_file && <p>{post.upload_file.name}</p>}
+          {post.upload_file.name ? <p>{post.upload_file.name}</p> : <p className="postform__upload-file--error">{post.upload_file}</p>}
           </div>
           <div className="postform__button-file--thumbnail--control-div">
             <FormControl>
               <label htmlFor="postform__button-file--thumbnail">
                 <input id="postform__button-file--thumbnail" type="file" name="thumbnail" onChange={thumbnailOnChange}/>
-                <Button variant="contained" component="span"><InsertPhotoIcon/> &nbsp;&nbsp;Upload Thumbnail</Button>
+                <Button variant="outlined" component="span"><InsertPhotoIcon/> &nbsp;&nbsp;Upload Thumbnail</Button>
               </label>     
             </FormControl>
-            {post.thumbnail && <p>{post.thumbnail.name}</p>}
+            {post.thumbnail.name ? <p>{post.thumbnail.name}</p> : <p className="postform__upload-file--error">{post.thumbnail}</p>}
           </div>
         </div>
           <FormControl>
             <label htmlFor="postform__button-file--submit">
               <input id="postform__button-file--submit" type="submit"/>
-              <Button variant="outlined" component="span">Create Post</Button>
+              <Button variant="contained" component="span">Create Post</Button>
             </label>     
           </FormControl>
       </form></>}
