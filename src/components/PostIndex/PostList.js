@@ -54,7 +54,7 @@ export default function PostList(props) {
             autoComplete="off"
           >
             <TextField 
-              id="outlined-search" 
+              id="outlined-search"
               label="Search" 
               type="search"
               onChange={(e) => searchItems(e.target.value)}
