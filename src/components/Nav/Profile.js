@@ -17,7 +17,7 @@ const Profile = (props) => {
   return (
     isAuthenticated && (
       <Link className="navbar__link auth-user" to={`/profile/${dbUser.id}`}>
-        <h4 id="auth-user__username">{dbUser.username}&nbsp;&nbsp;</h4>
+        <p id="auth-user__username">{dbUser.username}&nbsp;&nbsp;</p>
         <ImageAvatars fetchImage={fetchImage} dbUser={dbUser} />
       </Link>
     )

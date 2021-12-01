@@ -8,7 +8,7 @@ const LogoutButton = () => {
 
   return (
     <Button onClick={() => logout({ returnTo: window.location.origin })}>
-      <LogoutIcon/>&nbsp;&nbsp;Log Out 
+      <LogoutIcon id="logout-btn"/>&nbsp;&nbsp;Log Out 
     </Button>
   );
 };

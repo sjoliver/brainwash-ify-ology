@@ -68,7 +68,7 @@ const { id, title, interest_id, post_type, user_id, interests, users, likeCounts
         {mode === "DELETING" ? <Loading message={"Deleting"} element={"postitem"}/> : <CardActionArea>
         {(dbUser.id == user_id) && 
           <div className="delete-post-icon">
-            <ClearIcon fontSize={"large"} onClick={deletePost}/>
+            <ClearIcon fontSize={"medium"} onClick={deletePost}/>
           </div>
         }
           <CardMedia 

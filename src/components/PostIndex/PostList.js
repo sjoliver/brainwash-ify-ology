@@ -35,8 +35,7 @@ export default function PostList(props) {
     }
   }
 
-  // FILTERING LOGIC //
-  // Interests //
+  // INTERESTS FILTERING LOGIC //
   const interestNames = interests.map((interestObj) => {
     return {label: interestObj.name, value: interestObj.id}
   })
@@ -54,8 +53,9 @@ export default function PostList(props) {
             autoComplete="off"
           >
             <TextField 
+              size="small"
               id="outlined-search" 
-              label="Search" 
+              label="Search Titles" 
               type="search"
               onChange={(e) => searchItems(e.target.value)}
             />
@@ -65,6 +65,7 @@ export default function PostList(props) {
             value={interestsFilter}
             onChange={setInterestsFilter}
             labelledBy="Select"
+            overrideStrings={{"selectSomeItems": "Filter Interests", "allItemsAreSelected": "All interests selected",}}
           />
         </div>
         <span className="new-post-container">

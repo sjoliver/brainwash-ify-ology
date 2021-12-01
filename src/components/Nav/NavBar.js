@@ -18,7 +18,7 @@ export default function NavBar(props) {
       <div className='navbar__actions'>
         <Profile dbUser={dbUser}/>
         {!isAuthenticated && <LoginButton />}
-        {isAuthenticated && <LogoutButton />}
+        {isAuthenticated && <LogoutButton size={20}/>}
       </div>
       <Outlet />
     </section>
