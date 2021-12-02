@@ -153,26 +153,6 @@ export default function PostForm (props) {
     })
   }
   
-  // Create props objects to pass to each element
-  
-  // Title Input props
-  const titleInputProps = {
-    name: "title",
-    type: "text",
-    placeholder: "Title",
-    postState: post.title,
-    onChange: event => setPost({...post, title: event.target.value})
-  }
-  
-  // Description Input props
-  const descInputProps = {
-    name: "description",
-    type: "text",
-    placeholder: "Tell me aboot it...",
-    postState: post.description,
-    onChange: event => setPost({...post, description: event.target.value})
-  }
-  
   const interestNames = [];
   const interestIDs = [];
   interests.forEach(elem => {
