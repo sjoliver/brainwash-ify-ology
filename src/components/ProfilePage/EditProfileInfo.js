@@ -29,6 +29,7 @@ export default function EditProfileInfo(props) {
           setDbUser(prev => {
            return {
               ...prev,
+              username: res.data.user.username,
               avatar: res.data.avatar
             }
           })
