@@ -72,12 +72,12 @@ const { id, title, interest_id, post_type, user_id, interests, users, likeCounts
         }
           <CardMedia 
             component="img"
-            height="200"
+            height="215"
             image={thumbnails[id]}
             alt="content card"
           />
           
-          <CardContent>
+          <CardContent className="card-content">
             <CardHeader 
               title={title}
               subheader={interest}

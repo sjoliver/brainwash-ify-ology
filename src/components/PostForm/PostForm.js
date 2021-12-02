@@ -182,10 +182,30 @@ export default function PostForm (props) {
 
   const typeOptions = ['Video', 'Audio', 'Image'];
 
+  const demoPost = (event) => {
+    let isChecked = event.target.checked
+    setPost(prev => {
+      return {
+        ...prev,
+        title: isChecked ? "Photography for beginners" : "",
+        description: isChecked ? "Hi, my name is Katie and I have been teaching myself photography over the past few years and I want to share what i've learned!" : ""
+      }
+    })
+  }
+
   return (
     <section className="postform">
       {mode.newPost && <><h1>Create Your Post</h1>
       <form className="postform__form" onSubmit={onSubmit}>
+        {
+          dbUser.social_id === "google-oauth2|111598822118906167947" && 
+          <>
+            <label htmlFor="demo-day-auto-populate">
+              <input className="demo-day-auto-populate" type="checkbox" onChange={demoPost} name="demo"/>
+              &nbsp;Super secret demo checkbox
+            </label>
+          </>
+        }
         <FormControl fullWidth sx={{margin: "0 0 0.5em 0"}}>
           <TextField
             required

@@ -2,8 +2,19 @@
   text-decoration: none;
   margin: 1em;
 
+  // .css-46bh2p-MuiCardContent-root {
+  //   padding: 16px;
+  // } 
+
   .card-component {
-    width: 350px;
+    width: 360px;
+    // height: 315px;
+
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
     &_deleting {
       background-color: #b1b1b1;
@@ -39,11 +50,11 @@
     }
 
     .MuiCardHeader-title {
-      font-size: 18px;
+      font-size: 16px;
     }
 
     .MuiCardHeader-subheader {
-      font-size: 13px;
+      font-size: 12px;
     }
   }
 
@@ -58,6 +69,7 @@
     align-items: center;
     margin-left: 0.5em;
     margin-right: 0.5em;
+    // padding-bottom: 10px;
 
     .likes-comments {
       display: flex;
