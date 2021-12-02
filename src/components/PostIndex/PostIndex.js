@@ -22,6 +22,7 @@ export default function PostIndex(props) {
         user_id: userFilter || null,
         likesFilter: likesFilter
       }
+      // console.log('here');
       axios
         .get('posts', {params: {filter}})
         .then(res => { 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -24,15 +25,24 @@ export default function PostListItem(props) {
 
 const [mode, setMode] = useState("");
 const [like, setLike] = useState(null);
-const [numOfLikes, setNumOfLikes] = useState(0);
+const [display, setDisplay] = useState({
+  interest: "",
+  username: "",
+  commentCount: 0,
+  likeCount: 0
+})
 
-const { id, title, interest_id, post_type, user_id, interests, users, likeCounts, thumbnails, setReload, dbUser, likes, setLikes } = props;
+const { isAuthenticated } = useAuth0();
 
-let interest = "";
-let userName = "";
-let comments = 0;
+const { id, title, interest_id, post_type, user_id, interests, users, likeCounts, thumbnails, setReload, dbUser, likes} = props;
+
 
 useEffect(() => {
+  let interest = "";
+  let userName = "";
+  let comments = 0;
+  let numLikes = 0;
+
   for (let interestObj of interests) {
     if (interestObj.id === interest_id) {
       interest = interestObj.name
@@ -48,32 +58,57 @@ useEffect(() => {
   for (let likesObj of likeCounts) {
     if (Number(Object.keys(likesObj)[0]) === id) {
       comments = likesObj[id][1];
-      setNumOfLikes(likesObj[id][0]);
+      numLikes = likesObj[id][0];
     }
   }
-}, [])
 
+  setDisplay(() => {
+    return {
+      interest,
+      username: userName,
+      commentCount: comments,
+      likeCount: numLikes
+    }
+  })
+
+}, [users])
 
 
   const likePost = (event) => {
     event.preventDefault();
+    if (!isAuthenticated) {
+      return;
+    }
     
     axios
     .post('likes', {user_id: dbUser.id, post_id: id})
     .then(res => {
       setLike(res.data.id)
-      setNumOfLikes(prev => prev++);
-      })
+      setDisplay(prev => {
+        return {
+          ...prev,
+          likeCount: prev.likeCount++
+        }
+      });
+    })
   }
 
   const unlikePost = (event) => {
     event.preventDefault();
+    if (!isAuthenticated) {
+      return;
+    }
     
     axios
     .delete(`likes/${like}`)
     .then(res => {
       setLike(null)
-      setNumOfLikes(prev => prev--);
+      setDisplay(prev => {
+        return {
+          ...prev,
+          likeCount: prev.likeCount--
+        }
+      });
     })
   }
 
@@ -83,12 +118,7 @@ useEffect(() => {
         return setLike(likeObj.id)
       }
     }
-  }, [])
-  // on initial render, check the array of existing likes for the current user's id
-  // if exists, set like (state) to that like_id
-  // likes = {
-  //    post_id: [{id: 1, user_id:2, post_id:3}, {}, {}]
-  // }
+  }, [dbUser])
 
   const deletePost = event => {
     // stop bubbling up to parent react router Link element
@@ -123,14 +153,14 @@ useEffect(() => {
           <CardContent className="card-content">
             <CardHeader 
               title={title}
-              subheader={interest}
+              subheader={display.interest}
             />
             <div className="card-info">
               <Typography variant="body2" color="text.secondary">
                {post_type.toLowerCase() === "video" ? (
-                  <span> {userName}&nbsp; <VideocamIcon /> </span>
+                  <span> {display.username}&nbsp; <VideocamIcon /> </span>
                 ) : (
-                  <span> {userName} &nbsp;<PodcastsIcon /> </span>
+                  <span> {display.username} &nbsp;<PodcastsIcon /> </span>
                 )}
               </Typography>
               <Typography variant="body2" color="text.secondary" className="likes-comments">
@@ -139,7 +169,7 @@ useEffect(() => {
                   :
                   (< FavoriteIcon className="heart-icon" sx={{fontSize: 18}} type="unlike" onClick={unlikePost} />)
                 }
-                &nbsp;{numOfLikes} &nbsp;&nbsp;&nbsp;<ChatIcon sx={{fontSize: 18}}/> &nbsp;{comments}
+                &nbsp;{display.likeCount} &nbsp;&nbsp;&nbsp;<ChatIcon sx={{fontSize: 18}}/> &nbsp;{display.commentCount}
               </Typography>
             </div>
           </CardContent>

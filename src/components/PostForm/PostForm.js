@@ -180,7 +180,7 @@ export default function PostForm (props) {
     interestIDs.push(elem.id);
   })
 
-  const typeOptions = ['Video', 'Audio', 'Image'];
+  const typeOptions = ['Video', 'Audio'];
 
   const demoPost = (event) => {
     let isChecked = event.target.checked
