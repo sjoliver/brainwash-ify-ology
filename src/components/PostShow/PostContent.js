@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatIcon from '@mui/icons-material/Chat';
+import { Typography } from '@mui/material';
 
 
 export default function PostContent(props) {
@@ -34,7 +35,7 @@ export default function PostContent(props) {
             {postUserInfo.username}
           </Link>
         
-          <p>{post.description}</p>
+          <p className="post-content__post-description">{post.description}</p>
         
         </div>
     </div>

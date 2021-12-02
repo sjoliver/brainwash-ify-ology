@@ -20,6 +20,11 @@
       margin: 0;
     }
 
+    &__post-description {
+      overflow: auto;
+      height: 285px;
+    }
+
     &__counters {
       display: flex;
       align-items: flex-start;
@@ -54,7 +59,7 @@
       width: 35%;
       text-align: left; 
       margin-left: 2em;
-      font-size: large;
+      font-size: medium;
 
       #poster-username {
         text-align: left; 
