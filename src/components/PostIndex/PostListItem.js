@@ -165,11 +165,11 @@ useEffect(() => {
               </Typography>
               <Typography variant="body2" color="text.secondary" className="likes-comments">
                 { !like ?
-                  (< FavoriteBorderIcon className="heart-icon" sx={{fontSize: 18}} type="like" onClick={likePost}/>)
+                  (< FavoriteBorderIcon className="heart-icon" sx={{fontSize: 24}} type="like" onClick={likePost}/>)
                   :
-                  (< FavoriteIcon className="heart-icon" sx={{fontSize: 18}} type="unlike" onClick={unlikePost} />)
+                  (< FavoriteIcon className="heart-icon" sx={{fontSize: 24}} type="unlike" onClick={unlikePost} />)
                 }
-                &nbsp;{display.likeCount} &nbsp;&nbsp;&nbsp;<ChatIcon sx={{fontSize: 18}}/> &nbsp;{display.commentCount}
+                &nbsp;{display.likeCount} &nbsp;&nbsp;&nbsp;<ChatIcon sx={{fontSize: 22}}/> &nbsp;{display.commentCount}
               </Typography>
             </div>
           </CardContent>

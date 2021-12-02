@@ -12,6 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
+import Alert from '@mui/material/Alert';
 
 import './PostForm.scss';
 
@@ -33,7 +34,8 @@ export default function PostForm (props) {
   const [post, setPost] = useState(initialPostState);
   const [mode, setMode] = useState({
     isLoading: false,
-    newPost: true
+    newPost: true,
+    success: false
   })
   const [content, setContent] = useState({
     src: "",
@@ -121,8 +123,9 @@ export default function PostForm (props) {
     
     //reset post form
     setPost(() => initialPostState);
-    setMode(() => {
+    setMode(prev => {
       return {
+        ...prev,
         isLoading: true,
         newPost: false
       }
@@ -144,10 +147,12 @@ export default function PostForm (props) {
           t_type: res.data.thumbnail_content
         }
       });
-      setMode(() => {
+      setMode(prev => {
         return {
+          ...prev,
           isLoading: false,
-          newPost: true
+          newPost: true,
+          success: true
         }
       });
     })
@@ -195,6 +200,11 @@ export default function PostForm (props) {
 
   return (
     <section className="postform">
+      {mode.success &&
+        <Alert variant="outlined" severity="success" onClose={() => setMode(prev => {return {...prev, success: false}})}>
+          Your post was successfully uploaded!
+        </Alert>
+      }
       {mode.newPost && <><h1>Create Your Post</h1>
       <form className="postform__form" onSubmit={onSubmit}>
         {
