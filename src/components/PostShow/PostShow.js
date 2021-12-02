@@ -5,6 +5,7 @@ import PostComments from './PostComments';
 import NewComment from './NewComment';
 import PostContent from './PostContent';
 import './PostShow.scss';
+import { useAuth0 } from '@auth0/auth0-react';
 
 
 export default function PostShow (props) {
@@ -18,6 +19,7 @@ export default function PostShow (props) {
   const [ upload, setUpload ] = useState({ upload_file: "", content: "" });
   const [ commentInfo, setCommentInfo ] = useState([]);
   
+  const { isAuthenticated } = useAuth0();
 
   // fetch comments for specific post id (comments related to post)
   useEffect(() => {
@@ -58,6 +60,9 @@ export default function PostShow (props) {
 
    //on submit, post request to back end to save comment to postComments
    const submitComment = () => {
+    if (!isAuthenticated) {
+      return;
+    }
     axios
     .post(`comments`, {content: comment, user_id: dbUser.id, post_id: id})
     .then(res => {
@@ -74,6 +79,9 @@ export default function PostShow (props) {
 
   //deletes comment via comment_id passed through function call
   const deleteComment = (comment_id) => {
+    if (!isAuthenticated) {
+      return;
+    }
     axios
     .delete(`comments/${comment_id}`)
     .then(res => {
@@ -87,6 +95,9 @@ export default function PostShow (props) {
 
   //sends a post request on click to add like to a given user id.
   const likePost = () => {
+    if (!isAuthenticated) {
+      return;
+    }
     axios
     .post(`likes`, {user_id: dbUser.id, post_id: id})
     .then(res => {
@@ -102,6 +113,9 @@ export default function PostShow (props) {
 
   //sends a post request on click to remove liked post from user.
   const unlikePost = () => {
+    if (!isAuthenticated) {
+      return;
+    }
     axios
     .delete(`likes/${like}`)
     .then(res => {
