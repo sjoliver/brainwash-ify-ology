@@ -13,6 +13,7 @@ export default function PostIndex(props) {
   const [ interestsFilter, setInterestsFilter ] = useState([]);
   const [ likesFilter, setLikesFilter ] = useState(null);
   const [ thumbnails, setThumbnails ] = useState({});
+  const [ likes, setLikes ] = useState({});
 
   useEffect(() => {
     const getPosts = function() {
@@ -25,6 +26,7 @@ export default function PostIndex(props) {
         .get('posts', {params: {filter}})
         .then(res => { 
           setLikeCounts(() => res.data.postCounts);
+          setLikes(() => res.data.likes)
           setPosts(() => res.data.posts);
           setUsers(() => res.data.users);
           setThumbnails(() => res.data.thumbnails)
@@ -47,6 +49,8 @@ export default function PostIndex(props) {
         setReload={setReload}
         setLikesFilter={setLikesFilter}
         dbUser={dbUser}
+        likes={likes}
+        setLikes={setLikes}
       />
       <Outlet/>
     </section>

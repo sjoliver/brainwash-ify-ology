@@ -10,9 +10,6 @@ export default function PostContent(props) {
 
   return (
     <div className="post-content">
-
-     
-
       <div className="post-content__video-box">
         {upload.content.includes("video") && 
           <video id="video" height="375" controls>
