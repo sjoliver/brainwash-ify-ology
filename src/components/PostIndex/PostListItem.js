@@ -87,7 +87,7 @@ useEffect(() => {
       setDisplay(prev => {
         return {
           ...prev,
-          likeCount: prev.likeCount++
+          likeCount: prev.likeCount + 1
         }
       });
     })
@@ -106,7 +106,7 @@ useEffect(() => {
       setDisplay(prev => {
         return {
           ...prev,
-          likeCount: prev.likeCount--
+          likeCount: prev.likeCount - 1
         }
       });
     })
