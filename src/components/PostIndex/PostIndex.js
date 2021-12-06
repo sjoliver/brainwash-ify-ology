@@ -5,15 +5,11 @@ import PostList from './PostList';
 import './PostIndex.scss'
 
 export default function PostIndex(props) {
-  const { interests, userFilter, likeCounts, setLikeCounts, dbUser } = props;
+  const { interests, userFilter, posts, setPosts, dbUser } = props;
 
-  const [ posts, setPosts ] = useState([]);
-  const [ users, setUsers ] = useState([]);
   const [ reload, setReload] = useState(false);
   const [ interestsFilter, setInterestsFilter ] = useState([]);
   const [ likesFilter, setLikesFilter ] = useState(null);
-  const [ thumbnails, setThumbnails ] = useState({});
-  const [ likes, setLikes ] = useState({});
 
   useEffect(() => {
     const getPosts = function() {
@@ -22,36 +18,40 @@ export default function PostIndex(props) {
         user_id: userFilter || null,
         likesFilter: likesFilter
       }
-      // console.log('here');
       axios
         .get('posts', {params: {filter}})
-        .then(res => { 
-          setLikeCounts(() => res.data.postCounts);
-          setLikes(() => res.data.likes)
-          setPosts(() => res.data.posts);
-          setUsers(() => res.data.users);
-          setThumbnails(() => res.data.thumbnails)
+        .then(res => {
+          setPosts(prev => {
+            return {
+              ...prev,
+              posts: res.data.posts,
+              users: res.data.users,
+              likes: res.data.likes,
+              thumbnails: res.data.thumbnails,
+              likeCounts: res.data.postCounts
+            }
+          }) 
         })
         .catch(e => console.error(e))
     }
     getPosts();
-  }, [interestsFilter, userFilter, likesFilter, reload, setLikeCounts])
+  }, [interestsFilter, userFilter, likesFilter, reload])
 
   return (
     <section className="post-index">
       <PostList 
-        posts={posts}
-        users={users}
+        posts={posts.posts}
+        users={posts.users}
         interests={interests}  
-        likeCounts={likeCounts} 
-        thumbnails={thumbnails}
+        likeCounts={posts.likeCounts} 
+        thumbnails={posts.thumbnails}
         interestsFilter={interestsFilter}
         setInterestsFilter={setInterestsFilter}
         setReload={setReload}
         setLikesFilter={setLikesFilter}
         dbUser={dbUser}
-        likes={likes}
-        setLikes={setLikes}
+        likes={posts.likes}
+        setPosts={setPosts}
       />
       <Outlet/>
     </section>

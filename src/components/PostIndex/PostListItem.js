@@ -124,7 +124,7 @@ useEffect(() => {
     // stop bubbling up to parent react router Link element
     event.preventDefault();
 
-    setMode(prev => "DELETING");
+    setMode(() => "DELETING");
 
     axios
       .delete(`posts/${id}`)

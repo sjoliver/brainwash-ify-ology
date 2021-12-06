@@ -20,7 +20,13 @@ function App() {
 
   const [dbUser, setDbUser] = useState({});
   const [interests, setInterests] = useState([]);
-  const [likeCounts, setLikeCounts] = useState([]);
+  const [posts, setPosts] = useState({
+    posts: [],
+    users: [],
+    likes: {},
+    thumbnails: {},
+    likeCounts: []
+  })
 
   useEffect(() => {
     const getInterests = function() {
@@ -61,10 +67,10 @@ function App() {
       <Router>
       <NavBar dbUser={dbUser}/>
         <Routes>
-          <Route path={"/*"} element={<PostIndex interests={interests} likeCounts={likeCounts} setLikeCounts={setLikeCounts} dbUser={dbUser} />}/>
+          <Route path={"/*"} element={<PostIndex interests={interests} posts={posts} setPosts={setPosts} dbUser={dbUser} />}/>
           <Route path={"/posts/new"} element={<PostForm dbUser={dbUser} interests={interests}/>}/>
           <Route path={"/posts/:id"} element={<PostShow dbUser={dbUser} />}/>
-          <Route path={"/profile/:id"} element={<ProfilePage interests={interests} dbUser={dbUser} setDbUser={setDbUser} likeCounts={likeCounts} setLikeCounts={setLikeCounts}/>}/>
+          <Route path={"/profile/:id"} element={<ProfilePage interests={interests} dbUser={dbUser} setDbUser={setDbUser} posts={posts} setPosts={setPosts}/>}/>
         </Routes>
       </Router>
     </div>
