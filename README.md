@@ -22,8 +22,11 @@ We have launched our app live using Heroku, it can be accessed at [https://brain
 - Users can log out simply by clicking the Logout button in the navigation bar
 
 ### Post Index (aka Home Page)
-When you arrive at Brainwash, you will be on the main index page, also known as the Home Page. Here, you can:
+When you arrive at Brainwash, you will be on the main index page, also known as the Home Page. 
 
+![Post Index/Home Page](https://github.com/sjoliver/brainwash-ify-ology/blob/main/public/images/Screen%20Shot%202021-12-15%20at%201.55.11%20PM.png?raw=true)
+
+Here, you can:
 - View a list of the most recent posts by other users
 - Save posts to your "Liked Posts" page so you can come back to them later
 - Toggle to your liked posts by selecting the "Liked Posts" tab at the top of the index
@@ -33,7 +36,10 @@ When you arrive at Brainwash, you will be on the main index page, also known as 
 - Click on a post to navigate to the post details page where you can view the post's video or audio file, read the post's description, and like & comment on the post
 
 ### Post Details
-When you click on a post, it will take you to the Post Details (show) page, where you can:
+When you click on a post, it will take you to the Post Details (show) page.
+![Post Details](https://github.com/sjoliver/brainwash-ify-ology/blob/main/public/images/Screen%20Shot%202021-12-15%20at%201.55.52%20PM.png?raw=true)
+
+Here, you can:
 
 - Watch the Audio or Video file
 - Read the description
@@ -45,6 +51,7 @@ When you click on a post, it will take you to the Post Details (show) page, wher
 
 ### Profile Page
 There are two profile pages on our site, your profile and other users' profiles. To access your profile, click on your avatar/username in the nav bar. 
+![Profile Page](https://github.com/sjoliver/brainwash-ify-ology/blob/main/public/images/Screen%20Shot%202021-12-15%20at%201.56.29%20PM.png?raw=true)
 
 On your profile, you can:
 - View your follower/following counts
